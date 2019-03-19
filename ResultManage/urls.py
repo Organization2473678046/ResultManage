@@ -18,17 +18,20 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
-
+from rest_framework_jwt.views import obtain_jwt_token
+from users.views import UserViewSet
 from file.views import ResultFileViewSet
 
 router = DefaultRouter()
+
+router.register(r'user',UserViewSet,base_name='user')
 router.register(r'resultfile', ResultFileViewSet, base_name='resultfile')
 
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^', include(router.urls)),
-    url(r'^docs/', include_docs_urls(title=u"库管系统API")),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-
+    url(r'^v0.1/admin/', admin.site.urls),
+    url(r'^v0.1/login/$', obtain_jwt_token),
+    url(r'^v0.1/', include(router.urls)),
+    url(r'^v0.1/docs/', include_docs_urls(title=u"成果管理系统API")),
+    url(r'^v0.1/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
