@@ -1,0 +1,25 @@
+INFO 2019-03-18 11:02:47,697 basehttp 124 "GET / HTTP/1.1" 200 1714
+WARNING 2019-03-18 11:02:47,885 base 152 Not Found: /favicon.ico
+WARNING 2019-03-18 11:02:47,885 basehttp 124 "GET /favicon.ico HTTP/1.1" 404 1968
+WARNING 2019-03-18 11:09:29,694 base 152 Not Found: /
+WARNING 2019-03-18 11:09:29,694 basehttp 124 "GET / HTTP/1.1" 404 2252
+INFO 2019-03-18 11:09:50,507 basehttp 124 "GET / HTTP/1.1" 200 5233
+INFO 2019-03-18 11:09:50,559 basehttp 124 "GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 304 0
+INFO 2019-03-18 11:09:50,562 basehttp 124 "GET /static/rest_framework/js/jquery-3.3.1.min.js HTTP/1.1" 304 0
+INFO 2019-03-18 11:09:50,563 basehttp 124 "GET /static/rest_framework/css/bootstrap-tweaks.css HTTP/1.1" 304 0
+INFO 2019-03-18 11:09:50,565 basehttp 124 "GET /static/rest_framework/js/ajax-form.js HTTP/1.1" 304 0
+INFO 2019-03-18 11:09:50,565 basehttp 124 "GET /static/rest_framework/css/default.css HTTP/1.1" 304 0
+INFO 2019-03-18 11:09:50,565 basehttp 124 "GET /static/rest_framework/css/prettify.css HTTP/1.1" 304 0
+INFO 2019-03-18 11:09:50,578 basehttp 124 "GET /static/rest_framework/js/csrf.js HTTP/1.1" 304 0
+INFO 2019-03-18 11:09:50,582 basehttp 124 "GET /static/rest_framework/js/bootstrap.min.js HTTP/1.1" 304 0
+INFO 2019-03-18 11:09:50,586 basehttp 124 "GET /static/rest_framework/js/prettify-min.js HTTP/1.1" 304 0
+INFO 2019-03-18 11:09:50,588 basehttp 124 "GET /static/rest_framework/js/default.js HTTP/1.1" 304 0
+INFO 2019-03-18 11:09:50,589 basehttp 124 "GET /static/rest_framework/img/grid.png HTTP/1.1" 304 0
+INFO 2019-03-18 11:09:54,081 basehttp 124 "GET /resultfile/ HTTP/1.1" 200 1930606
+INFO 2019-03-18 11:18:28,940 basehttp 124 "GET /resultfile/ HTTP/1.1" 200 13957
+INFO 2019-03-18 11:18:38,273 basehttp 124 "GET /resultfile/?search=git HTTP/1.1" 200 13875
+INFO 2019-03-18 11:18:48,970 basehttp 124 "GET /resultfile/?search=%E9%9F%B3%E4%B9%90 HTTP/1.1" 200 14391
+INFO 2019-03-18 11:18:53,638 basehttp 124 "GET /resultfile/?page=9&search=%E9%9F%B3%E4%B9%90 HTTP/1.1" 200 13620
+INFO 2019-03-18 11:19:14,072 basehttp 124 "GET /resultfile/?search=arcgis HTTP/1.1" 200 14270
+INFO 2019-03-18 11:19:19,282 basehttp 124 "GET /resultfile/?page=336&search=arcgis HTTP/1.1" 200 12992
+INFO 2019-03-18 11:19:25,509 basehttp 124 "GET /resultfile/?search=arcgis HTTP/1.1" 200 14270
