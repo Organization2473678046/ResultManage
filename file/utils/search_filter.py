@@ -2,30 +2,23 @@
 from __future__ import unicode_literals
 
 import operator
-import os
-import re
-import warnings
 from functools import reduce
-
-from django.core.exceptions import ImproperlyConfigured
 from django.db import models
-from django.db.models import QuerySet
 from django.db.models.constants import LOOKUP_SEP
-from django.db.models.sql.constants import ORDER_PATTERN
 from django.template import loader
 from django.utils import six
 from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
-from .distinct import join_filedir
+from file.utils.get_dir_list import get_filedir_list
 
 from rest_framework.compat import (
-    coreapi, coreschema, distinct, is_guardian_installed
+    coreapi, coreschema, distinct
 )
 from rest_framework.settings import api_settings
 from rest_framework.filters import BaseFilterBackend
 
 
-class SearchFilter(BaseFilterBackend):
+class FileSearchFilter(BaseFilterBackend):
     # The URL query parameter used for the search.
     search_param = api_settings.SEARCH_PARAM
     template = 'rest_framework/filters/search.html'
@@ -112,34 +105,34 @@ class SearchFilter(BaseFilterBackend):
         print self.search_param
         # 传过来的搜索关键词
         print self.params[0]
+        print self.params
+        print len(queryset)
 
-        resultfile_list = []
-        # filedir_set = set()
+        # 说明查到了结果
         if len(queryset) != 0:
             temp_filedir_list = []
             for resultfile in queryset:
-                # filename = os.path.basename(resultfile.filepath)
-                filedir = os.path.dirname(resultfile.filepath)
+                # 如果只包括名字中包含关键词的目录
+                # filedir = os.path.dirname(resultfile.filepath)
+                # 如果要包括名字中包含关键词的文件
+                filedir = resultfile.filepath
 
-                resultfile_dirlist = join_filedir(filedir,self.params[0])
-                # print resultfile_dirlist
+                # resultfile_dirlist = get_filedir_list2(filedir, self.params)
+                resultfile_dirlist = get_filedir_list(filedir, self.params)
                 temp_filedir_list += resultfile_dirlist
 
+            # 去重
             temp_filedir_list = list(set(temp_filedir_list))
+            # 排序
+            temp_filedir_list.sort()
             # 然后在没有搜索关键词的项删除
-            filedir_list = []
-            for filedir in temp_filedir_list:
-                if self.params[0] in filedir:
-                    filedir_list.append(filedir)
-
-            # if filename.
-            # result = filename.find(self.params[0])
-            # if result > -1:
-            #     resultfile_list.append(resultfile)
-            # print filedir_list
-        # return filedir_list
-        return temp_filedir_list
-        # return queryset
+            # filedir_list = []
+            # for filedir in temp_filedir_list:
+            #     if self.params[0] in filedir:
+            #         filedir_list.append(filedir)
+            return temp_filedir_list
+        # 没有查到结果
+        return queryset
 
 
     def to_html(self, request, queryset, view):

@@ -452,3 +452,810 @@ INFO 2019-03-19 19:33:04,417 basehttp 124 "GET /v0.1/resultfile/?search=%E4%BB%B
 INFO 2019-03-19 19:36:01,493 basehttp 124 "GET /v0.1/resultfile/?search=%E4%BB%BB%E5%8A%A1 HTTP/1.1" 200 10646
 INFO 2019-03-19 19:37:18,141 basehttp 124 "GET /v0.1/resultfile/?search=%E4%BB%BB%E5%8A%A1 HTTP/1.1" 200 10755
 INFO 2019-03-19 20:16:13,890 basehttp 124 "GET /v0.1/resultfile/?search=%E4%BB%BB%E5%8A%A1 HTTP/1.1" 200 10528
+INFO 2019-03-19 20:16:53,851 basehttp 124 "GET /v0.1/resultfile/?search=%E4%BB%BB HTTP/1.1" 200 10462
+INFO 2019-03-19 20:17:07,413 basehttp 124 "GET /v0.1/resultfile/?search=python HTTP/1.1" 200 10848
+INFO 2019-03-20 08:12:51,109 basehttp 124 "GET /v0.1/ HTTP/1.1" 200 5636
+ERROR 2019-03-20 08:12:57,592 exception 135 Internal Server Error: /v0.1/resultfile/
+Traceback (most recent call last):
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\exception.py", line 41, in inner
+    response = get_response(request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 217, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 215, in _get_response
+    response = response.render()
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\template\response.py", line 107, in render
+    self.content = self.rendered_content
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\response.py", line 72, in rendered_content
+    ret = renderer.render(self.data, accepted_media_type, context)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\renderers.py", line 732, in render
+    context = self.get_context(data, accepted_media_type, renderer_context)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\renderers.py", line 687, in get_context
+    'content': self.get_content(renderer, data, accepted_media_type, renderer_context),
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\renderers.py", line 423, in get_content
+    content = renderer.render(data, accepted_media_type, renderer_context)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\renderers.py", line 106, in render
+    allow_nan=not self.strict, separators=separators
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\utils\json.py", line 28, in dumps
+    return json.dumps(*args, **kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\json\__init__.py", line 250, in dumps
+    sort_keys=sort_keys, **kw).encode(obj)
+  File "C:\Python27\ArcGIS10.2\lib\json\encoder.py", line 209, in encode
+    chunks = list(chunks)
+  File "C:\Python27\ArcGIS10.2\lib\json\encoder.py", line 443, in _iterencode
+    for chunk in _iterencode(o, _current_indent_level):
+  File "C:\Python27\ArcGIS10.2\lib\json\encoder.py", line 431, in _iterencode
+    for chunk in _iterencode_list(o, _current_indent_level):
+  File "C:\Python27\ArcGIS10.2\lib\json\encoder.py", line 332, in _iterencode_list
+    for chunk in chunks:
+  File "C:\Python27\ArcGIS10.2\lib\json\encoder.py", line 442, in _iterencode
+    o = _default(o)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\utils\encoders.py", line 68, in default
+    return super(JSONEncoder, self).default(obj)
+  File "C:\Python27\ArcGIS10.2\lib\json\encoder.py", line 184, in default
+    raise TypeError(repr(o) + " is not JSON serializable")
+TypeError: <ResultFile: E:/E鐩樻枃浠?elasticsearch/elasticsearch-2.3.5/bin/elasticsearch> is not JSON serializable
+ERROR 2019-03-20 08:13:23,601 basehttp 124 "GET /v0.1/resultfile/ HTTP/1.1" 500 196512
+ERROR 2019-03-20 08:14:16,250 exception 135 Internal Server Error: /v0.1/resultfile/
+Traceback (most recent call last):
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\exception.py", line 41, in inner
+    response = get_response(request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 217, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 215, in _get_response
+    response = response.render()
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\template\response.py", line 107, in render
+    self.content = self.rendered_content
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\response.py", line 72, in rendered_content
+    ret = renderer.render(self.data, accepted_media_type, context)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\renderers.py", line 732, in render
+    context = self.get_context(data, accepted_media_type, renderer_context)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\renderers.py", line 687, in get_context
+    'content': self.get_content(renderer, data, accepted_media_type, renderer_context),
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\renderers.py", line 423, in get_content
+    content = renderer.render(data, accepted_media_type, renderer_context)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\renderers.py", line 106, in render
+    allow_nan=not self.strict, separators=separators
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\utils\json.py", line 28, in dumps
+    return json.dumps(*args, **kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\json\__init__.py", line 250, in dumps
+    sort_keys=sort_keys, **kw).encode(obj)
+  File "C:\Python27\ArcGIS10.2\lib\json\encoder.py", line 209, in encode
+    chunks = list(chunks)
+  File "C:\Python27\ArcGIS10.2\lib\json\encoder.py", line 443, in _iterencode
+    for chunk in _iterencode(o, _current_indent_level):
+  File "C:\Python27\ArcGIS10.2\lib\json\encoder.py", line 431, in _iterencode
+    for chunk in _iterencode_list(o, _current_indent_level):
+  File "C:\Python27\ArcGIS10.2\lib\json\encoder.py", line 332, in _iterencode_list
+    for chunk in chunks:
+  File "C:\Python27\ArcGIS10.2\lib\json\encoder.py", line 442, in _iterencode
+    o = _default(o)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\utils\encoders.py", line 68, in default
+    return super(JSONEncoder, self).default(obj)
+  File "C:\Python27\ArcGIS10.2\lib\json\encoder.py", line 184, in default
+    raise TypeError(repr(o) + " is not JSON serializable")
+TypeError: <ResultFile: E:/E鐩樻枃浠?elasticsearch/elasticsearch-2.3.5/bin/elasticsearch> is not JSON serializable
+ERROR 2019-03-20 08:14:35,403 exception 135 Internal Server Error: /v0.1/resultfile/
+Traceback (most recent call last):
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\exception.py", line 41, in inner
+    response = get_response(request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 217, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 215, in _get_response
+    response = response.render()
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\template\response.py", line 107, in render
+    self.content = self.rendered_content
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\response.py", line 72, in rendered_content
+    ret = renderer.render(self.data, accepted_media_type, context)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\renderers.py", line 732, in render
+    context = self.get_context(data, accepted_media_type, renderer_context)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\renderers.py", line 687, in get_context
+    'content': self.get_content(renderer, data, accepted_media_type, renderer_context),
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\renderers.py", line 423, in get_content
+    content = renderer.render(data, accepted_media_type, renderer_context)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\renderers.py", line 106, in render
+    allow_nan=not self.strict, separators=separators
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\utils\json.py", line 28, in dumps
+    return json.dumps(*args, **kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\json\__init__.py", line 250, in dumps
+    sort_keys=sort_keys, **kw).encode(obj)
+  File "C:\Python27\ArcGIS10.2\lib\json\encoder.py", line 209, in encode
+    chunks = list(chunks)
+  File "C:\Python27\ArcGIS10.2\lib\json\encoder.py", line 443, in _iterencode
+    for chunk in _iterencode(o, _current_indent_level):
+  File "C:\Python27\ArcGIS10.2\lib\json\encoder.py", line 431, in _iterencode
+    for chunk in _iterencode_list(o, _current_indent_level):
+  File "C:\Python27\ArcGIS10.2\lib\json\encoder.py", line 332, in _iterencode_list
+    for chunk in chunks:
+  File "C:\Python27\ArcGIS10.2\lib\json\encoder.py", line 442, in _iterencode
+    o = _default(o)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\utils\encoders.py", line 68, in default
+    return super(JSONEncoder, self).default(obj)
+  File "C:\Python27\ArcGIS10.2\lib\json\encoder.py", line 184, in default
+    raise TypeError(repr(o) + " is not JSON serializable")
+TypeError: <ResultFile: E:/E鐩樻枃浠?elasticsearch/elasticsearch-2.3.5/bin/elasticsearch> is not JSON serializable
+ERROR 2019-03-20 08:15:11,032 basehttp 124 "GET /v0.1/resultfile/ HTTP/1.1" 500 196432
+ERROR 2019-03-20 08:15:11,042 basehttp 124 "GET /v0.1/resultfile/ HTTP/1.1" 500 59
+ERROR 2019-03-20 08:15:25,020 basehttp 124 "GET /v0.1/resultfile/ HTTP/1.1" 500 196200
+ERROR 2019-03-20 08:15:56,549 exception 135 Internal Server Error: /v0.1/resultfile/
+Traceback (most recent call last):
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\exception.py", line 41, in inner
+    response = get_response(request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 217, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 215, in _get_response
+    response = response.render()
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\template\response.py", line 107, in render
+    self.content = self.rendered_content
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\response.py", line 72, in rendered_content
+    ret = renderer.render(self.data, accepted_media_type, context)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\renderers.py", line 732, in render
+    context = self.get_context(data, accepted_media_type, renderer_context)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\renderers.py", line 687, in get_context
+    'content': self.get_content(renderer, data, accepted_media_type, renderer_context),
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\renderers.py", line 423, in get_content
+    content = renderer.render(data, accepted_media_type, renderer_context)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\renderers.py", line 106, in render
+    allow_nan=not self.strict, separators=separators
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\utils\json.py", line 28, in dumps
+    return json.dumps(*args, **kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\json\__init__.py", line 250, in dumps
+    sort_keys=sort_keys, **kw).encode(obj)
+  File "C:\Python27\ArcGIS10.2\lib\json\encoder.py", line 209, in encode
+    chunks = list(chunks)
+  File "C:\Python27\ArcGIS10.2\lib\json\encoder.py", line 443, in _iterencode
+    for chunk in _iterencode(o, _current_indent_level):
+  File "C:\Python27\ArcGIS10.2\lib\json\encoder.py", line 431, in _iterencode
+    for chunk in _iterencode_list(o, _current_indent_level):
+  File "C:\Python27\ArcGIS10.2\lib\json\encoder.py", line 332, in _iterencode_list
+    for chunk in chunks:
+  File "C:\Python27\ArcGIS10.2\lib\json\encoder.py", line 442, in _iterencode
+    o = _default(o)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\utils\encoders.py", line 68, in default
+    return super(JSONEncoder, self).default(obj)
+  File "C:\Python27\ArcGIS10.2\lib\json\encoder.py", line 184, in default
+    raise TypeError(repr(o) + " is not JSON serializable")
+TypeError: <ResultFile: E:/E鐩樻枃浠?elasticsearch/elasticsearch-2.3.5/bin/elasticsearch> is not JSON serializable
+ERROR 2019-03-20 08:16:29,578 basehttp 124 "GET /v0.1/resultfile/ HTTP/1.1" 500 196216
+INFO 2019-03-20 08:25:57,575 basehttp 124 "GET /v0.1/resultfile/ HTTP/1.1" 200 14208
+INFO 2019-03-20 08:26:22,489 basehttp 124 "GET /v0.1/resultfile/?search=python HTTP/1.1" 200 11842
+INFO 2019-03-20 08:35:45,315 basehttp 124 "GET /v0.1/resultfile/?search=python HTTP/1.1" 200 12961
+INFO 2019-03-20 08:43:11,732 basehttp 124 "GET /v0.1/resultfile/?search=python HTTP/1.1" 200 12961
+INFO 2019-03-20 08:47:43,428 basehttp 124 "GET /v0.1/resultfile/?search=python HTTP/1.1" 200 77424
+INFO 2019-03-20 08:49:23,266 basehttp 124 "GET /v0.1/resultfile/?search=python HTTP/1.1" 200 21006
+INFO 2019-03-20 08:50:21,812 basehttp 124 "GET /v0.1/resultfile/?search=python HTTP/1.1" 200 22473
+INFO 2019-03-20 08:51:48,461 basehttp 124 "GET /v0.1/resultfile/?search=python HTTP/1.1" 200 11842
+INFO 2019-03-20 08:53:17,979 basehttp 124 "GET /v0.1/resultfile/?search=python HTTP/1.1" 200 22473
+INFO 2019-03-20 08:56:36,471 basehttp 124 "GET /v0.1/resultfile/?search=python HTTP/1.1" 200 79660
+INFO 2019-03-20 10:49:40,832 basehttp 124 "GET /v0.1/resultfile/?search=python HTTP/1.1" 200 12961
+INFO 2019-03-20 10:50:57,546 basehttp 124 "GET /v0.1/resultfile/?search=python HTTP/1.1" 200 12961
+ERROR 2019-03-20 11:13:13,282 exception 135 Internal Server Error: /v0.1/resultfile/
+Traceback (most recent call last):
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\exception.py", line 41, in inner
+    response = get_response(request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\views\decorators\csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\viewsets.py", line 116, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 495, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 455, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 492, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\PycharmProjects\ResultManage\v0.1\ResultManage\file\views.py", line 50, in list
+    queryset = self.filter_queryset(self.get_queryset())
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\generics.py", line 152, in filter_queryset
+    queryset = backend().filter_queryset(self.request, queryset, self)
+  File "D:\PycharmProjects\ResultManage\v0.1\ResultManage\file\search_filter.py", line 135, in filter_queryset
+    return temp_filedir_list
+UnboundLocalError: local variable 'temp_filedir_list' referenced before assignment
+ERROR 2019-03-20 11:13:13,645 basehttp 124 "GET /v0.1/resultfile/?search=python%20%E4%BB%BB%E5%8A%A1 HTTP/1.1" 500 108362
+ERROR 2019-03-20 11:14:55,517 exception 135 Internal Server Error: /v0.1/resultfile/
+Traceback (most recent call last):
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\exception.py", line 41, in inner
+    response = get_response(request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\views\decorators\csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\viewsets.py", line 116, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 495, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 455, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 492, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\PycharmProjects\ResultManage\v0.1\ResultManage\file\views.py", line 50, in list
+    queryset = self.filter_queryset(self.get_queryset())
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\generics.py", line 152, in filter_queryset
+    queryset = backend().filter_queryset(self.request, queryset, self)
+  File "D:\PycharmProjects\ResultManage\v0.1\ResultManage\file\search_filter.py", line 136, in filter_queryset
+    return temp_filedir_list
+UnboundLocalError: local variable 'temp_filedir_list' referenced before assignment
+ERROR 2019-03-20 11:14:55,867 basehttp 124 "GET /v0.1/resultfile/?search=python%20%E4%BB%BB%E5%8A%A1 HTTP/1.1" 500 108497
+INFO 2019-03-20 11:16:40,881 basehttp 124 "GET /v0.1/resultfile/?search=python%E4%BB%BB%E5%8A%A1 HTTP/1.1" 200 11713
+INFO 2019-03-20 11:16:46,457 basehttp 124 "GET /v0.1/resultfile/?search=python%20%E4%BB%BB%E5%8A%A1 HTTP/1.1" 200 11730
+INFO 2019-03-20 11:18:17,898 basehttp 124 "GET /v0.1/resultfile/?search=python HTTP/1.1" 200 10855
+INFO 2019-03-20 11:21:16,854 basehttp 124 "GET /v0.1/resultfile/?search=python HTTP/1.1" 200 11648
+INFO 2019-03-20 11:21:21,427 basehttp 124 "GET /v0.1/resultfile/?page=2&search=python HTTP/1.1" 200 11714
+INFO 2019-03-20 11:21:25,338 basehttp 124 "GET /v0.1/resultfile/?search=python HTTP/1.1" 200 11648
+INFO 2019-03-20 11:22:21,826 basehttp 124 "GET /v0.1/resultfile/?search=python HTTP/1.1" 200 11648
+INFO 2019-03-20 11:22:24,717 basehttp 124 "GET /v0.1/resultfile/?page=2&search=python HTTP/1.1" 200 11714
+INFO 2019-03-20 11:22:47,377 basehttp 124 "GET /v0.1/resultfile/?search=python HTTP/1.1" 200 11648
+INFO 2019-03-20 11:22:55,214 basehttp 124 "GET /v0.1/resultfile/?search=py HTTP/1.1" 200 159462
+INFO 2019-03-20 11:23:05,711 basehttp 124 "GET /v0.1/resultfile/?page=2&search=py HTTP/1.1" 200 159573
+WARNING 2019-03-20 11:26:42,017 base 152 Not Found: /v0.1/resultfile/
+WARNING 2019-03-20 11:26:42,019 basehttp 124 "GET /v0.1/resultfile/?page=2&search=python%20%E4%BB%BB%E5%8A%A1 HTTP/1.1" 404 9450
+INFO 2019-03-20 11:26:47,739 basehttp 124 "GET /v0.1/resultfile/?page=2&search=python HTTP/1.1" 200 10932
+INFO 2019-03-20 11:27:02,437 basehttp 124 "GET /v0.1/resultfile/?page=2&search=python%20- HTTP/1.1" 200 10573
+INFO 2019-03-20 11:29:19,599 basehttp 124 "GET /v0.1/resultfile/?page=2&search=django%20python HTTP/1.1" 200 10761
+INFO 2019-03-20 11:29:55,539 basehttp 124 "GET /v0.1/resultfile/?page=2&search=django%20offline HTTP/1.1" 200 10120
+INFO 2019-03-20 11:30:35,513 basehttp 124 "GET /v0.1/resultfile/?page=2&search=django HTTP/1.1" 200 21098
+INFO 2019-03-20 11:32:52,516 basehttp 124 "GET /v0.1/resultfile/?page=2&search=django%20offline HTTP/1.1" 200 10120
+INFO 2019-03-20 11:33:06,490 basehttp 124 "GET /v0.1/resultfile/?page=2&search=django%20offline%20offline HTTP/1.1" 200 10186
+INFO 2019-03-20 11:33:33,836 basehttp 124 "GET /v0.1/resultfile/?page=2&search=django%20offline%20offline%20rest HTTP/1.1" 200 9729
+INFO 2019-03-20 11:42:08,618 basehttp 124 "GET /v0.1/resultfile/?page=2&search=django%20offline%20rest HTTP/1.1" 200 9930
+INFO 2019-03-20 11:48:12,921 basehttp 124 "GET /v0.1/resultfile/?page=2&search=django%20offline%20rest HTTP/1.1" 200 9886
+INFO 2019-03-20 13:43:05,982 basehttp 124 "GET /v0.1/resultfile/?page=2&search=django%20offline%20rest HTTP/1.1" 200 15482
+INFO 2019-03-20 13:52:50,609 basehttp 124 "GET /v0.1/resultfile/?page=2&search=django%20offline%20offline%20rest HTTP/1.1" 200 9952
+INFO 2019-03-20 13:53:36,368 basehttp 124 "GET /v0.1/resultfile/?page=2&search=django HTTP/1.1" 200 21098
+INFO 2019-03-20 13:58:02,934 basehttp 124 "GET /v0.1/resultfile/?page=2&search=django HTTP/1.1" 200 14232
+INFO 2019-03-20 13:58:14,266 basehttp 124 "GET /v0.1/resultfile/?page=3&search=django HTTP/1.1" 200 14229
+INFO 2019-03-20 13:58:17,434 basehttp 124 "GET /v0.1/resultfile/?page=4&search=django HTTP/1.1" 200 14390
+INFO 2019-03-20 13:58:21,746 basehttp 124 "GET /v0.1/resultfile/?page=13&search=django HTTP/1.1" 200 13485
+INFO 2019-03-20 13:58:24,318 basehttp 124 "GET /v0.1/resultfile/?search=django HTTP/1.1" 200 13762
+INFO 2019-03-20 13:59:23,736 basehttp 124 "GET /v0.1/resultfile/?search=django HTTP/1.1" 200 21021
+INFO 2019-03-20 14:01:01,484 basehttp 124 "GET /v0.1/resultfile/?search=django HTTP/1.1" 200 13762
+INFO 2019-03-20 14:01:09,407 basehttp 124 "GET /v0.1/resultfile/?page=2&search=django HTTP/1.1" 200 14232
+INFO 2019-03-20 14:01:11,576 basehttp 124 "GET /v0.1/resultfile/?page=3&search=django HTTP/1.1" 200 14229
+INFO 2019-03-20 14:01:14,497 basehttp 124 "GET /v0.1/resultfile/?page=13&search=django HTTP/1.1" 200 13485
+INFO 2019-03-20 14:01:17,246 basehttp 124 "GET /v0.1/resultfile/?page=12&search=django HTTP/1.1" 200 14164
+WARNING 2019-03-20 14:01:28,730 base 152 Not Found: /v0.1/resultfile/
+WARNING 2019-03-20 14:01:28,732 basehttp 124 "GET /v0.1/resultfile/?page=12&search=django%20python HTTP/1.1" 404 9373
+WARNING 2019-03-20 14:02:04,125 base 152 Not Found: /v0.1/resultfile/
+WARNING 2019-03-20 14:02:04,127 basehttp 124 "GET /v0.1/resultfile/?page=12&search=python%20django HTTP/1.1" 404 9373
+WARNING 2019-03-20 14:02:52,328 base 152 Not Found: /v0.1/resultfile/
+WARNING 2019-03-20 14:02:52,328 basehttp 124 "GET /v0.1/resultfile/?page=12&search=pythondjango HTTP/1.1" 404 9356
+WARNING 2019-03-20 14:03:49,276 base 152 Not Found: /v0.1/resultfile/
+WARNING 2019-03-20 14:03:49,278 basehttp 124 "GET /v0.1/resultfile/?page=12&search=python HTTP/1.1" 404 9314
+INFO 2019-03-20 14:04:07,109 basehttp 124 "GET /v0.1/resultfile/?search=python HTTP/1.1" 200 13156
+INFO 2019-03-20 14:04:19,904 basehttp 124 "GET /v0.1/resultfile/?search=django%20python HTTP/1.1" 200 13542
+INFO 2019-03-20 14:04:37,996 basehttp 124 "GET /v0.1/resultfile/?page=2&search=django+python HTTP/1.1" 200 13414
+ERROR 2019-03-20 14:09:52,428 exception 135 Internal Server Error: /v0.1/resultfile/
+Traceback (most recent call last):
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\exception.py", line 41, in inner
+    response = get_response(request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\views\decorators\csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\viewsets.py", line 116, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 495, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 455, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 492, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\PycharmProjects\ResultManage\v0.1\ResultManage\file\views.py", line 50, in list
+    queryset = self.filter_queryset(self.get_queryset())
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\generics.py", line 152, in filter_queryset
+    queryset = backend().filter_queryset(self.request, queryset, self)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\filters.py", line 242, in filter_queryset
+    return queryset.order_by(*ordering)
+AttributeError: 'NoneType' object has no attribute 'order_by'
+ERROR 2019-03-20 14:09:53,009 basehttp 124 "GET /v0.1/resultfile/?page=2&search=django+python HTTP/1.1" 500 102585
+INFO 2019-03-20 14:12:44,407 basehttp 124 "GET /v0.1/resultfile/?page=2&search=django+python HTTP/1.1" 200 12876
+INFO 2019-03-20 14:12:55,246 basehttp 124 "GET /v0.1/resultfile/?search=django+python HTTP/1.1" 200 12432
+INFO 2019-03-20 14:13:26,775 basehttp 124 "GET /v0.1/resultfile/?search=django HTTP/1.1" 200 12334
+ERROR 2019-03-20 14:13:59,075 exception 135 Internal Server Error: /v0.1/resultfile/
+Traceback (most recent call last):
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\exception.py", line 41, in inner
+    response = get_response(request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\views\decorators\csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\viewsets.py", line 116, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 495, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 455, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 492, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\PycharmProjects\ResultManage\v0.1\ResultManage\file\views.py", line 61, in list
+    page = self.paginate_queryset(queryset)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\generics.py", line 173, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\pagination.py", line 204, in paginate_queryset
+    self.page = paginator.page(page_number)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\paginator.py", line 57, in page
+    number = self.validate_number(number)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\paginator.py", line 46, in validate_number
+    if number > self.num_pages:
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\utils\functional.py", line 35, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\paginator.py", line 91, in num_pages
+    if self.count == 0 and not self.allow_empty_first_page:
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\utils\functional.py", line 35, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\paginator.py", line 84, in count
+    return len(self.object_list)
+TypeError: object of type 'NoneType' has no len()
+ERROR 2019-03-20 14:13:59,617 basehttp 124 "GET /v0.1/resultfile/?search=django HTTP/1.1" 500 123983
+ERROR 2019-03-20 14:15:40,032 exception 135 Internal Server Error: /v0.1/resultfile/
+Traceback (most recent call last):
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\exception.py", line 41, in inner
+    response = get_response(request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\views\decorators\csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\viewsets.py", line 116, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 495, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 455, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 492, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\PycharmProjects\ResultManage\v0.1\ResultManage\file\views.py", line 61, in list
+    page = self.paginate_queryset(queryset)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\generics.py", line 173, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\pagination.py", line 204, in paginate_queryset
+    self.page = paginator.page(page_number)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\paginator.py", line 57, in page
+    number = self.validate_number(number)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\paginator.py", line 46, in validate_number
+    if number > self.num_pages:
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\utils\functional.py", line 35, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\paginator.py", line 91, in num_pages
+    if self.count == 0 and not self.allow_empty_first_page:
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\utils\functional.py", line 35, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\paginator.py", line 84, in count
+    return len(self.object_list)
+TypeError: object of type 'NoneType' has no len()
+ERROR 2019-03-20 14:15:40,062 exception 135 Internal Server Error: /v0.1/resultfile/
+Traceback (most recent call last):
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\exception.py", line 41, in inner
+    response = get_response(request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\views\decorators\csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\viewsets.py", line 116, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 495, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 455, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 492, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\PycharmProjects\ResultManage\v0.1\ResultManage\file\views.py", line 61, in list
+    page = self.paginate_queryset(queryset)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\generics.py", line 173, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\pagination.py", line 204, in paginate_queryset
+    self.page = paginator.page(page_number)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\paginator.py", line 57, in page
+    number = self.validate_number(number)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\paginator.py", line 46, in validate_number
+    if number > self.num_pages:
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\utils\functional.py", line 35, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\paginator.py", line 91, in num_pages
+    if self.count == 0 and not self.allow_empty_first_page:
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\utils\functional.py", line 35, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\paginator.py", line 84, in count
+    return len(self.object_list)
+TypeError: object of type 'NoneType' has no len()
+ERROR 2019-03-20 14:15:40,980 basehttp 124 "GET /v0.1/resultfile/?search=django HTTP/1.1" 500 123950
+ERROR 2019-03-20 14:15:40,993 basehttp 124 "GET /v0.1/resultfile/?search=django HTTP/1.1" 500 123983
+ERROR 2019-03-20 14:15:40,993 basehttp 124 "GET /v0.1/resultfile/?search=django HTTP/1.1" 500 59
+ERROR 2019-03-20 14:16:22,684 exception 135 Internal Server Error: /v0.1/resultfile/
+Traceback (most recent call last):
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\exception.py", line 41, in inner
+    response = get_response(request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\views\decorators\csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\viewsets.py", line 116, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 495, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 455, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 492, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\PycharmProjects\ResultManage\v0.1\ResultManage\file\views.py", line 61, in list
+    page = self.paginate_queryset(queryset)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\generics.py", line 173, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\pagination.py", line 204, in paginate_queryset
+    self.page = paginator.page(page_number)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\paginator.py", line 57, in page
+    number = self.validate_number(number)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\paginator.py", line 46, in validate_number
+    if number > self.num_pages:
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\utils\functional.py", line 35, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\paginator.py", line 91, in num_pages
+    if self.count == 0 and not self.allow_empty_first_page:
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\utils\functional.py", line 35, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\paginator.py", line 84, in count
+    return len(self.object_list)
+TypeError: object of type 'NoneType' has no len()
+ERROR 2019-03-20 14:16:23,053 basehttp 124 "GET /v0.1/resultfile/?search=django HTTP/1.1" 500 123983
+INFO 2019-03-20 14:19:03,647 basehttp 124 "GET /v0.1/resultfile/?search=django HTTP/1.1" 200 13762
+INFO 2019-03-20 14:19:31,108 basehttp 124 "GET /v0.1/resultfile/?search=django HTTP/1.1" 200 13796
+INFO 2019-03-20 14:23:12,345 basehttp 124 "GET /v0.1/resultfile/?page=2&search=django HTTP/1.1" 200 14063
+INFO 2019-03-20 14:23:21,841 basehttp 124 "GET /v0.1/resultfile/?page=3&search=django HTTP/1.1" 200 14312
+INFO 2019-03-20 14:23:28,096 basehttp 124 "GET /v0.1/resultfile/?page=4&search=django HTTP/1.1" 200 14464
+INFO 2019-03-20 14:23:33,849 basehttp 124 "GET /v0.1/resultfile/?page=5&search=django HTTP/1.1" 200 14418
+INFO 2019-03-20 14:23:36,411 basehttp 124 "GET /v0.1/resultfile/?page=6&search=django HTTP/1.1" 200 14434
+INFO 2019-03-20 14:23:59,733 basehttp 124 "GET /v0.1/resultfile/?page=6&search=django HTTP/1.1" 200 15093
+INFO 2019-03-20 14:24:05,625 basehttp 124 "GET /v0.1/resultfile/?search=django HTTP/1.1" 200 14694
+INFO 2019-03-20 14:24:45,257 basehttp 124 "GET /v0.1/resultfile/?page=2&search=django HTTP/1.1" 200 15117
+INFO 2019-03-20 14:24:48,861 basehttp 124 "GET /v0.1/resultfile/?page=3&search=django HTTP/1.1" 200 15278
+INFO 2019-03-20 14:24:51,982 basehttp 124 "GET /v0.1/resultfile/?page=4&search=django HTTP/1.1" 200 15368
+INFO 2019-03-20 14:24:54,903 basehttp 124 "GET /v0.1/resultfile/?page=5&search=django HTTP/1.1" 200 15078
+INFO 2019-03-20 14:25:00,095 basehttp 124 "GET /v0.1/resultfile/?page=6&search=django HTTP/1.1" 200 15093
+INFO 2019-03-20 14:25:15,687 basehttp 124 "GET /v0.1/resultfile/?page=7&search=django HTTP/1.1" 200 13531
+INFO 2019-03-20 14:25:21,174 basehttp 124 "GET /v0.1/resultfile/?page=6&search=django HTTP/1.1" 200 15093
+INFO 2019-03-20 14:25:24,726 basehttp 124 "GET /v0.1/resultfile/?page=5&search=django HTTP/1.1" 200 15078
+INFO 2019-03-20 14:25:27,312 basehttp 124 "GET /v0.1/resultfile/?page=4&search=django HTTP/1.1" 200 15368
+INFO 2019-03-20 14:26:21,463 basehttp 124 "GET /v0.1/resultfile/?page=4&search=django HTTP/1.1" 200 15368
+INFO 2019-03-20 14:26:31,473 basehttp 124 "GET /v0.1/resultfile/?search=django HTTP/1.1" 200 14694
+INFO 2019-03-20 14:26:40,201 basehttp 124 "GET /v0.1/resultfile/?search= HTTP/1.1" 200 16278
+INFO 2019-03-20 14:26:47,634 basehttp 124 "GET /v0.1/resultfile/ HTTP/1.1" 200 16070
+INFO 2019-03-20 14:30:36,309 basehttp 124 "GET /v0.1/resultfile/ HTTP/1.1" 200 16070
+INFO 2019-03-20 14:30:40,023 basehttp 124 "GET /v0.1/resultfile/?ordering=id HTTP/1.1" 200 16384
+INFO 2019-03-20 14:30:53,262 basehttp 124 "GET /v0.1/resultfile/?search=django HTTP/1.1" 200 14694
+ERROR 2019-03-20 14:31:03,033 exception 135 Internal Server Error: /v0.1/resultfile/
+Traceback (most recent call last):
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\exception.py", line 41, in inner
+    response = get_response(request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\views\decorators\csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\viewsets.py", line 116, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 495, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 455, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 492, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\PycharmProjects\ResultManage\v0.1\ResultManage\file\views.py", line 53, in list
+    queryset = self.filter_queryset(self.get_queryset())
+  File "D:\PycharmProjects\ResultManage\v0.1\ResultManage\file\views.py", line 49, in filter_queryset
+    queryset = backend().filter_queryset(self.request, queryset, self)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\filters.py", line 242, in filter_queryset
+    return queryset.order_by(*ordering)
+AttributeError: 'list' object has no attribute 'order_by'
+ERROR 2019-03-20 14:31:03,437 basehttp 124 "GET /v0.1/resultfile/?ordering=filepath&search=django HTTP/1.1" 500 111558
+INFO 2019-03-20 14:33:25,404 basehttp 124 "GET /v0.1/resultfile/ HTTP/1.1" 200 16158
+INFO 2019-03-20 14:33:28,673 basehttp 124 "GET /v0.1/resultfile/?ordering=-id HTTP/1.1" 200 16373
+ERROR 2019-03-20 14:33:44,552 exception 135 Internal Server Error: /v0.1/resultfile/
+Traceback (most recent call last):
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\exception.py", line 41, in inner
+    response = get_response(request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\views\decorators\csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\viewsets.py", line 116, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 495, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 455, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 492, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\PycharmProjects\ResultManage\v0.1\ResultManage\file\views.py", line 55, in list
+    queryset = self.filter_queryset(self.get_queryset())
+  File "D:\PycharmProjects\ResultManage\v0.1\ResultManage\file\views.py", line 50, in filter_queryset
+    queryset = backend().filter_queryset(self.request, queryset, self)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\filters.py", line 242, in filter_queryset
+    return queryset.order_by(*ordering)
+AttributeError: 'list' object has no attribute 'order_by'
+ERROR 2019-03-20 14:33:44,983 basehttp 124 "GET /v0.1/resultfile/?ordering=filepath&search=django HTTP/1.1" 500 111200
+INFO 2019-03-20 14:35:51,819 basehttp 124 "GET /v0.1/resultfile/?ordering=filepath&search=django HTTP/1.1" 200 15116
+INFO 2019-03-20 14:35:59,813 basehttp 124 "GET /v0.1/resultfile/?ordering=filepath&page=2&search=django HTTP/1.1" 200 15597
+INFO 2019-03-20 14:36:12,512 basehttp 124 "GET /v0.1/resultfile/ HTTP/1.1" 200 16070
+INFO 2019-03-20 14:36:15,710 basehttp 124 "GET /v0.1/resultfile/?ordering=serverIP HTTP/1.1" 200 16468
+INFO 2019-03-20 14:36:18,108 basehttp 124 "GET /v0.1/resultfile/?ordering=-serverIP HTTP/1.1" 200 16482
+INFO 2019-03-20 14:36:36,697 basehttp 124 "GET /v0.1/resultfile/?search=python HTTP/1.1" 200 13121
+INFO 2019-03-20 14:36:44,101 basehttp 124 "GET /v0.1/resultfile/?search=python%20django HTTP/1.1" 200 13305
+INFO 2019-03-20 14:37:28,621 basehttp 124 "GET /v0.1/resultfile/?search=python%20django HTTP/1.1" 200 10997
+INFO 2019-03-20 14:37:44,076 basehttp 124 "GET /v0.1/resultfile/ HTTP/1.1" 200 5418728
+ERROR 2019-03-20 14:37:44,085 basehttp 124 "GET /v0.1/resultfile/ HTTP/1.1" 500 59
+INFO 2019-03-20 14:39:06,292 basehttp 124 "GET /v0.1/resultfile/ HTTP/1.1" 200 5418728
+INFO 2019-03-20 14:40:19,861 basehttp 124 "GET /v0.1/resultfile/ HTTP/1.1" 200 5418728
+INFO 2019-03-20 14:40:47,313 basehttp 124 "GET /v0.1/resultfile/?search=djnago HTTP/1.1" 200 11398
+INFO 2019-03-20 14:40:50,470 basehttp 124 "GET /v0.1/resultfile/ HTTP/1.1" 200 5418728
+ERROR 2019-03-20 14:40:50,474 basehttp 124 "GET /v0.1/resultfile/ HTTP/1.1" 500 59
+INFO 2019-03-20 14:41:04,851 basehttp 124 "GET /v0.1/resultfile/?search=django HTTP/1.1" 200 22707
+INFO 2019-03-20 14:42:41,733 basehttp 124 "GET /v0.1/resultfile/?search=django HTTP/1.1" 200 14782
+INFO 2019-03-20 14:42:43,842 basehttp 124 "GET /v0.1/resultfile/?search=django HTTP/1.1" 200 14782
+INFO 2019-03-20 14:42:47,538 basehttp 124 "GET /v0.1/resultfile/?page=3&search=django HTTP/1.1" 200 15366
+INFO 2019-03-20 14:43:06,459 basehttp 124 "GET /v0.1/resultfile/?page=1&search=django&limit=30 HTTP/1.1" 200 16196
+INFO 2019-03-20 14:43:17,783 basehttp 124 "GET /v0.1/resultfile/?page=1&search=django&limit=50 HTTP/1.1" 200 17818
+INFO 2019-03-20 14:43:27,368 basehttp 124 "GET /v0.1/resultfile/?page=1&search=django&limit=10 HTTP/1.1" 200 14279
+INFO 2019-03-20 14:43:45,334 basehttp 124 "GET /v0.1/resultfile/?limit=10&page=2&search=django HTTP/1.1" 200 14434
+INFO 2019-03-20 14:43:54,482 basehttp 124 "GET /v0.1/resultfile/?limit=10&page=3&search=django HTTP/1.1" 200 14696
+INFO 2019-03-20 14:55:37,401 basehttp 124 "GET /v0.1/resultfile/?limit=10&page=3&search=django HTTP/1.1" 200 14696
+INFO 2019-03-20 14:55:41,381 basehttp 124 "GET /v0.1/resultfile/?limit=10&search=django HTTP/1.1" 200 14136
+INFO 2019-03-20 14:55:53,845 basehttp 124 "GET /v0.1/resultfile/?limit=10&page=2&search=django HTTP/1.1" 200 14434
+INFO 2019-03-20 15:03:26,545 basehttp 124 "GET /v0.1/resultfile/?limit=10&page=2&search=django HTTP/1.1" 200 14434
+INFO 2019-03-20 15:12:25,950 basehttp 124 "GET /v0.1/resultfile/?limit=10&search=django HTTP/1.1" 200 14136
+INFO 2019-03-20 15:12:57,663 basehttp 124 "GET /v0.1/resultfile/?limit=10&search=plugins HTTP/1.1" 200 12479
+INFO 2019-03-20 15:30:56,520 basehttp 124 "GET /v0.1/resultfile/?search=plugins&flag=%E6%A0%87%E8%AE%B0 HTTP/1.1" 200 17218
+INFO 2019-03-20 15:31:10,668 basehttp 124 "GET /v0.1/resultfile/?search=plugins&flag= HTTP/1.1" 200 11292
+INFO 2019-03-20 15:31:20,052 basehttp 124 "GET /v0.1/resultfile/?search=plugins&flag= HTTP/1.1" 200 11292
+INFO 2019-03-20 15:31:40,115 basehttp 124 "GET /v0.1/resultfile/?search=plugins&flag=&ordering=id HTTP/1.1" 200 11404
+INFO 2019-03-20 15:32:56,775 basehttp 124 "GET /v0.1/resultfile/?search=plugins&flag=%E8%A1%A8%E5%A7%90&ordering=id HTTP/1.1" 200 17434
+ERROR 2019-03-20 15:32:56,779 basehttp 124 "GET /v0.1/resultfile/?search=plugins&flag=%E8%A1%A8%E5%A7%90&ordering=id HTTP/1.1" 500 59
+INFO 2019-03-20 15:32:58,387 basehttp 124 "GET /v0.1/resultfile/?search=plugins&flag=%E8%A1%A8%E5%A7%90&ordering=id HTTP/1.1" 200 17434
+INFO 2019-03-20 15:34:00,526 basehttp 124 "GET /v0.1/resultfile/?search=plugins&flag=%E8%A1%A8%E5%A7%90&ordering=id HTTP/1.1" 200 17434
+INFO 2019-03-20 15:34:10,585 basehttp 124 "GET /v0.1/resultfile/?search=plugins&flag=&ordering=id HTTP/1.1" 200 11404
+INFO 2019-03-20 15:35:29,589 basehttp 124 "GET /v0.1/resultfile/?search=plugins&flag=&ordering=id HTTP/1.1" 200 11404
+INFO 2019-03-20 15:35:42,931 basehttp 124 "GET /v0.1/resultfile/?search=plugins&flag=%E6%A0%87%E8%AE%B0&ordering=id HTTP/1.1" 200 17434
+INFO 2019-03-20 15:35:53,302 basehttp 124 "GET /v0.1/resultfile/?search=plugins&flag&ordering=id HTTP/1.1" 200 11399
+INFO 2019-03-20 15:36:03,321 basehttp 124 "GET /v0.1/resultfile/?search=plugins&flag HTTP/1.1" 200 11287
+INFO 2019-03-20 15:56:14,049 basehttp 124 "GET /v0.1/resultfile/?search=plugins&flag HTTP/1.1" 200 11287
+INFO 2019-03-20 15:56:22,726 basehttp 124 "GET /v0.1/resultfile/?search=pl&flag HTTP/1.1" 200 13720
+INFO 2019-03-20 15:57:00,776 basehttp 124 "GET /v0.1/resultfile/?flag=&page=3&search=pl HTTP/1.1" 200 14460
+INFO 2019-03-20 17:15:29,506 basehttp 124 "GET /v0.1/resultfile/?flag=&page=3&search=pl HTTP/1.1" 200 15500
+INFO 2019-03-20 17:18:19,792 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 14702
+INFO 2019-03-20 17:24:52,132 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 14702
+INFO 2019-03-20 17:24:56,996 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 14702
+INFO 2019-03-20 17:25:34,670 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 14662
+INFO 2019-03-20 17:27:07,214 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 14702
+INFO 2019-03-20 17:38:13,398 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 14662
+INFO 2019-03-20 17:43:58,437 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 14702
+INFO 2019-03-20 17:44:38,701 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 14662
+INFO 2019-03-20 17:45:02,229 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 14662
+INFO 2019-03-20 17:45:27,614 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 14702
+INFO 2019-03-20 17:45:51,795 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 14702
+INFO 2019-03-20 17:46:34,176 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 14702
+INFO 2019-03-20 17:46:45,461 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 14702
+INFO 2019-03-20 17:49:39,543 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 14662
+INFO 2019-03-20 17:51:05,223 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 14642
+INFO 2019-03-20 17:53:09,476 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 11301
+INFO 2019-03-20 18:26:39,141 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 11439
+INFO 2019-03-20 18:27:07,036 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 11460
+INFO 2019-03-20 18:48:53,338 basehttp 124 "GET /v0.1/resultfile/?flag=111&search=pl HTTP/1.1" 200 12899
+INFO 2019-03-20 18:51:28,177 basehttp 124 "GET /v0.1/resultfile/?flag=111&search=pl HTTP/1.1" 200 13472
+ERROR 2019-03-20 18:53:19,020 exception 135 Internal Server Error: /v0.1/resultfile/
+Traceback (most recent call last):
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\exception.py", line 41, in inner
+    response = get_response(request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\views\decorators\csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\viewsets.py", line 116, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 495, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 455, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 492, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\PycharmProjects\ResultManage\v0.1\ResultManage\file\views.py", line 65, in list
+    queryset = self.filter_queryset(self.get_queryset())
+  File "D:\PycharmProjects\ResultManage\v0.1\ResultManage\file\views.py", line 61, in filter_queryset
+    queryset = backend().filter_queryset(self.request, queryset, self)
+  File "D:\PycharmProjects\ResultManage\v0.1\ResultManage\file\utils\file_search_filter.py", line 73, in filter_queryset
+    filedir = filedir.repalce('\\','/')
+AttributeError: 'unicode' object has no attribute 'repalce'
+ERROR 2019-03-20 18:53:19,375 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 500 110220
+ERROR 2019-03-20 18:55:11,709 exception 135 Internal Server Error: /v0.1/resultfile/
+Traceback (most recent call last):
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\exception.py", line 41, in inner
+    response = get_response(request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\views\decorators\csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\viewsets.py", line 116, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 495, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 455, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 492, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\PycharmProjects\ResultManage\v0.1\ResultManage\file\views.py", line 65, in list
+    queryset = self.filter_queryset(self.get_queryset())
+  File "D:\PycharmProjects\ResultManage\v0.1\ResultManage\file\views.py", line 61, in filter_queryset
+    queryset = backend().filter_queryset(self.request, queryset, self)
+  File "D:\PycharmProjects\ResultManage\v0.1\ResultManage\file\utils\file_search_filter.py", line 74, in filter_queryset
+    filedir = filedir.replace('\\','/')
+UnicodeDecodeError: 'ascii' codec can't decode byte 0xe6 in position 16: ordinal not in range(128)
+ERROR 2019-03-20 18:55:12,121 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 500 111552
+ERROR 2019-03-20 18:56:48,099 exception 135 Internal Server Error: /v0.1/resultfile/
+Traceback (most recent call last):
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\exception.py", line 41, in inner
+    response = get_response(request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\views\decorators\csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\viewsets.py", line 116, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 495, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 455, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 492, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\PycharmProjects\ResultManage\v0.1\ResultManage\file\views.py", line 65, in list
+    queryset = self.filter_queryset(self.get_queryset())
+  File "D:\PycharmProjects\ResultManage\v0.1\ResultManage\file\views.py", line 61, in filter_queryset
+    queryset = backend().filter_queryset(self.request, queryset, self)
+  File "D:\PycharmProjects\ResultManage\v0.1\ResultManage\file\utils\file_search_filter.py", line 74, in filter_queryset
+    filedir = filedir.replace('\\','/')
+UnicodeDecodeError: 'ascii' codec can't decode byte 0xd0 in position 16: ordinal not in range(128)
+ERROR 2019-03-20 18:56:48,520 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 500 111410
+ERROR 2019-03-20 18:57:41,013 exception 135 Internal Server Error: /v0.1/resultfile/
+Traceback (most recent call last):
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\exception.py", line 41, in inner
+    response = get_response(request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\views\decorators\csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\viewsets.py", line 116, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 495, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 455, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 492, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\PycharmProjects\ResultManage\v0.1\ResultManage\file\views.py", line 65, in list
+    queryset = self.filter_queryset(self.get_queryset())
+  File "D:\PycharmProjects\ResultManage\v0.1\ResultManage\file\views.py", line 61, in filter_queryset
+    queryset = backend().filter_queryset(self.request, queryset, self)
+  File "D:\PycharmProjects\ResultManage\v0.1\ResultManage\file\utils\file_search_filter.py", line 76, in filter_queryset
+    resultfile_dirlist = get_filedir_list(filedir, self.params)
+  File "D:\PycharmProjects\ResultManage\v0.1\ResultManage\file\utils\get_dir_list.py", line 10, in get_filedir_list
+    if search_word in path_list1[-1]:
+UnicodeDecodeError: 'ascii' codec can't decode byte 0xd0 in position 16: ordinal not in range(128)
+ERROR 2019-03-20 18:57:41,415 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 500 115807
+INFO 2019-03-20 19:03:44,608 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 10517
+INFO 2019-03-20 19:08:10,532 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 11420
+INFO 2019-03-20 19:09:46,743 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 11405
+INFO 2019-03-20 19:12:20,744 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 11405
+INFO 2019-03-20 19:14:26,706 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 11405
+INFO 2019-03-20 19:14:27,586 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 11405
+INFO 2019-03-20 19:15:16,313 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 11405
+INFO 2019-03-20 19:17:05,700 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 11439
+INFO 2019-03-20 19:17:45,344 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 11439
+INFO 2019-03-20 19:22:15,290 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 11405
+INFO 2019-03-20 19:23:28,582 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 11405
+INFO 2019-03-20 19:24:16,720 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 11426
+INFO 2019-03-20 19:25:11,878 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 11412
+INFO 2019-03-20 19:25:47,519 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 11412
+INFO 2019-03-20 19:26:43,407 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 11412
+INFO 2019-03-20 19:27:18,071 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 11419
+INFO 2019-03-20 19:30:31,029 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 11419
+INFO 2019-03-20 19:32:50,219 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 11405
+INFO 2019-03-20 19:40:43,025 basehttp 124 "GET /v0.1/resultfile/ HTTP/1.1" 200 2556
+INFO 2019-03-20 19:41:15,516 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 872
+INFO 2019-03-20 19:44:16,404 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 11405
+INFO 2019-03-20 19:44:53,220 basehttp 124 "GET /v0.1/resultfile/?flag=&search=pl HTTP/1.1" 200 11460
+INFO 2019-03-20 19:45:05,263 basehttp 124 "GET /v0.1/resultfile/ HTTP/1.1" 200 15278
+INFO 2019-03-20 19:49:39,368 basehttp 124 "GET /v0.1/resultfile/?search=plugins&flag HTTP/1.1" 200 10552
+INFO 2019-03-20 19:49:46,263 basehttp 124 "GET /v0.1/resultfile/?search=plugins&flag= HTTP/1.1" 200 10557
+INFO 2019-03-20 19:49:54,921 basehttp 124 "GET /v0.1/resultfile/?search=pl&flag= HTTP/1.1" 200 11405
+INFO 2019-03-20 19:50:31,691 basehttp 124 "GET /v0.1/resultfile/?search=pl&flag= HTTP/1.1" 200 11405
+INFO 2019-03-20 19:51:57,286 basehttp 124 "GET /v0.1/resultfile/?search=pl&flag= HTTP/1.1" 200 11293
+INFO 2019-03-20 19:52:23,444 basehttp 124 "GET /v0.1/resultfile/?search=pl&flag= HTTP/1.1" 200 11391
+INFO 2019-03-20 19:53:44,101 basehttp 124 "GET /v0.1/resultfile/?search=pl&flag= HTTP/1.1" 200 11398
+INFO 2019-03-20 19:55:27,046 basehttp 124 "GET /v0.1/resultfile/?search=pl&flag= HTTP/1.1" 200 11412
+INFO 2019-03-20 20:05:02,073 basehttp 124 "GET /v0.1/resultfile/?search=pl&flag= HTTP/1.1" 200 11412
+INFO 2019-03-20 20:11:45,806 basehttp 124 "GET /v0.1/resultfile/?search=pl&flag= HTTP/1.1" 200 12528
+INFO 2019-03-20 20:20:23,117 basehttp 124 "GET /v0.1/resultfile/?search=pl&flag= HTTP/1.1" 200 11419
+INFO 2019-03-20 20:20:39,111 basehttp 124 "GET /v0.1/resultfile/ HTTP/1.1" 200 15319
+INFO 2019-03-20 20:24:39,717 basehttp 124 "GET /v0.1/resultfile/?page=2 HTTP/1.1" 200 16019
+INFO 2019-03-20 20:24:45,148 basehttp 124 "GET /v0.1/resultfile/?search=pl&flag= HTTP/1.1" 200 11419
+INFO 2019-03-20 20:25:36,953 basehttp 124 "GET /v0.1/resultfile/?search=pl&flag= HTTP/1.1" 200 11412
+INFO 2019-03-20 20:26:13,105 basehttp 124 "GET /v0.1/resultfile/?search=pl&flag= HTTP/1.1" 200 11474
+INFO 2019-03-20 20:27:05,005 basehttp 124 "GET /v0.1/resultfile/?search=pl&flag= HTTP/1.1" 200 11536
+INFO 2019-03-20 20:29:20,403 basehttp 124 "GET /v0.1/resultfile/?search=pl&flag= HTTP/1.1" 200 11412
+INFO 2019-03-20 20:29:46,989 basehttp 124 "GET /v0.1/resultfile/?search=pl&flag= HTTP/1.1" 200 11426
+INFO 2019-03-20 20:30:23,124 basehttp 124 "GET /v0.1/resultfile/?search=pl&flag= HTTP/1.1" 200 11419
+INFO 2019-03-20 20:30:53,861 basehttp 124 "GET /v0.1/resultfile/?search=pl&flag= HTTP/1.1" 200 11412
+INFO 2019-03-20 20:31:25,357 basehttp 124 "GET /v0.1/resultfile/?search=pl&flag= HTTP/1.1" 200 11433
+INFO 2019-03-20 20:32:04,046 basehttp 124 "GET /v0.1/resultfile/?search=pl&flag= HTTP/1.1" 200 11412
+INFO 2019-03-20 20:32:20,101 basehttp 124 "GET /v0.1/resultfile/?search=pl&flag= HTTP/1.1" 200 879
+INFO 2019-03-20 20:37:29,384 basehttp 124 "GET /v0.1/resultfile/?search=pl&flag= HTTP/1.1" 200 11412
+INFO 2019-03-20 20:38:13,615 basehttp 124 "GET /v0.1/resultfile/?search=pl&flag= HTTP/1.1" 200 11419
+INFO 2019-03-20 20:38:36,392 basehttp 124 "GET /v0.1/resultfile/?search=pl&flag= HTTP/1.1" 200 11419
+INFO 2019-03-20 20:39:19,900 basehttp 124 "GET /v0.1/resultfile/?search=pl&flag= HTTP/1.1" 200 11433
+ERROR 2019-03-20 20:43:27,770 exception 135 Internal Server Error: /v0.1/resultfile/
+Traceback (most recent call last):
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\exception.py", line 41, in inner
+    response = get_response(request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\views\decorators\csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\viewsets.py", line 116, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 497, in dispatch
+    self.response = self.finalize_response(request, response, *args, **kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 412, in finalize_response
+    % type(response)
+AssertionError: Expected a `Response`, `HttpResponse` or `HttpStreamingResponse` to be returned from the view, but received a `<type 'list'>`
+ERROR 2019-03-20 20:43:28,086 basehttp 124 "GET /v0.1/resultfile/?search=pl&flag= HTTP/1.1" 500 88265
+ERROR 2019-03-20 20:47:02,862 exception 135 Internal Server Error: /v0.1/resultfile/
+Traceback (most recent call last):
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\exception.py", line 41, in inner
+    response = get_response(request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\django\views\decorators\csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\viewsets.py", line 116, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 495, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 455, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Python27\ArcGIS10.2\lib\site-packages\rest_framework\views.py", line 492, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\PycharmProjects\ResultManage\v0.1\ResultManage\file\views.py", line 80, in list
+    return Response(queryset,charset='utf-8')
+TypeError: __init__() got an unexpected keyword argument 'charset'
+ERROR 2019-03-20 20:47:03,575 basehttp 124 "GET /v0.1/resultfile/?search=pl&flag= HTTP/1.1" 500 94568
+INFO 2019-03-20 20:48:13,615 basehttp 124 "GET /v0.1/resultfile/?search=pl&flag= HTTP/1.1" 200 800
+INFO 2019-03-20 20:48:46,059 basehttp 124 "GET /v0.1/resultfile/?search=pl&flag= HTTP/1.1" 200 800
+INFO 2019-03-20 20:49:15,163 basehttp 124 "GET /v0.1/resultfile/?search=pl&flag= HTTP/1.1" 200 11305
+WARNING 2019-03-20 20:49:19,849 basehttp 124 "GET /static/rest_framework/css/bootstrap.min.css.map HTTP/1.1" 404 1737
+INFO 2019-03-20 20:49:25,259 basehttp 124 "GET /v0.1/resultfile/?search=pl&flag= HTTP/1.1" 200 11305
+WARNING 2019-03-20 20:49:25,676 basehttp 124 "GET /static/rest_framework/css/bootstrap.min.css.map HTTP/1.1" 404 1737
