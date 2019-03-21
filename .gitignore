@@ -6,7 +6,8 @@
 
 /media/*
 !/media/.gitkeep
-
+/.idea/*
+/logs/*
 
 # local env files
 .env.local
