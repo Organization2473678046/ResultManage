@@ -5,6 +5,8 @@
 #media/
 
 /media/*
+/.idea/*
+/logs/*
 !/media/.gitkeep
 /.idea/*
 /logs/*

@@ -9,6 +9,8 @@ from django.utils.encoding import python_2_unicode_compatible
 class ResultFile(models.Model):
     filepath = models.TextField(verbose_name=u"成果文件路径")
     serverIP = models.CharField(max_length=500, null=True, verbose_name=u"所属服务器")
+    dirlength = models.IntegerField(null=True,verbose_name=u"目录深度")
+    dirdepth = models.IntegerField(null=True,verbose_name=u"目录深度")
 
 
     class Meta:
