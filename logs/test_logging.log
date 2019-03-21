@@ -23,3 +23,8 @@ INFO 2019-03-18 11:18:53,638 basehttp 124 "GET /resultfile/?page=9&search=%E9%9F
 INFO 2019-03-18 11:19:14,072 basehttp 124 "GET /resultfile/?search=arcgis HTTP/1.1" 200 14270
 INFO 2019-03-18 11:19:19,282 basehttp 124 "GET /resultfile/?page=336&search=arcgis HTTP/1.1" 200 12992
 INFO 2019-03-18 11:19:25,509 basehttp 124 "GET /resultfile/?search=arcgis HTTP/1.1" 200 14270
+INFO 2019-03-21 09:20:32,711 basehttp 124 "GET /v0.1/resultfile/?search=pl&flag HTTP/1.1" 200 11300
+WARNING 2019-03-21 09:20:33,051 basehttp 124 "GET /static/rest_framework/css/bootstrap.min.css.map HTTP/1.1" 404 1737
+INFO 2019-03-21 09:21:19,173 basehttp 124 "GET /v0.1/resultfile/?search=pl&flag= HTTP/1.1" 200 11305
+INFO 2019-03-21 09:21:22,463 basehttp 124 "GET /v0.1/resultfile/?search=pl&flag=3 HTTP/1.1" 200 13223
+WARNING 2019-03-21 09:21:22,874 basehttp 124 "GET /static/rest_framework/css/bootstrap.min.css.map HTTP/1.1" 404 1737
