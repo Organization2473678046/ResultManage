@@ -56,19 +56,27 @@ def ergodic02(file_midir):
             ergodic02(path)
         elif os.path.isfile(path):
             ResultFile.objects.create(filepath=path, serverIP="192.168.3.120")
-            print "文件：%s" % path
+            print path
         else:
             ResultFile.objects.create(filepath=path, serverIP="192.168.3.120")
-            print "这是个神秘的文件：%s" % path
+            print path
+
+
+def test_walk(file_midir):
+    for root, dirs, files in os.walk(file_midir):
+        for file in files:
+            ResultFile.objects.create(filepath=root +"/" + file, serverIP="192.168.3.120")
+            print root +"\\" + file
 
 
 
 def main():
-    # file_midir = "\\\\Win-tm5bmh5jntp\新建文件夹\成果管理系统测试文件夹"
-    file_midir = "E:/"
+    file_midir = "\\\\192.168.3.120\\新建文件夹"
+    # file_midir = "192.168.3.120\新建文件夹\成果管理系统测试文件夹"
+    # file_midir = "E:/"
 
-    # conn_database(file_midir)
-    ergodic02(file_midir)
+    # ergodic02(file_midir)
+    test_walk(file_midir)
 
 
 if __name__ == '__main__':
@@ -79,7 +87,3 @@ if __name__ == '__main__':
     end = time.time()
     print end - start
 
-
-"""
-dc0453af4bf805fa26b08173d27dae09c6c39e22
-"""
