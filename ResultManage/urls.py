@@ -29,9 +29,9 @@ router.register(r'resultfile', ResultFileViewSet, base_name='resultfile')
 
 
 urlpatterns = [
-    url(r'^v0.1/admin/', admin.site.urls),
-    url(r'^v0.1/login/$', obtain_jwt_token),
-    url(r'^v0.1/', include(router.urls)),
-    url(r'^v0.1/docs/', include_docs_urls(title=u"成果管理系统API")),
-    url(r'^v0.1/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    # url(r'^v0.2/admin/', admin.site.urls),
+    url(r'^v0.2/login/$', obtain_jwt_token),
+    url(r'^v0.2/', include(router.urls)),
+    url(r'^v0.2/docs/', include_docs_urls(title=u"成果管理系统API")),
+    url(r'^v0.2/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]

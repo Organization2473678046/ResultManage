@@ -6,7 +6,7 @@ from django.db import models
 
 @python_2_unicode_compatible
 class User(AbstractUser):
-    reallyname = models.CharField(max_length=150, default="未命名", null=True, verbose_name=u"真实姓名")
+    reallyname = models.CharField(max_length=1000,null=True, verbose_name=u"真实姓名")
     isadmin = models.BooleanField(default=False, verbose_name=u"是否管理员")
 
     class Meta:
