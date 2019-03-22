@@ -11,7 +11,7 @@ from .serializers import UserSerializer
 
 # Create your views here.
 class UserViewSet(mixins.ListModelMixin, GenericViewSet):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     serializer_class = UserSerializer
 
     def get_queryset(self):
