@@ -142,19 +142,19 @@ AUTH_USER_MODEL = 'users.User'
 # 允许所有主机请求你的API
 CORS_ORIGIN_ALLOW_ALL = True
 # 允许携带cookie
-CORS_ALLOW_CREDENTIALS = True
+# CORS_ALLOW_CREDENTIALS = True
 
 
 
-REST_FRAMEWORK = {
+# REST_FRAMEWORK = {
     # 'DEFAULT_PERMISSION_CLASSES': (
     #     'rest_framework.permissions.IsAuthenticated',
     # ),
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
-    ),
+    # 'DEFAULT_AUTHENTICATION_CLASSES': (
+    #     'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    #     'rest_framework.authentication.SessionAuthentication',
+    #     'rest_framework.authentication.BasicAuthentication',
+    # ),
     # 定义错误处理方法
     # 'EXCEPTION_HANDLER': 'utils.exceptionhandler.exception_handler',
     # 过滤条件
@@ -163,7 +163,7 @@ REST_FRAMEWORK = {
     #     'rest_framework.filters.FileSearchFilter',
     #     'rest_framework.filters.OrderingFilter',
     # ),
-}
+# }
 
 
 

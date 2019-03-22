@@ -6,4 +6,4 @@ from file.models import ResultFile
 class ResultFileSerializer(serializers.ModelSerializer):
     class Meta:
         model = ResultFile
-        fields = ["id", "filepath", "serverIP"]
+        fields = ["id", "filepath", "serverIP","dirlength","dirdepth"]

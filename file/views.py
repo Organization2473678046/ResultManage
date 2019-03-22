@@ -23,15 +23,13 @@ class ResultFileViewSetPagination(PageNumberPagination):
 class ResultFileViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, GenericViewSet):
     serializer_class = ResultFileSerializer
     queryset = ResultFile.objects.all()
-    # pagination_class = ResultFileViewSetPagination
+    pagination_class = ResultFileViewSetPagination
     filter_backends = [SearchFilter, DjangoFilterBackend, OrderingFilter]
-    # filter_backends = [FileSearchFilter]
-    ordering_fields = ("id", "filepath", "serverIP")
-    ordering = ("id",)
+    ordering_fields = ("id", "filepath", "serverIP","dirlength","dirdepth")
+    ordering = ("dirdepth","dirlength")
     search_fields = ('filepath', 'serverIP')
 
-    #
-    #
+
     # def list(self, request, *args, **kwargs):
     #     queryset = self.filter_queryset(self.get_queryset())
     #
