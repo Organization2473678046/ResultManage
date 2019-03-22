@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.db.models import QuerySet
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.filters import OrderingFilter,SearchFilter
+from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework import mixins
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.viewsets import GenericViewSet
@@ -21,14 +21,16 @@ class ResultFileViewSetPagination(PageNumberPagination):
 
 
 class ResultFileViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, GenericViewSet):
+    """
+    list: 获取目录
+    """
     serializer_class = ResultFileSerializer
     queryset = ResultFile.objects.all()
     pagination_class = ResultFileViewSetPagination
     filter_backends = [SearchFilter, DjangoFilterBackend, OrderingFilter]
-    ordering_fields = ("id", "filepath", "serverIP","dirlength","dirdepth")
-    ordering = ("dirdepth","dirlength")
+    ordering_fields = ("id", "filepath", "serverIP", "dirlength", "dirdepth")
+    ordering = ("dirdepth", "dirlength", "id")
     search_fields = ('filepath', 'serverIP')
-
 
     # def list(self, request, *args, **kwargs):
     #     queryset = self.filter_queryset(self.get_queryset())
