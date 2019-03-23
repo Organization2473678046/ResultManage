@@ -8,6 +8,7 @@ from django.utils.encoding import python_2_unicode_compatible
 @python_2_unicode_compatible
 class ResultFile(models.Model):
     """成果文件路径表"""
+    # db_index=True 为该字段创建索引
     filepath = models.TextField(verbose_name=u"成果文件路径")
     serverIP = models.CharField(max_length=500, null=True, verbose_name=u"所属服务器")
     dirlength = models.IntegerField(null=True, verbose_name=u"目录深度")
@@ -83,7 +84,7 @@ class FileInfo(models.Model):
     mediumnum = models.CharField(max_length=1000, null=True, verbose_name=u"介质编号")
     year = models.CharField(max_length=1000, null=True, verbose_name=u"成果年代")
     secretlevel = models.CharField(max_length=1000, null=True, verbose_name=u"成果秘密级别")
-    handoutlist_name = models.CharField(max_length=5000, verbose_name=u"成果所属清单")
+    handoutlist_name = models.CharField(max_length=5000, verbose_name=u"该成果所属清单")
     createtime = models.DateTimeField(auto_now_add=True, verbose_name=u"创建时间")
     updatetime = models.DateTimeField(auto_now=True, verbose_name=u"更新时间")
 
@@ -100,10 +101,9 @@ class FilePath(models.Model):
     """成果文件路径表"""
     filepath = models.TextField(null=True, verbose_name=u"成果文件路径")
     fileinfo_name = models.CharField(max_length=5000, null=True, verbose_name=u"成果资料名称")
-    handoutlist_name = models.CharField(max_length=5000, null=True, verbose_name=u"成果所属清单")
-
-    # createtime = models.DateTimeField(auto_now_add=True, verbose_name=u"创建时间")
-    # updatetime = models.DateTimeField(auto_now=True, verbose_name=u"更新时间")
+    handoutlist_name = models.CharField(max_length=5000, null=True, verbose_name=u"该成果所属清单")
+    createtime = models.DateTimeField(auto_now_add=True, null=True, verbose_name=u"创建时间")
+    updatetime = models.DateTimeField(auto_now=True, null=True, verbose_name=u"更新时间")
 
     class Meta:
         verbose_name = u"成果文件路径表"
