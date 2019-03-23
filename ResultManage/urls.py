@@ -20,13 +20,16 @@ from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
 from rest_framework_jwt.views import obtain_jwt_token
 from users.views import UserViewSet
-from file.views import ResultFileViewSet
+from file.views import ResultFileViewSet, HandOutListNameViewSet, HandOutListViewSet, FileInfoViewSet, FilePathViewSet
 
 router = DefaultRouter()
 
-router.register(r'user',UserViewSet,base_name='user')
+router.register(r'users', UserViewSet, base_name='users')
 router.register(r'resultfile', ResultFileViewSet, base_name='resultfile')
-
+router.register(r'handoutlistnames', HandOutListNameViewSet, base_name='handoutlistnames')
+router.register(r'handoutlists', HandOutListViewSet, base_name='handoutlists')
+router.register(r'fileinfos', FileInfoViewSet, base_name='fileinfos')
+router.register(r'filepaths', FilePathViewSet, base_name='filepaths')
 
 urlpatterns = [
     # url(r'^v0.2/admin/', admin.site.urls),

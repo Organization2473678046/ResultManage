@@ -74,7 +74,7 @@ class ResultFileViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, GenericV
 
 
 class HandOutListNameViewSet(mixins.ListModelMixin, GenericViewSet):
-    queryset = HandOutList
+    queryset = HandOutList.objects.all()
     serializer_class = HandOutListNameSerializer
 
 

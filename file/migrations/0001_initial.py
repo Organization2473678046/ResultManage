@@ -19,6 +19,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('filepath', models.TextField(verbose_name='\u6210\u679c\u6587\u4ef6\u8def\u5f84')),
                 ('serverIP', models.CharField(max_length=500, null=True, verbose_name='\u6240\u5c5e\u670d\u52a1\u5668')),
+                ('dirdepth', models.IntegerField(null=True, verbose_name='\u76ee\u5f55\u6df1\u5ea6')),
+                ('dirlength', models.IntegerField(null=True, verbose_name='\u76ee\u5f55\u6df1\u5ea6')),
             ],
             options={
                 'verbose_name': '\u6210\u679c\u6587\u4ef6',

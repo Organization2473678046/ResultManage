@@ -89,8 +89,8 @@ DATABASES = {
         'NAME': 'resmanageV0.1',
         'USER': 'postgres',
         'PASSWORD': 'Lantucx2018',
-        # 'HOST': 'localhost',
-        'HOST': '192.168.3.120',
+        'HOST': 'localhost',
+        # 'HOST': '192.168.3.120',
         'PORT': '5432',
     }
 }
