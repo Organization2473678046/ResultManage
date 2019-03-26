@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 import logging
+import datetime
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,6 +27,7 @@ SECRET_KEY = 'wh(3f7gp6*kn_wb$likj=s&w6br0og+u!ue87$z5gb025pdj^&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -163,6 +165,10 @@ REST_FRAMEWORK = {
     #     'rest_framework.filters.FileSearchFilter',
     #     'rest_framework.filters.OrderingFilter',
     # ),
+}
+
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),
 }
 
 
