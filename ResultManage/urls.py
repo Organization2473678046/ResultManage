@@ -20,7 +20,8 @@ from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
 from rest_framework_jwt.views import obtain_jwt_token
 from users.views import UserViewSet
-from file.views import ResultFileViewSet, HandOutListNameViewSet, HandOutListViewSet, FileInfoViewSet, FilePathViewSet
+from file.views import ResultFileViewSet, HandOutListNameViewSet, HandOutListViewSet, FileInfoNameViewSet, \
+    FileInfoViewSet, FilePathViewSet
 
 router = DefaultRouter()
 
@@ -28,6 +29,7 @@ router.register(r'users', UserViewSet, base_name='users')
 router.register(r'resultfile', ResultFileViewSet, base_name='resultfile')
 router.register(r'handoutlistnames', HandOutListNameViewSet, base_name='handoutlistnames')
 router.register(r'handoutlists', HandOutListViewSet, base_name='handoutlists')
+router.register(r'fileinfonames', FileInfoNameViewSet, base_name='fileinfonames')
 router.register(r'fileinfos', FileInfoViewSet, base_name='fileinfos')
 router.register(r'filepaths', FilePathViewSet, base_name='filepaths')
 

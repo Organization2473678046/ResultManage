@@ -49,7 +49,7 @@ class HandOutList(models.Model):
     # 密级
     secretlevel = models.CharField(max_length=2000, null=True, verbose_name=u"清单秘密级别")
     # 格式或者介质,介质类型:纸质,光盘(要填写介质编号),硬盘(填写介质编号),网络,其他______
-    # mediumtype = models.CharField(max_length=2000, null=True, verbose_name=u"格式/介质类型")
+    # mediumtype = models.CharField(max_length=2000, null=True, verbose_name=u"格式/介质类型"
     purpose = models.CharField(max_length=2000, null=True, verbose_name=u"用途")
     receiveunit = models.CharField(max_length=5000, null=True, verbose_name=u"接收单位")
     receiver = models.CharField(max_length=5000, null=True, verbose_name=u"接收人")
@@ -59,7 +59,13 @@ class HandOutList(models.Model):
     # 承办参谋 staffofficer
     undertaker = models.CharField(max_length=1000, null=True, verbose_name=u"承办参谋")
     # 递送方式 自取、邮寄、网络、送往、其他__
-    deliveryway = models.CharField(max_length=2000, null=True, verbose_name=u"递送方式")
+    # deliveryway = models.CharField(max_length=2000, null=True, verbose_name=u"递送方式")
+    selfgetway = models.BooleanField(default=False,verbose_name=u"递送方式为自取")
+    postway = models.BooleanField(default=False,verbose_name=u"递送方式为邮寄")
+    networkway = models.BooleanField(default=False,verbose_name=u"递送方式为网络")
+    deliverway = models.BooleanField(default=False,verbose_name=u"递送方式为送往")
+    otherway = models.BooleanField(default=False,verbose_name=u"递送方式为其他")
+    otherwaydetail = models.CharField(max_length=1000,null=True,verbose_name=u"其他递送方式详细信息")
     handler = models.CharField(max_length=1000, null=True, verbose_name=u"清单经办人")
     createtime = models.DateTimeField(auto_now_add=True, verbose_name=u"创建时间")
     updatetime = models.DateTimeField(auto_now=True, verbose_name=u"更新时间")
@@ -75,14 +81,22 @@ class HandOutList(models.Model):
 @python_2_unicode_compatible
 class FileInfo(models.Model):
     """成果资料信息表"""
-    name = models.CharField(max_length=5000, unique=True, verbose_name=u"成果资料名称")
-    type = models.CharField(max_length=5000, null=True, verbose_name=u"成果类型")
+    name = models.CharField(max_length=5000, verbose_name=u"成果资料名称")
+    resulttype = models.CharField(max_length=5000, null=True, verbose_name=u"成果类型")
     num = models.IntegerField(null=True, verbose_name=u"成果数量")
     datasize = models.CharField(max_length=1000, null=True, verbose_name=u"成果数据量GB")
     # 格式或者介质,介质类型:纸质,光盘(要填写介质编号),硬盘(填写介质编号),网络,其他______
-    mediumtype = models.CharField(max_length=1000, null=True, verbose_name=u"格式/介质类型")
-    mediumnum = models.CharField(max_length=1000, null=True, verbose_name=u"介质编号")
-    year = models.CharField(max_length=1000, null=True, verbose_name=u"成果年代")
+    # mediumtype = models.CharField(max_length=1000, null=True, verbose_name=u"格式/介质类型")
+    papermedia = models.BooleanField(default=False,verbose_name=u"纸质介质")
+    cdmedia = models.BooleanField(default=False,verbose_name=u"光盘介质")
+    cdmedianum = models.CharField(max_length=2000,null=True,verbose_name=u"光盘介质编号")
+    diskmedia = models.BooleanField(default=False,verbose_name=u"硬盘介质")
+    diskmedianum = models.CharField(max_length=2000,null=True,verbose_name=u"硬盘介质编号")
+    networkmedia = models.BooleanField(default=False,verbose_name=u"网络介质")
+    othermedia = models.BooleanField(default=False,verbose_name=u"其他介质")
+    othermedianum = models.CharField(max_length=5000,null=True,verbose_name=u"其他介质编号")
+    # mediumnum = models.CharField(max_length=1000, null=True, verbose_name=u"介质编号")
+    resultyear = models.CharField(max_length=1000, null=True, verbose_name=u"成果年代")
     secretlevel = models.CharField(max_length=1000, null=True, verbose_name=u"成果秘密级别")
     handoutlist_name = models.CharField(max_length=5000, verbose_name=u"该成果所属清单")
     createtime = models.DateTimeField(auto_now_add=True, verbose_name=u"创建时间")
