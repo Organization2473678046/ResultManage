@@ -10,7 +10,8 @@ from rest_framework.viewsets import GenericViewSet
 from rest_framework.response import Response
 from django.http import HttpResponse
 from file.models import ResultFile, HandOutList, FileInfo, FilePath
-from file.serializers import ResultFileSerializer, HandOutListNameSerializer, HandOutListSerializer, FileInfoNameSerializer,FileInfoSerializer, FilePathSerializer
+from file.serializers import ResultFileSerializer, HandOutListNameSerializer, HandOutListSerializer, \
+    FileInfoNameSerializer, FileInfoSerializer, FilePathSerializer
 
 
 class ResultFileViewSetPagination(PageNumberPagination):
@@ -90,12 +91,12 @@ class HandOutListViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.
     pagination_class = HandOutListViewSetPagination
     filter_backends = [SearchFilter, DjangoFilterBackend, OrderingFilter]
     ordering_fields = (
-    'id', 'name', "listnum", "auditnum", "secretlevel", "purpose", "receiveunit", "receiver", "receiverinfo",
-    "handovertime", "recievetime", "undertaker", "deliveryway", "handler")
+        'id', 'name', "listnum", "auditnum", "secretlevel", "purpose", "receiveunit", "receiver", "receiverinfo",
+        "handovertime", "recievetime", "undertaker", "deliverway", "handler")
     ordering = ("id",)
     search_fields = (
-    'id', 'name', "listnum", "auditnum", "secretlevel", "purpose", "receiveunit", "receiver", "receiverinfo",
-    "handovertime", "recievetime", "undertaker", "deliveryway", "handler")
+        'id', 'name', "listnum", "auditnum", "secretlevel", "purpose", "receiveunit", "receiver", "receiverinfo",
+        "handovertime", "recievetime", "undertaker", "deliverway", "handler")
 
     # def get_queryset(self):
     #     if self.request is not None:
@@ -141,6 +142,12 @@ class FileInfoViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.Upd
     queryset = FileInfo.objects.all()
     serializer_class = FileInfoSerializer
     pagination_class = FileInfoViewSetPagination
+    filter_backends = [SearchFilter, DjangoFilterBackend, OrderingFilter]
+    ordering_fields = ('id', 'name', "resulttype", "num", "datasize", "resultyear", "secretlevel", "handoutlist_name", "createtime",
+        "updatetime")
+    ordering = ("id",)
+    search_fields = ('id', 'name', "resulttype", "num", "datasize", "papermedia", "cdmedia", "diskmedia", "networkmedia",
+        "othermedia", "resultyear", "secretlevel", "handoutlist_name", "createtime","updatetime")
 
     def get_queryset(self):
         if self.request is not None:
@@ -153,7 +160,8 @@ class FileInfoViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.Upd
             return []
 
 
-class FilePathViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.UpdateModelMixin, GenericViewSet):
+class FilePathViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin,
+                      GenericViewSet):
     """
     list: 查询成果资料文件路径
     create: 批量添加成果资料文件路径
@@ -162,13 +170,18 @@ class FilePathViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.Upd
     permission_classes = [IsAuthenticated]
     pagination_class = FilePathViewSetPagination
     serializer_class = FilePathSerializer
+    filter_backends = [SearchFilter, DjangoFilterBackend, OrderingFilter]
+    ordering_fields = ("id", "filepath", "fileinfo_name", "handoutlist_name", "createtime", "updatetime")
+    ordering = ("id",)
+    search_fields = ("id", "filepath", "fileinfo_name", "handoutlist_name", "createtime", "updatetime")
 
     def get_queryset(self):
         if self.request is not None:
             if self.action == "list":
                 handoutlist_name = self.request.query_params.get("handoutlist_name")
                 fileinfo_name = self.request.query_params.get("fileinfo_name")
-                return FilePath.objects.filter(handoutlist_name=handoutlist_name,fileinfo_name=fileinfo_name).order_by("id")
+                return FilePath.objects.filter(handoutlist_name=handoutlist_name, fileinfo_name=fileinfo_name).order_by(
+                    "id")
             else:
                 return FilePath.objects.all()
         else:
@@ -178,14 +191,19 @@ class FilePathViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.Upd
         filepath_list = request.data.get("filepath_list")
         fileinfo_name = request.data.get("fileinfo_name")
         handoutlist_name = request.data.get("handoutlist_name")
-
+        if handoutlist_name is None:
+            return Response({"msg": "请指定成果分发单"})
+        if fileinfo_name is None:
+            return Response({"msg": "请指定成果"})
+        if filepath_list is None:
+            return Response({"msg": "请选择成果资料路径"})
         filepaths = []
         for path in filepath_list:
             filepath = FilePath.objects.create(
-                filepath=path,
+                filepath=path["filepath"],
                 fileinfo_name=fileinfo_name,
                 handoutlist_name=handoutlist_name
             )
             filepaths.append(filepath)
-        serializer = self.get_serializer(filepaths,many=True)
+        serializer = self.get_serializer(filepaths, many=True)
         return Response(serializer.data)

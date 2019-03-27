@@ -48,24 +48,28 @@ if __name__ == '__main__':
     #     time.sleep(1)
 
     # 添加成果测试数据
-    handoutlists=HandOutList.objects.all()[:20]
-    for handoutlist in handoutlists:
-        for i in range(1,10):
-            FileInfo.objects.create(
-                name="成果"+str(i),
-                resulttype=str(i),
-                num = random.randint(2,50),
-                datasize="{0}GB".format(str(i)),
-                # mediumtype = random.choice(["纸质","光盘","硬盘","网络","其他"]),
-                # mediumnum=str(random.randint(1000,9999)),
-                papermedia=random.choice([True,False]),
-                cdmedia=random.choice([True,False]),
-                diskmedia=random.choice([True,False]),
-                networkmedia=random.choice([True,False]),
-                othermedia=random.choice([True,False]),
-                resultyear = random.choice(["2012","2013","2014","2015","2016","2017","2018"]),
-                secretlevel=str(random.randint(2,7)),
-                handoutlist_name=handoutlist.name
-            )
-            time.sleep(2)
+    # handoutlists=HandOutList.objects.all()[:20]
+    # for handoutlist in handoutlists:
+    #     for i in range(1,10):
+    #         FileInfo.objects.create(
+    #             name="成果"+str(i),
+    #             resulttype=str(i),
+    #             num = random.randint(2,50),
+    #             datasize="{0}GB".format(str(i)),
+    #             # mediumtype = random.choice(["纸质","光盘","硬盘","网络","其他"]),
+    #             # mediumnum=str(random.randint(1000,9999)),
+    #             papermedia=random.choice([True,False]),
+    #             cdmedia=random.choice([True,False]),
+    #             diskmedia=random.choice([True,False]),
+    #             networkmedia=random.choice([True,False]),
+    #             othermedia=random.choice([True,False]),
+    #             resultyear = random.choice(["2012","2013","2014","2015","2016","2017","2018"]),
+    #             secretlevel=str(random.randint(2,7)),
+    #             handoutlist_name=handoutlist.name
+    #         )
+    #         time.sleep(2)
+
+
+
+
     pass
