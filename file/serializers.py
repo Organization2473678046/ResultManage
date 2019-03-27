@@ -4,7 +4,6 @@ from rest_framework import serializers
 from file.models import ResultFile, HandOutList, FileInfo, FilePath
 import logging
 
-
 logger = logging.getLogger("django_error")
 
 
@@ -12,8 +11,6 @@ class ResultFileSerializer(serializers.ModelSerializer):
     class Meta:
         model = ResultFile
         fields = ["id", "filepath", "serverIP", "dirlength", "dirdepth"]
-
-
 
 
 class HandOutListNameSerializer(serializers.ModelSerializer):
@@ -24,6 +21,7 @@ class HandOutListNameSerializer(serializers.ModelSerializer):
 
 class HandOutListSerializer(serializers.ModelSerializer):
     deliverways = serializers.SerializerMethodField(label=u"所选择的介质类型")
+
     class Meta:
         model = HandOutList
         fields = "__all__"
@@ -35,7 +33,7 @@ class HandOutListSerializer(serializers.ModelSerializer):
             "updatetime": {"format": '%Y-%m-%d %H:%M:%S'},
         }
 
-    def get_deliverways(self,obj):
+    def get_deliverways(self, obj):
         # 返回清单所选的所有递送方式
         deliverways_list = []
         if obj.selfgetway:
@@ -57,12 +55,12 @@ class HandOutListSerializer(serializers.ModelSerializer):
 class FileInfoNameSerializer(serializers.ModelSerializer):
     class Meta:
         model = FileInfo
-        fields = ["id","name","handoutlist_name"]
-
+        fields = ["id", "name", "handoutlist_name"]
 
 
 class FileInfoSerializer(serializers.ModelSerializer):
     media = serializers.SerializerMethodField(label=u"所选择的递送方式")
+
     class Meta:
         model = FileInfo
         fields = "__all__"
@@ -70,7 +68,8 @@ class FileInfoSerializer(serializers.ModelSerializer):
             "createtime": {"format": '%Y-%m-%d %H:%M:%S'},
             "updatetime": {"format": '%Y-%m-%d %H:%M:%S'},
         }
-    def get_media(self,obj):
+
+    def get_media(self, obj):
         # 返回成果所选的所有介质
         media_list = []
         if obj.papermedia:
@@ -95,8 +94,6 @@ class FileInfoSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(u"名称为 {0} 的清单不存在".format(handoutlist_name))
 
         return validated_data
-
-
 
 
 class FilePathSerializer(serializers.ModelSerializer):
@@ -124,16 +121,3 @@ class FilePathSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(u"清单 {0} 中名称为 '{1} 的成果资料不存在".format(handoutlist_name, fileinfo_name))
 
         return validated_data
-
-    # def create(self, validated_data):
-    #     filepath_list = validated_data.get("filepath_list")
-    #     for filepath in filepath_list:
-    #         FilePath.objects.create(
-    #             filepath=filepath,
-    #             fileinfo_name=validated_data["fileinfo_name"],
-    #             handoutlist_name=validated_data["handoutlist_name"]
-    #         )
-    #
-    #     pass
-
-

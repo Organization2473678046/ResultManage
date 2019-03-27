@@ -2,25 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="168ab2a0-0bc0-4ef4-a166-6a06550bf3db" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/file/migrations/0004_auto_20190325_0836.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/file/migrations/0005_auto_20190325_1346.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/file/migrations/0006_auto_20190325_1437.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/file/migrations/0007_remove_fileinfo_mediumnum.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ResultManage/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/ResultManage/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ResultManage/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/ResultManage/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ResultManage/wsgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/ResultManage/wsgi.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/file/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/file/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/file/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/file/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/file/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/file/tests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/file/utils/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/file/utils/file_search_filter.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/file/utils/get_dir_list.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/file/utils/search_filter.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/file/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/file/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/test_logging.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/test_logging.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/script/file_search.py" beforeDir="false" afterPath="$PROJECT_DIR$/script/file_search.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/script/os_walk.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -29,7 +15,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/ResultManage$tests.coverage" NAME="tests Coverage Results" MODIFIED="1553495935840" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/file" />
+    <SUITE FILE_PATH="coverage/ResultManage$tests.coverage" NAME="tests Coverage Results" MODIFIED="1553578453411" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/file" />
     <SUITE FILE_PATH="coverage/ResultManage$os_walk.coverage" NAME="os_walk Coverage Results" MODIFIED="1553083332950" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/script" />
     <SUITE FILE_PATH="coverage/ResultManage$distinct.coverage" NAME="distinct Coverage Results" MODIFIED="1552997728822" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/file" />
     <SUITE FILE_PATH="coverage/ResultManage$search_filter.coverage" NAME="search_filter Coverage Results" MODIFIED="1552984675197" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/file" />
@@ -172,7 +158,7 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="5" />
-          <entry key="py" value="4886" />
+          <entry key="py" value="5256" />
           <entry key="py@ResultManage" value="144" />
           <entry key="txt" value="30" />
         </counts>
@@ -181,17 +167,17 @@
         <counts>
           <entry key="CommandLine" value="67" />
           <entry key="PLAIN_TEXT" value="112" />
-          <entry key="Python" value="4886" />
+          <entry key="Python" value="5256" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="32" />
+          <entry key="py" value="40" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="32" />
+          <entry key="Python" value="40" />
         </counts>
       </usages-collector>
     </session>
@@ -203,17 +189,17 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/file/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="170" column="122" selection-start-line="170" selection-start-column="122" selection-end-line="170" selection-end-column="122" />
+            <state relative-caret-position="192">
+              <caret line="169" column="42" selection-start-line="169" selection-start-column="42" selection-end-line="169" selection-end-column="42" />
               <folding>
                 <element signature="e#24#63#0" expanded="true" />
                 <element signature="e#1911#1954#0" />
                 <element signature="e#3742#3767#0" />
-                <marker date="1553520147181" expanded="true" signature="5518:5519" ph="..." />
-                <marker date="1553520147181" expanded="true" signature="5759:5764" ph="..." />
+                <marker date="1553585610581" expanded="true" signature="6011:6012" ph="..." />
+                <marker date="1553585610581" expanded="true" signature="6300:6305" ph="..." />
               </folding>
             </state>
           </provider>
@@ -243,8 +229,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/file/tests.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="20" column="26" selection-start-line="20" selection-start-column="26" selection-end-line="20" selection-end-column="26" />
+            <state relative-caret-position="216">
+              <caret line="12" selection-start-line="12" selection-end-line="12" />
               <folding>
                 <element signature="e#24#63#0" expanded="true" />
               </folding>
@@ -255,14 +241,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/file/serializers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1195">
-              <caret line="67" column="26" lean-forward="true" selection-start-line="67" selection-start-column="26" selection-end-line="67" selection-end-column="26" />
+            <state relative-caret-position="2928">
+              <caret line="122" column="29" selection-start-line="122" selection-start-column="29" selection-end-line="122" selection-end-column="29" />
               <folding>
                 <element signature="e#24#63#0" expanded="true" />
-                <marker date="1553501670662" expanded="true" signature="471:476" ph="..." />
-                <marker date="1553501670662" expanded="true" signature="679:683" ph="..." />
-                <marker date="1553501670662" expanded="true" signature="1988:1993" ph="..." />
-                <marker date="1553501670662" expanded="true" signature="3167:3220" ph="..." />
+                <marker date="1553579902143" expanded="true" signature="468:473" ph="..." />
+                <marker date="1553579902143" expanded="true" signature="676:681" ph="..." />
+                <marker date="1553579902143" expanded="true" signature="1988:1994" ph="..." />
+                <marker date="1553579902143" expanded="true" signature="3168:3221" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/script/facker_demo.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="86">
+              <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+              <folding>
+                <element signature="e#60#99#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -271,11 +269,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/file/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1416">
-              <caret line="113" column="29" selection-start-line="113" selection-start-column="29" selection-end-line="113" selection-end-column="29" />
+            <state relative-caret-position="1560">
+              <caret line="65" column="5" selection-start-line="65" selection-start-column="5" selection-end-line="65" selection-end-column="5" />
               <folding>
                 <element signature="e#24#63#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/script/file_search.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="619">
+              <caret line="60" selection-start-line="60" selection-end-line="60" />
             </state>
           </provider>
         </entry>
@@ -330,9 +337,9 @@
         <option value="$PROJECT_DIR$/users/serializers.py" />
         <option value="$PROJECT_DIR$/users/views.py" />
         <option value="$PROJECT_DIR$/file/models.py" />
-        <option value="$PROJECT_DIR$/file/tests.py" />
         <option value="$PROJECT_DIR$/ResultManage/urls.py" />
         <option value="$PROJECT_DIR$/ResultManage/settings.py" />
+        <option value="$PROJECT_DIR$/file/tests.py" />
         <option value="$PROJECT_DIR$/file/serializers.py" />
         <option value="$PROJECT_DIR$/file/views.py" />
       </list>
@@ -374,17 +381,6 @@
               <item name="ResultManage" type="462c0819:PsiDirectoryNode" />
               <item name="script" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="ResultManage" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ResultManage" type="462c0819:PsiDirectoryNode" />
-              <item name="users" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ResultManage" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ResultManage" type="462c0819:PsiDirectoryNode" />
-              <item name="users" type="462c0819:PsiDirectoryNode" />
-              <item name="migrations" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -418,7 +414,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Django server.ResultManage">
+  <component name="RunManager" selected="Python.tests">
     <configuration name="distinct" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="ResultManage" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -651,12 +647,12 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1407455" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1407455" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" weight="0.13946016" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32928476" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4993573" visible="true" weight="0.42780027" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4993573" visible="true" weight="0.42780027" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3994602" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -718,21 +714,16 @@
     <MESSAGE value="用户登录,清单创建、查询大体实现" />
     <option name="LAST_COMMIT_MESSAGE" value="用户登录,清单创建、查询大体实现" />
   </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>filepath_list</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://C:/Python27/ArcGIS10.2/Lib/warnings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="28" selection-start-line="28" selection-end-line="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python27/ArcGIS10.2/Lib/site-packages/rest_framework/fields.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="397" selection-start-line="397" selection-end-line="397" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Python27/ArcGIS10.2/Lib/site-packages/rest_framework/mixins.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="283">
@@ -865,20 +856,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/script/file_search.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1032">
-          <caret line="8" column="11" lean-forward="true" selection-start-line="8" selection-start-column="11" selection-end-line="8" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/script/facker_demo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="624">
-          <caret line="26" selection-start-line="26" selection-end-line="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Python27/ArcGIS10.2/Lib/site-packages/rest_framework/permissions.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3417">
@@ -995,34 +972,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://C:/Python27/ArcGIS10.2/Lib/site-packages/faker/factory.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Python27/ArcGIS10.2/Lib/importlib/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://C:/Python27/ArcGIS10.2/Lib/site-packages/faker/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="5" column="11" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/file/tests.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="20" column="26" selection-start-line="20" selection-start-column="26" selection-end-line="20" selection-end-column="26" />
-          <folding>
-            <element signature="e#24#63#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/file/serializers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1195">
-          <caret line="67" column="26" lean-forward="true" selection-start-line="67" selection-start-column="26" selection-end-line="67" selection-end-column="26" />
-          <folding>
-            <element signature="e#24#63#0" expanded="true" />
-            <marker date="1553501670662" expanded="true" signature="471:476" ph="..." />
-            <marker date="1553501670662" expanded="true" signature="679:683" ph="..." />
-            <marker date="1553501670662" expanded="true" signature="1988:1993" ph="..." />
-            <marker date="1553501670662" expanded="true" signature="3167:3220" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/file/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1416">
-          <caret line="113" column="29" selection-start-line="113" selection-start-column="29" selection-end-line="113" selection-end-column="29" />
+        <state relative-caret-position="216">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
           <folding>
             <element signature="e#24#63#0" expanded="true" />
           </folding>
@@ -1031,14 +1004,55 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/file/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="170" column="122" selection-start-line="170" selection-start-column="122" selection-end-line="170" selection-end-column="122" />
+        <state relative-caret-position="192">
+          <caret line="169" column="42" selection-start-line="169" selection-start-column="42" selection-end-line="169" selection-end-column="42" />
           <folding>
             <element signature="e#24#63#0" expanded="true" />
             <element signature="e#1911#1954#0" />
             <element signature="e#3742#3767#0" />
-            <marker date="1553520147181" expanded="true" signature="5518:5519" ph="..." />
-            <marker date="1553520147181" expanded="true" signature="5759:5764" ph="..." />
+            <marker date="1553585610581" expanded="true" signature="6011:6012" ph="..." />
+            <marker date="1553585610581" expanded="true" signature="6300:6305" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/file/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1560">
+          <caret line="65" column="5" selection-start-line="65" selection-start-column="5" selection-end-line="65" selection-end-column="5" />
+          <folding>
+            <element signature="e#24#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/script/file_search.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="619">
+          <caret line="60" selection-start-line="60" selection-end-line="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/file/serializers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2928">
+          <caret line="122" column="29" selection-start-line="122" selection-start-column="29" selection-end-line="122" selection-end-column="29" />
+          <folding>
+            <element signature="e#24#63#0" expanded="true" />
+            <marker date="1553579902143" expanded="true" signature="468:473" ph="..." />
+            <marker date="1553579902143" expanded="true" signature="676:681" ph="..." />
+            <marker date="1553579902143" expanded="true" signature="1988:1994" ph="..." />
+            <marker date="1553579902143" expanded="true" signature="3168:3221" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/script/facker_demo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="86">
+          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+          <folding>
+            <element signature="e#60#99#0" expanded="true" />
           </folding>
         </state>
       </provider>
