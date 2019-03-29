@@ -69,6 +69,9 @@ if __name__ == '__main__':
     #         )
     #         time.sleep(2)
 
+    li = []
+    if li:
+        print "非空"
 
 
 

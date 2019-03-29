@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'corsheaders',
+    'haystack',
     'file.apps.FileConfig',
     'users.apps.UsersConfig',
 
@@ -88,6 +89,7 @@ WSGI_APPLICATION = 'ResultManage.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': 'demo',
         'NAME': 'resmanageV0.1',
         'USER': 'postgres',
         'PASSWORD': 'Lantucx2018',
@@ -224,3 +226,18 @@ LOGGING = {
         },
     }
 }
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'URL': 'http://192.168.3.113:9200/',
+        'INDEX_NAME': 'resmanage',
+    },
+}
+
+ELASTICSEARCH_DEFAULT_ANALYZER = 'ik'  # 设置默认分词器为ik
+
+# 当添加、修改、删除数据时，自动生成索引
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+# 指定搜索结果每页显示的条数 (默认10)
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10

@@ -11,6 +11,9 @@ class ResultFile(models.Model):
     # db_index=True 为该字段创建索引
     filepath = models.TextField(verbose_name=u"成果文件路径")
     serverIP = models.CharField(max_length=500, null=True, verbose_name=u"所属服务器")
+    filesize  = models.FloatField(null=True,verbose_name="文件大小,单位: MB")
+    filecreatetime = models.DateTimeField(null=True,verbose_name=u"文件创建时间")
+    fileupdatetime = models.DateTimeField(null=True,verbose_name=u"文件更新时间")
     dirlength = models.IntegerField(null=True, verbose_name=u"目录深度")
     dirdepth = models.IntegerField(null=True, verbose_name=u"目录深度")
 
@@ -43,7 +46,7 @@ class ResultFile(models.Model):
 @python_2_unicode_compatible
 class HandOutList(models.Model):
     """成果分发清单表"""
-    name = models.CharField(max_length=5000, verbose_name=u"成果交付清单名称")
+    name = models.CharField(max_length=5000,unique=True,verbose_name=u"成果交付清单名称")
     listnum = models.CharField(max_length=1000, null=True, verbose_name=u"清单受理编号")
     auditnum = models.CharField(max_length=1000, null=True, verbose_name=u"审核编号")
     # 密级
