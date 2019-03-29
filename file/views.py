@@ -211,7 +211,7 @@ class FilePathViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.Upd
         filepaths = []
         for path in filepath_list:
             filepath = FilePath.objects.create(
-                filepath=path["filepath"],
+                filepath=path["object"]["filepath"],
                 fileinfo_name=fileinfo_name,
                 handoutlist_name=handoutlist_name
             )
