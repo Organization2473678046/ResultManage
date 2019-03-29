@@ -2,6 +2,8 @@
 from __future__ import unicode_literals
 from rest_framework import serializers
 from file.models import ResultFile, HandOutList, FileInfo, FilePath
+from drf_haystack.serializers import HaystackSerializer
+from file.search_indexes import ResultFileIndex
 import logging
 
 logger = logging.getLogger("django_error")
@@ -11,6 +13,17 @@ class ResultFileSerializer(serializers.ModelSerializer):
     class Meta:
         model = ResultFile
         fields = ["id", "filepath", "serverIP", "dirlength", "dirdepth"]
+
+class ResultFileIndexSerializer(HaystackSerializer):
+    """
+    SKU索引结果数据序列化器
+    """
+    object = ResultFileSerializer(read_only=True)
+
+    class Meta:
+        index_classes = [ResultFileIndex]
+        fields = ('text', 'object')
+
 
 
 class HandOutListNameSerializer(serializers.ModelSerializer):

@@ -10,8 +10,9 @@ from rest_framework.viewsets import GenericViewSet
 from rest_framework.response import Response
 from django.http import HttpResponse
 from file.models import ResultFile, HandOutList, FileInfo, FilePath
-from file.serializers import ResultFileSerializer, HandOutListNameSerializer, HandOutListSerializer, \
+from file.serializers import ResultFileSerializer, ResultFileIndexSerializer,HandOutListNameSerializer, HandOutListSerializer, \
     FileInfoNameSerializer, FileInfoSerializer, FilePathSerializer
+from drf_haystack.viewsets import HaystackViewSet
 
 
 class ResultFileViewSetPagination(PageNumberPagination):
@@ -72,6 +73,16 @@ class ResultFileViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, GenericV
     #         return self.get_paginated_response(page)
     #     return Response(queryset)
     #     # return HttpResponse(queryset)
+
+
+class ResultFileSearchViewSet(HaystackViewSet):
+    """
+    ResultFile搜索
+    """
+    index_models = [ResultFile]
+    pagination_class = ResultFileViewSetPagination
+
+    serializer_class = ResultFileIndexSerializer
 
 
 class HandOutListNameViewSet(mixins.ListModelMixin, GenericViewSet):
