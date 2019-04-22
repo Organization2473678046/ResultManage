@@ -65,7 +65,7 @@ class FileInfo(models.Model):
     """成果资料信息表"""
     name = models.CharField(max_length=5000, verbose_name=u"成果资料名称")
     resulttype = models.CharField(max_length=5000, null=True,blank=True, verbose_name=u"成果类型")
-    num = models.IntegerField(null=True,blank=True, verbose_name=u"成果数量")
+    num = models.CharField(max_length=2000,null=True,blank=True, verbose_name=u"成果数量")
     datasize = models.CharField(max_length=1000, null=True,blank=True, verbose_name=u"成果数据量GB")
     # 格式或者介质,介质类型:纸质,光盘(要填写介质编号),硬盘(填写介质编号),网络,其他______
     # mediumtype = models.CharField(max_length=1000, null=True, verbose_name=u"格式/介质类型")

@@ -15,7 +15,7 @@ if not os.environ.get("DJANGO_SETTINGS_MODULE"):
 import django
 
 django.setup()
-from file.models import ResultFile, HandOutList,FileInfo,FilePath
+from file.models import HandOutList,FileInfo,FilePath
 
 if __name__ == '__main__':
 
@@ -68,10 +68,12 @@ if __name__ == '__main__':
     #         )
     #         time.sleep(2)
 
-    li = []
-    if li:
-        print("非空")
+    # li = []
+    # if li:
+    #     print("非空")
+    # filepath = FilePath.objects.get(handoutlist_name="苏果超市4", fileinfo_name="成果1",
+    #                                             filepath= "\\\\192.168.3.120\\新建文件夹\\120转180所需安装包\\apache\\Microsoft.NET.exe")
 
-
+    # print(filepath)
 
     pass

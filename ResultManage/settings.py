@@ -89,7 +89,8 @@ WSGI_APPLICATION = 'ResultManage.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'resmanageV0.1',
+        # 'NAME': 'resmanageV0.1',
+        'NAME': 'resmanageV0.2',
         'USER': 'postgres',
         'PASSWORD': 'Lantucx2018',
         'HOST': 'localhost',

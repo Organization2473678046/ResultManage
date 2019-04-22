@@ -3,8 +3,8 @@ import sys
 from elasticsearch import Elasticsearch
 
 
-def create_index(index_name):
-    es = Elasticsearch(timeout=20)
+def create_index(es, index_name):
+    # es = Elasticsearch(timeout=20)
     body = {
         "settings": {
             "index": {
@@ -46,15 +46,18 @@ def create_index(index_name):
                         "type": "keyword",
                         # "ignore_above": 100
                     },
+                    "filesize": {
+                        "type": "keyword",
+                    },
                     "filecreatetime": {
                         "type": "date",
                         "format": "yyyy-MM-dd HH:mm:ss",
-                        "index_options": "offsets"
+                        # "index_options": "offsets"
                     },
                     "fileupdatetime": {
                         "type": "date",
                         "format": "yyyy-MM-dd HH:mm:ss",
-                        "index_options": "offsets"
+                        # "index_options": "offsets"
                     },
 
                 }
@@ -67,6 +70,11 @@ def create_index(index_name):
 
 
 if __name__ == '__main__':
-    print(u"要创建的索引名称为:%s" % sys.argv[1])
-    index_name = sys.argv[1]
-    create_index(index_name)
+    # es = Elasticsearch("192.168.1.110:9200",timeout=20)
+    es = Elasticsearch(timeout=120)
+    if len(sys.argv) == 2:
+        print("要创建的索引名称为:%s" % sys.argv[1])
+        index_name = sys.argv[1]
+        create_index(es, index_name)
+    else:
+        print("脚本运行方式为: python3 %s 要创建的索引名称" % sys.argv[0])

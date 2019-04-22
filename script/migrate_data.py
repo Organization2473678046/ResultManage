@@ -23,7 +23,7 @@ def TimeStampToTime(timestamp):
     timeStruct = time.localtime(timestamp)
     return time.strftime('%Y-%m-%d %H:%M:%S', timeStruct)
 
-
+# 抓取文件目录保存到sqlite中
 def mysqlite(dir, dbname):
     conn = sqlite3.connect(dbname)
     cursor = conn.cursor()
@@ -54,7 +54,7 @@ def mysqlite(dir, dbname):
     print(dbname, u"扫描完成")
     return True
 
-
+# 从sqlite中读取数据插入到postgresql中
 def insert_data(dbname):
     conn = sqlite3.connect(dbname)
     cursor = conn.cursor()
@@ -105,6 +105,13 @@ def insert_data(dbname):
     print(dbname, u"数据迁移完毕")
     return True
 
+def change_flage(dbname):
+    conn = sqlite3.connect(dbname)
+    cursor = conn.cursor()
+    cursor.execute("update result set flag='0' where flag='1'")
+    conn.commit()
+    conn.close()
+    print("修改成功")
 
 def main(old_dbdir, new_dbdir):
     dir_list = os.listdir(old_dbdir)
@@ -116,9 +123,14 @@ def main(old_dbdir, new_dbdir):
                 shutil.move(dbname, new_dbdir)
 
 
-os.path.getsize()
-if __name__ == '__main__':
 
+if __name__ == '__main__':
     # insert_data(u"/opt/rh/httpd24/root/var/www/html/ResultManage/中国1.db")
     # main()
+    # scan_dir(u'\\\\192.168.3.120\\新建文件夹\\120转180所需安装包',
+    #          u"D:\\PycharmProjects\\ResultManage\\no-elasticsearch-py3\\ResultManage\\中国2.db")
+    # scan_dir(u'\\\\192.168.3.120\\新建文件夹',
+    #          u"D:\\PycharmProjects\\ResultManage\\no-elasticsearch-py3\\ResultManage\\中国4.db")
+
+    change_flage(u"D:\\PycharmProjects\\ResultManage\\no-elasticsearch-py3\\ResultManage\\中国6.db")
     pass

@@ -14,6 +14,11 @@ from .serializers import UserSerializer
 class UserViewSet(mixins.ListModelMixin,mixins.CreateModelMixin,GenericViewSet):
     permission_classes = [IsAuthenticated,IsAdminUser]
     serializer_class = UserSerializer
-    queryset = User.objects.all().order_by("id")
-    # filter_backends = [OrderingFilter]
+    def get_queryset(self):
+        user = self.request.user
+        if self.action == "list":
+            return User.objects.filter(id=user.id)
+        else:
+            return User.objects.all()
+
 

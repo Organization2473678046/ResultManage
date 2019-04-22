@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.db.models import QuerySet
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated,IsAdminUser
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework import mixins
@@ -100,7 +100,7 @@ class HandOutListViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.
     create :创建分发单
     update: 修改分发单
     """
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated,IsAdminUser]
     queryset = HandOutList.objects.all()
     serializer_class = HandOutListSerializer
     pagination_class = HandOutListViewSetPagination
@@ -140,7 +140,7 @@ class FileInfoNameViewSet(mixins.ListModelMixin, GenericViewSet):
     list: 查询成果资料名字信息
 
     """
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated,IsAdminUser]
     # queryset = FileInfo.objects.all().order_by("id")
     serializer_class = FileInfoNameSerializer
 
@@ -160,7 +160,7 @@ class FileInfoViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.Upd
     create: 添加成果资料
     update: 修改成果资料
     """
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated,IsAdminUser]
     queryset = FileInfo.objects.all()
     serializer_class = FileInfoSerializer
     pagination_class = FileInfoViewSetPagination
@@ -191,7 +191,7 @@ class FilePathViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.Upd
     create: 批量添加成果资料文件路径
     update: 修改成果资料文件路径
     """
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated,IsAdminUser]
     pagination_class = FilePathViewSetPagination
     serializer_class = FilePathSerializer
     filter_backends = [SearchFilter, DjangoFilterBackend, OrderingFilter]
@@ -226,11 +226,11 @@ class FilePathViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.Upd
         for path in filepath_list:
             try:
                 filepath = FilePath.objects.get(handoutlist_name=handoutlist_name, fileinfo_name=fileinfo_name,
-                                                filepath=path)
+                                                filepath=path["_source"]["filepath"])
             except FilePath.DoesNotExist:
                 filepath = FilePath.objects.create(
                     # filepath=path["object"]["filepath"],
-                    filepath=path["filepath"],  # TODO 此处需要修改
+                    filepath=path["_source"]["filepath"],  # TODO 此处需要修改
                     fileinfo_name=fileinfo_name,
                     handoutlist_name=handoutlist_name
                 )
