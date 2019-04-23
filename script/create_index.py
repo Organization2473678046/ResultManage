@@ -15,11 +15,11 @@ def create_index(es, index_name):
                 "analysis": {
                     "analyzer": {  # 这里定义分析器
                         "my_analyzer": {
-                            "tokenizer": "my_analyzer"  # 分词器
+                            "tokenizer": "my_tokenizer"  # 分词器
                         }
                     },
                     "tokenizer": {  # 这里定义分词器
-                        "my_analyzer": {
+                        "my_tokenizer": {
                             "type": "ngram",
                             "min_gram": 1,
                             "max_gram": 20,
