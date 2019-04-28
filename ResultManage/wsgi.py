@@ -3,7 +3,7 @@ WSGI config for ResultManage project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
-For more information on this file, see
+For more information on this results, see
 https://docs.djangoproject.com/en/1.11/howto/deployment/wsgi/
 """
 

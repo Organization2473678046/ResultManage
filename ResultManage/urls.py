@@ -19,26 +19,19 @@ from django.contrib import admin
 from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
 from rest_framework_jwt.views import obtain_jwt_token
-from users.views import UserViewSet
-from file.views import HandOutListNameViewSet, HandOutListViewSet, FileInfoNameViewSet, \
-    FileInfoViewSet, FilePathViewSet
-# from file.views import ResultFileSearchViewSet
+from users.views import UserViewSet, AuthenticateView
+from results.views import HandOutListViewSet
 
 router = DefaultRouter()
 
 router.register(r'users', UserViewSet, base_name='users')
-# router.register(r'resultfile', ResultFileViewSet, base_name='resultfile')
-# router.register('resultfilesearch', ResultFileSearchViewSet, base_name='resultfile_search')
-router.register(r'handoutlistnames', HandOutListNameViewSet, base_name='handoutlistnames')
 router.register(r'handoutlists', HandOutListViewSet, base_name='handoutlists')
-router.register(r'fileinfonames', FileInfoNameViewSet, base_name='fileinfonames')
-router.register(r'fileinfos', FileInfoViewSet, base_name='fileinfos')
-router.register(r'filepaths', FilePathViewSet, base_name='filepaths')
 
 urlpatterns = [
-    # url(r'^v0.2/admin/', admin.site.urls),
-    url(r'^v0.2/login/$', obtain_jwt_token),
-    url(r'^v0.2/', include(router.urls)),
-    url(r'^v0.2/docs/', include_docs_urls(title=u"成果管理系统API")),
-    url(r'^v0.2/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    # url(r'^v0.3/admin/', admin.site.urls),
+    # url(r'^v0.2/login/$', obtain_jwt_token),
+    url(r'^v0.3/login/$', AuthenticateView.as_view()),
+    url(r'^v0.3/', include(router.urls)),
+    url(r'^v0.3/docs/', include_docs_urls(title=u"成果管理系统API")),
+    url(r'^v0.3/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
