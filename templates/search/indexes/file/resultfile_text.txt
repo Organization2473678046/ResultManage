@@ -1,4 +1,0 @@
-{{ object.filepath }}
-{{ object.filesize }}
-{{ object.filecreatetime }}
-{{ object.fileupdatetime }}
