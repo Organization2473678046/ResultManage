@@ -16,16 +16,19 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.views.static import serve
+from django.conf import settings
 from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
 from rest_framework_jwt.views import obtain_jwt_token
 from users.views import UserViewSet, AuthenticateView
-from results.views import HandOutListViewSet
+from results.views import HandOutListViewSet,ExportHandoutlistView
 
 router = DefaultRouter()
 
 router.register(r'users', UserViewSet, base_name='users')
 router.register(r'handoutlists', HandOutListViewSet, base_name='handoutlists')
+router.register(r'exporthandoutlist', ExportHandoutlistView, base_name='exporthandoutlist')
 
 urlpatterns = [
     # url(r'^v0.3/admin/', admin.site.urls),
@@ -33,5 +36,6 @@ urlpatterns = [
     url(r'^v0.3/login/$', AuthenticateView.as_view()),
     url(r'^v0.3/', include(router.urls)),
     url(r'^v0.3/docs/', include_docs_urls(title=u"成果管理系统API")),
+    url(r'^v0.3/media/(?P<path>.*)$', serve, {"document_root": settings.MEDIA_ROOT}),
     url(r'^v0.3/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]

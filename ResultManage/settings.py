@@ -170,6 +170,9 @@ JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),
 }
 
+MEDIA_URL = '/v0.3/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
 
 
 LOGGING = {

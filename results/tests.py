@@ -21,7 +21,7 @@ if __name__ == '__main__':
     # results = ResultFile.objects.filter(filepath=None)
     # print results
     # 添加分发清单测试数据
-    for i in range(100):
+    for i in range(50):
         HandOutList.objects.create(
             name="苏果超市" + str(i * 2),
             uniquenum=datetime.now().strftime("%Y%m%d%H%M%S%f") + "%06d" % i,
@@ -98,14 +98,12 @@ if __name__ == '__main__':
     #
     #     print(i)
 
-    # dict1 = {"name="123","key="key"}
-    # print(dict1.keys())
-    # if "name" in dict1.keys():
-    #     print("有")
-    # from datetime import datetime
 
     # datetime.now().strftime("%Y%m%d%H%M%S%f") + "%06d" % 2
     # print(datetime.now().strftime("%Y%m%d%H%M%S%f") + "%06d" % 55557777)
     # print(type(datetime.now().strftime("%Y%m%d%H%M%S%f")))
 
+
+    # print(datetime.now().strftime("%Y"))
+    # print(os.path.join("handoutlist_docxs","111111.docx"))
     pass

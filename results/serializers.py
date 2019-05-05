@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+import os
+from django.conf import settings
 from rest_framework import serializers
 from results.models import HandOutList, FileInfo
 from datetime import datetime
+from generate_file import generate_docx
 import json
 import logging
 
@@ -68,6 +71,47 @@ class HandOutListSerializer(serializers.ModelSerializer):
                 fileinfo = FileInfo.objects.create(**fileinfo_dict)
 
         return handoutlist
+
+# 导出分发单序列化器
+# class ExportHandoutlistSerializer(serializers.ModelSerializer):
+#     result_list = serializers.ListField(max_length=50000, allow_empty=True, write_only=True,
+#                                         label=u"创建分发单时对应的成果")
+#     class Meta:
+#         model = HandOutList
+#         fields = "__all__"
+#         # "id", "title", "signer", "name", "uniquenum", "listnum", "auditnum", "secrecyagreementnum", "purpose",
+#         #         "sendunit",
+#         #         "sendunitaddr", "sendunitpostcode", "receiveunit", "receiveunitaddr", "receiveunitpostcode", "handler",
+#         #         "handlerphonenum", "handlermobilephonenum", "receiver",
+#         #         "receiverphonenum", "receivermobilephonenum", "sendouttime", "recievetime" "selfgetway",
+#         #         "postway", "networkway", "sendtoway", "otherway", "signature", "papermedia", "cdmedia", "diskmedia",
+#         #         "networkmedia",
+#         #         "othermedia", "medianums", "mapnums", "createtime", "filename", "file",
+#         #         "updatetime"
+#         extra_kwargs = {
+#             # "name": {"required": True, "allow_null": False, "help_text": u"分发单名字"},
+#             "uniquenum": {"required": False},
+#             "createtime": {"format": '%Y-%m-%d %H:%M:%S'},
+#             "updatetime": {"format": '%Y-%m-%d %H:%M:%S'},
+#         }
+#
+#
+#     def to_representation(self, instance):
+#         data = super().to_representation(instance)
+#         fileinfos = FileInfo.objects.filter(handoutlist_uniquenum=instance.uniquenum)
+#         serializer = FileInfoSerializer(fileinfos, many=True)
+#         data["result_list"] = serializer.data
+#         return data
+#
+#
+#     def update(self, instance, validated_data):
+#         fileinfo_list = FileInfo.objects.filter(handoutlist_uniquenum=instance.uniquenum)
+#         templates_dir = os.path.join(settings.BASE_DIR, "templates", "docx_templates")
+#         handoutlist_docxs = os.path.join(settings.MEDIA_ROOT, "handoutlist_docxs")
+#         handoutlist_docs = os.path.join(settings.MEDIA_ROOT, "handoutlist_docs")
+#         newhandoutlist = generate_docx(instance, fileinfo_list, templates_dir, handoutlist_docxs, handoutlist_docs)
+#
+#         return newhandoutlist
 
 
 class FileInfoSerializer(serializers.ModelSerializer):

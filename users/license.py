@@ -9,7 +9,7 @@ class LicensePerssion(BasePermission):
     message = u"授权已过期,请联系管理人员更换授权文件"
 
     def has_permission(self, request, view):
-        time_ = datetime.strptime("2019-04-30", "%Y-%m-%d")
+        time_ = datetime.strptime("2019-05-10", "%Y-%m-%d")
         if datetime.now() >= time_:
             return False
         return True

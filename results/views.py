@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+import os
+from django.conf import settings
 from django.db.models import QuerySet
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from django_filters.rest_framework import DjangoFilterBackend
@@ -11,6 +13,7 @@ from rest_framework.response import Response
 from django.http import HttpResponse
 from results.models import HandOutList, FileInfo
 from results.serializers import HandOutListSerializer
+from generate_file import generate_docx
 
 
 class HandOutListViewSetPagination(PageNumberPagination):
@@ -75,3 +78,24 @@ class HandOutListViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.
     #     fileinfos_serializer = FileInfoSerializer(fileinfos, many=True)
     #     return Response({"handoutlist": handoutlist_serializer.data, "fileinfos": fileinfos_serializer.data})
     #
+
+
+# class ExportHandoutlistView(mixins.UpdateModelMixin,GenericViewSet):
+class ExportHandoutlistView(mixins.ListModelMixin,mixins.RetrieveModelMixin,
+                         mixins.UpdateModelMixin,GenericViewSet):
+    permission_classes = [IsAuthenticated, IsAdminUser]
+    queryset = HandOutList.objects.all()
+    serializer_class = HandOutListSerializer
+
+    def update(self, request, *args, **kwargs):
+        handoutlist = self.get_object()
+        fileinfo_list = FileInfo.objects.filter(handoutlist_uniquenum=handoutlist.uniquenum)
+        templates_dir = os.path.join(settings.BASE_DIR,"templates","docx_templates")
+        handoutlist_docxs = os.path.join(settings.MEDIA_ROOT,"handoutlist_docxs")
+        handoutlist_docs = os.path.join(settings.MEDIA_ROOT,"handoutlist_docs")
+        newhandoutlist = generate_docx(handoutlist, fileinfo_list, templates_dir, handoutlist_docxs, handoutlist_docs)
+
+        serializer = self.get_serializer(newhandoutlist)
+        return Response(serializer.data)
+
+
