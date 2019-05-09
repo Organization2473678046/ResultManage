@@ -10,6 +10,8 @@
 /logs/*
 !/media/.gitkeep
 !/media/license/*
+!/media/handoutlist_docxs/.gitkeep
+
 
 # local env files
 .env.local
