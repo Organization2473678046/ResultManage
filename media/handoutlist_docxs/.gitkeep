@@ -2,22 +2,13 @@
 
 
 
-#media/
-
-#/media/*
-
-#!.gitkeep
-#!.gitignore
+media/
 
 
-/media/handoutlist_docxs/*
 
-/.idea/*
-/logs/*
-!/media/.gitkeep
-!/media/license/*
-!/media/handoutlist_docxs/.gitkeep
 
+# /media/*
+# !/media/tt.py
 
 
 # local env files

@@ -95,6 +95,8 @@ class ExportHandoutlistView(mixins.ListModelMixin, mixins.RetrieveModelMixin, Ge
         dbname = settings.DATABASES["default"]["NAME"]
         templates_dir = os.path.join(settings.BASE_DIR, "templates", "docx_templates")
         handoutlist_docxs = os.path.join(settings.MEDIA_ROOT, "handoutlist_docxs")
+        if not os.path.exists(handoutlist_docxs):
+            os.mkdir(handoutlist_docxs)
         # handoutlist_docs = os.path.join(settings.MEDIA_ROOT, "handoutlist_docs")
         # generate_docx.delay(dbname, handoutlist.id, handoutlist.uniquenum, templates_dir,
         #                                        handoutlist_docxs)
