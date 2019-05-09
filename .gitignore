@@ -8,7 +8,7 @@
 /.idea/*
 /logs/*
 !/media/.gitkeep
-!/media/license
+!/media/license/*
 
 
 # local env files
