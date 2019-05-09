@@ -32,6 +32,6 @@ def tables_2017(document, cursor, date_now):
         else:
             row2 = (name, secretlevel, resultnum, datasize, formatormedia, remarks, handoutlist_uniquenum)
             cursor.execute(
-                "INSERT INTO book_fileinfo (name, secretlevel, resultnum, datasize, formatormedia, remarks, handoutlist_uniquenum) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                "INSERT INTO results_fileinfo (name, secretlevel, resultnum, datasize, formatormedia, remarks, handoutlist_uniquenum) VALUES (?, ?, ?, ?, ?, ?, ?)",
                 row2)
 

@@ -31,5 +31,5 @@ def tables_2018(document, cursor, date_now):
         else:
             print(table_list)
             row2 = (name, secretlevel, resultnum, datasize, formatormedia, remarks, handoutlist_uniquenum)
-            cursor.execute("INSERT INTO book_fileinfo (name, secretlevel, resultnum, datasize, formatormedia, remarks, handoutlist_uniquenum) VALUES (?, ?, ?, ?, ?, ?, ?)", row2)
+            cursor.execute("INSERT INTO results_fileinfo (name, secretlevel, resultnum, datasize, formatormedia, remarks, handoutlist_uniquenum) VALUES (?, ?, ?, ?, ?, ?, ?)", row2)
 
