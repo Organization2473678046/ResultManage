@@ -5,11 +5,11 @@
 #media/
 
 /media/*
+
 /.idea/*
 /logs/*
 !/media/.gitkeep
 !/media/license/*
-!/media/handoutlist_docxs/*
 
 # local env files
 .env.local
