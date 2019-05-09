@@ -2,13 +2,11 @@
 
 
 
-#media/
+media/
 
-/media/*
-/.idea/*
-/logs/*
-!/media/.gitkeep
-!/media/license
+
+# /media/*
+# !/media/tt.py
 
 
 # local env files
