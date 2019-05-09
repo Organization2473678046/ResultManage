@@ -1,8 +1,18 @@
 # -*- coding: utf-8 -*-
+# coding=utf8
+
 import os
+import sys
+# import io
+
+# sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding='utf-8')
+from importlib import reload
+from urllib import parse
+
 if not os.environ.get("DJANGO_SETTINGS_MODULE"):
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "ResultManage.settings")
 import django
+
 django.setup()
 import time
 import random
@@ -10,6 +20,7 @@ import subprocess
 import docx
 from datetime import datetime
 import re
+import chardet
 # import psycopg2
 import sqlite3
 from docx.enum.text import WD_ALIGN_PARAGRAPH
@@ -20,7 +31,10 @@ from docx.enum.table import WD_CELL_VERTICAL_ALIGNMENT, WD_ROW_HEIGHT_RULE, WD_T
 def generate_docx(handoutlist, fileinfo_list, templates_dir, handoutlist_docxs, handoutlist_docs):
     result_count = len(fileinfo_list)
     template_filepath = os.path.join(templates_dir, "template" + str(result_count) + ".docx")
-    print(template_filepath)
+    # TODO
+    if not os.path.exists(template_filepath):
+        return None
+    # print(template_filepath)
     doc = docx.Document(template_filepath)
     # 如果只为null,替换成空字符串""
     handoutlist_propertys = [
@@ -126,7 +140,7 @@ def generate_docx(handoutlist, fileinfo_list, templates_dir, handoutlist_docxs, 
     medianums = handoutlist_propertys[8]
     # doc.paragraphs[7].text = doc.paragraphs[7].text.replace("□纸质  □光盘  □硬盘  □网络  □其他", medias)
     # doc.paragraphs[7].text = doc.paragraphs[7].text.replace("medianums", medianums)
-    doc.paragraphs[7].text ="介质类型： " + medias+"      介质编号："+medianums
+    doc.paragraphs[7].text = "介质类型： " + medias + "      介质编号：" + medianums
 
     # 发出单位
     sendunit = handoutlist_propertys[9]
@@ -191,19 +205,26 @@ def generate_docx(handoutlist, fileinfo_list, templates_dir, handoutlist_docxs, 
         #     cell.vertical_alignment = WD_ALIGN_VERTICAL.CENTER  # 垂直对齐
         # print(len(row.cells[1].paragraphs[0].runs))
 
+        # TODO
         row.cells[0].paragraphs[0].runs[0].text = str(count)
         # name
-        row.cells[1].paragraphs[0].runs[0].text = fileinfo.name if fileinfo.name is not None and fileinfo.name != "None" else ""
+        row.cells[1].paragraphs[0].runs[
+            0].text = fileinfo.name if fileinfo.name is not None and fileinfo.name != "None" else ""
         # secretlevel
-        row.cells[2].paragraphs[0].runs[0].text = fileinfo.secretlevel if fileinfo.secretlevel is not None and fileinfo.secretlevel != "None" else ""
+        row.cells[2].paragraphs[0].runs[
+            0].text = fileinfo.secretlevel if fileinfo.secretlevel is not None and fileinfo.secretlevel != "None" else ""
         # resultnum
-        row.cells[3].paragraphs[0].runs[0].text = fileinfo.resultnum if fileinfo.resultnum is not None and fileinfo.resultnum != "None" else ""
+        row.cells[3].paragraphs[0].runs[
+            0].text = fileinfo.resultnum if fileinfo.resultnum is not None and fileinfo.resultnum != "None" else ""
         # datasize
-        row.cells[4].paragraphs[0].runs[0].text = fileinfo.datasize if fileinfo.datasize is not None and fileinfo.datasize != "None" else ""
+        row.cells[4].paragraphs[0].runs[
+            0].text = fileinfo.datasize if fileinfo.datasize is not None and fileinfo.datasize != "None" else ""
         # formatormedium
-        row.cells[5].paragraphs[0].runs[0].text = fileinfo.formatormedium if fileinfo.formatormedium is not None and fileinfo.formatormedium != "None" else ""
+        row.cells[5].paragraphs[0].runs[
+            0].text = fileinfo.formatormedia if fileinfo.formatormedia is not None and fileinfo.formatormedia != "None" else ""
         # remarks
-        row.cells[6].paragraphs[0].runs[0].text = fileinfo.remarks if fileinfo.remarks is not None and fileinfo.remarks != "None" else ""
+        row.cells[6].paragraphs[0].runs[
+            0].text = fileinfo.remarks if fileinfo.remarks is not None and fileinfo.remarks != "None" else ""
         count += 1
 
     mapnums = handoutlist_propertys[23]
@@ -212,12 +233,26 @@ def generate_docx(handoutlist, fileinfo_list, templates_dir, handoutlist_docxs, 
     # 添加段落
     # doc.add_paragraph(mapnums)
     # filename = handoutlist[34]
-    filename = "测绘" + datetime.now().strftime("%Y") + "-" + "%04d" % handoutlist.id + ".docx"
+    filename = datetime.now().strftime("%Y") + "-" + "%04d" % handoutlist.id + ".docx"
+    # str_type = chardet.detect(filename.encode())
+    # print(str_type['encoding'], "-----------")
+    # with open("/opt/rh/httpd24/root/var/www/html/ResultManage/script/1.txt",'wb') as f:
+    #     f.write(filename.encode("utf-8"))
+        # f.write("%s"%type(filename))
+        # f.write("%s"%str_type)
     docx_filepath = os.path.join(handoutlist_docxs, filename)
+    # with open("/opt/rh/httpd24/root/var/www/html/ResultManage/script/1.txt", 'wb') as f:
+    #     f.write(docx_filepath.encode("utf-8"))
+    # docx_filepath = parse.quote(docx_filepath)
+    # doc.save(ascii(docx_filepath))
     doc.save(docx_filepath)
 
-    handoutlist.file = os.path.join("handoutlist_docxs",filename)
-    print("调用了generate_docx函数")
+    new_filename = u"测绘"+filename
+    new_docx_filepath = os.path.join(handoutlist_docxs, new_filename)
+    os.rename(docx_filepath,new_docx_filepath)
+    handoutlist.file = os.path.join("handoutlist_docxs", new_filename)
+    # print("调用了generate_docx函数")
+    handoutlist.save()
     return handoutlist
 
     # 转换为doc格式

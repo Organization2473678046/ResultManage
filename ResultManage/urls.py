@@ -21,14 +21,18 @@ from django.conf import settings
 from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
 from rest_framework_jwt.views import obtain_jwt_token
-from users.views import UserViewSet, AuthenticateView
-from results.views import HandOutListViewSet,ExportHandoutlistView
+from users.views import UserViewSet, AuthenticateView, LicenseViewSet
+from results.views import HandOutListViewSet, ExportHandoutlistView, EchartReceiveUnitViewSet, EchartReceiveTimeViewSet
 
 router = DefaultRouter()
 
 router.register(r'users', UserViewSet, base_name='users')
 router.register(r'handoutlists', HandOutListViewSet, base_name='handoutlists')
 router.register(r'exporthandoutlist', ExportHandoutlistView, base_name='exporthandoutlist')
+router.register(r'echartreceiveunit', EchartReceiveUnitViewSet, base_name='echartreceiveunit')
+router.register(r'echartreceivetime', EchartReceiveTimeViewSet, base_name='echartreceivetime')
+router.register(r'license', LicenseViewSet, base_name='license')
+
 
 urlpatterns = [
     # url(r'^v0.3/admin/', admin.site.urls),

@@ -2,7 +2,7 @@
 import sqlite3
 import os
 import shutil
-from faker import Faker
+# from faker import Faker
 from datetime import datetime
 from elasticsearch import Elasticsearch
 from elasticsearch.helpers import bulk

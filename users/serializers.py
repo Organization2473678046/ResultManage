@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
+import os
+
 from rest_framework import serializers
-from users.models import User
+
+from ResultManage import settings
+from users.models import User, License
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -31,3 +35,20 @@ class UserSerializer(serializers.ModelSerializer):
         user.save()
 
         return user
+
+class LicenseSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = License
+        fields = ['file']
+
+    def create(self, validated_data):
+        mediapath = os.path.join(settings.MEDIA_ROOT)
+        filename = validated_data["file"].name.split(".")[0] + ".pyc"
+        if os.path.exists(os.path.join(mediapath, "license/", filename)):
+            os.remove(os.path.join(mediapath, "license/", filename))
+
+        validated_data["file"].name = filename
+        file = super(LicenseSerializer, self).create(validated_data=validated_data)
+
+        return file

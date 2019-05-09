@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 WSGI config for ResultManage project.
 
@@ -9,6 +11,9 @@ https://docs.djangoproject.com/en/1.11/howto/deployment/wsgi/
 
 import os
 import sys
+# import io
+
+# sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding='utf-8')
 
 from django.core.wsgi import get_wsgi_application
 sys.path.append('/opt/rh/httpd24/root/var/www/html/ResultManage')

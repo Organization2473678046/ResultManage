@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import os
+import re
+
 from django.conf import settings
-from django.db.models import QuerySet
+from django.db.models import Q
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import OrderingFilter, SearchFilter
@@ -10,10 +12,11 @@ from rest_framework import mixins
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.response import Response
-from django.http import HttpResponse
-from results.models import HandOutList, FileInfo
-from results.serializers import HandOutListSerializer
-from generate_file import generate_docx
+from rest_framework import status
+from results.models import HandOutList, FileInfo, EchartReceiveunit, EchartReceiveTime
+from results.serializers import HandOutListSerializer, ExportHandoutlistSerializer, EchartReceiveTimeSerializer, \
+    EchartReceiveunitSerializer
+from celery_app.generate_file import generate_docx
 
 
 class HandOutListViewSetPagination(PageNumberPagination):
@@ -40,8 +43,8 @@ class HandOutListViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.
         "sendunit",
         "sendunitaddr", "sendunitpostcode", "receiveunit", "receiveunitaddr", "receiveunitpostcode", "handler",
         "handlerphonenum", "handlermobilephonenum", "receiver",
-        "receiverphonenum", "receivermobilephonenum", "sendouttime", "recievetime" "selfgetway",
-        "postway", "networkway", "sendtoway", "otherway", "signature", "papermedia", "cdmedia", "diskmedia",
+        "receiverphonenum", "receivermobilephonenum", "sendouttime", "recievetime", "selfgetway",
+        "postway", "networkway", "sendtoway", "signature", "papermedia", "cdmedia", "diskmedia",
         "networkmedia",
         "othermedia", "medianums", "mapnums", "createtime", "filename", "file",
         "updatetime")
@@ -51,8 +54,8 @@ class HandOutListViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.
         "sendunit",
         "sendunitaddr", "sendunitpostcode", "receiveunit", "receiveunitaddr", "receiveunitpostcode", "handler",
         "handlerphonenum", "handlermobilephonenum", "receiver",
-        "receiverphonenum", "receivermobilephonenum", "sendouttime", "recievetime" "selfgetway",
-        "postway", "networkway", "sendtoway", "otherway", "signature", "papermedia", "cdmedia", "diskmedia",
+        "receiverphonenum", "receivermobilephonenum", "sendouttime", "recievetime", "selfgetway",
+        "postway", "networkway", "sendtoway", "signature", "papermedia", "cdmedia", "diskmedia",
         "networkmedia",
         "othermedia", "medianums", "mapnums", "createtime", "filename", "file",
         "updatetime")
@@ -81,21 +84,116 @@ class HandOutListViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.
 
 
 # class ExportHandoutlistView(mixins.UpdateModelMixin,GenericViewSet):
-class ExportHandoutlistView(mixins.ListModelMixin,mixins.RetrieveModelMixin,
-                         mixins.UpdateModelMixin,GenericViewSet):
+class ExportHandoutlistView(mixins.ListModelMixin, mixins.RetrieveModelMixin, GenericViewSet):
     permission_classes = [IsAuthenticated, IsAdminUser]
     queryset = HandOutList.objects.all()
-    serializer_class = HandOutListSerializer
+    # serializer_class = HandOutListSerializer
+    serializer_class = ExportHandoutlistSerializer
 
-    def update(self, request, *args, **kwargs):
+    def retrieve(self, request, *args, **kwargs):
         handoutlist = self.get_object()
-        fileinfo_list = FileInfo.objects.filter(handoutlist_uniquenum=handoutlist.uniquenum)
-        templates_dir = os.path.join(settings.BASE_DIR,"templates","docx_templates")
-        handoutlist_docxs = os.path.join(settings.MEDIA_ROOT,"handoutlist_docxs")
-        handoutlist_docs = os.path.join(settings.MEDIA_ROOT,"handoutlist_docs")
-        newhandoutlist = generate_docx(handoutlist, fileinfo_list, templates_dir, handoutlist_docxs, handoutlist_docs)
+        dbname = settings.DATABASES["default"]["NAME"]
+        templates_dir = os.path.join(settings.BASE_DIR, "templates", "docx_templates")
+        handoutlist_docxs = os.path.join(settings.MEDIA_ROOT, "handoutlist_docxs")
+        # handoutlist_docs = os.path.join(settings.MEDIA_ROOT, "handoutlist_docs")
+        # generate_docx.delay(dbname, handoutlist.id, handoutlist.uniquenum, templates_dir,
+        #                                        handoutlist_docxs)
+        generate_docx(dbname, handoutlist.id, handoutlist.uniquenum, templates_dir,
+                      handoutlist_docxs)
+        handoutlist = self.get_object()
 
-        serializer = self.get_serializer(newhandoutlist)
+        serializer = self.get_serializer(handoutlist)
         return Response(serializer.data)
+        # return Response("导出分发单成功")
+
+class EchartReceiveUnitViewSet(mixins.ListModelMixin, GenericViewSet):
+    permission_classes = [IsAuthenticated,IsAdminUser]
+    queryset = EchartReceiveunit.objects.filter(count__gt=0)
+    serializer_class = EchartReceiveunitSerializer
+
+    def list(self, request, *args, **kwargs):
+        """
+        receiveunit_list = list(
+            set([item[value] for item in HandOutList.objects.filter(~Q(receiveunit="")).values("receiveunit") for value in item]))
+        for receiveunit in receiveunit_list:
+            count = HandOutList.objects.filter(receiveunit=receiveunit).count()
+            try:
+                echartreceiveunit = EchartReceiveunit.objects.get(receiveunit=receiveunit)
+            except EchartReceiveunit.DoesNotExist:
+                EchartReceiveunit.objects.create(receiveunit=receiveunit, count=count)
+            else:
+                echartreceiveunit.count = count
+                echartreceiveunit.save()
+
+        receiveunits = self.get_queryset()
+        serializer = self.get_serializer(receiveunits, many=True)
+        return Response(serializer.data)
+        """
+        data_list = []
+        receiveunit_list = list(
+            set([item[value] for item in HandOutList.objects.filter(~Q(receiveunit="")).values("receiveunit") for value in item]))
+        for receiveunit in receiveunit_list:
+            data_dict = {}
+            count = HandOutList.objects.filter(receiveunit=receiveunit).count()
+            data_dict["receiveunit"] = receiveunit
+            data_dict["count"] = count
+            data_list.append(data_dict)
+        return Response(data_list)
 
 
+
+class EchartReceiveTimeViewSet(mixins.ListModelMixin, GenericViewSet):
+    permission_classes = [IsAuthenticated]
+    queryset = EchartReceiveTime.objects.filter(count__gt=0)
+    serializer_class = EchartReceiveTimeSerializer
+
+    def list(self, request, *args, **kwargs):
+        """
+        data_list = []
+        data_dict = {"2017": 0, "2018": 0, "2019": 0}
+
+        sendouttime_list = HandOutList.objects.filter(~Q(sendouttime="")).values_list("sendouttime")
+        for sendouttime in sendouttime_list:
+            if sendouttime[0] == None:
+                continue
+            else:
+                year = sendouttime[0].split("年")[0]
+                time = re.findall("\d+", year)[0]
+                data_dict[time] = data_dict[time] + 1
+
+        for key, value in data_dict.items():
+            print(key, value)
+
+            try:
+                Echartreceivetime = EchartReceiveTime.objects.get(sendouttime=key)
+            except EchartReceiveTime.DoesNotExist:
+                EchartReceiveTime.objects.create(sendouttime=key, count=value)
+            else:
+                Echartreceivetime.count = value
+                Echartreceivetime.save()
+
+        sendouttime = self.get_queryset()
+        serializer = self.get_serializer(sendouttime, many=True)
+
+        return Response(serializer.data)
+        """
+        data_list = []
+        data_dict_ = {"2017": 0, "2018": 0, "2019": 0}
+
+        sendouttime_list = HandOutList.objects.filter(~Q(sendouttime="")).values_list("sendouttime")
+        for sendouttime in sendouttime_list:
+            if sendouttime[0] == None:
+                continue
+            else:
+                # year = sendouttime[0].split("年")[0]
+                year = sendouttime[0].split("-")[0]
+                time = re.findall("\d+", year)[0]
+                data_dict_[time] = data_dict_[time] + 1
+
+        for key, value in data_dict_.items():
+            data_dict = {}
+            data_dict["sendouttime"] = key
+            data_dict["count"] = value
+            data_list.append(data_dict)
+
+        return Response(data_list)

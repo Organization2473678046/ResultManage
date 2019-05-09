@@ -113,3 +113,26 @@ class FileInfo(models.Model):
 #
 #     def __str__(self):
 #         return self.filepath
+
+
+class EchartReceiveunit(models.Model):
+    receiveunit = models.CharField(max_length = 128, null=True, blank=True, verbose_name="接收单位")
+    count = models.IntegerField(null=True, blank=True, verbose_name=u"数量")
+
+    class Meta:
+        verbose_name = u"接收单位Echart"
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.receiveunit
+
+class EchartReceiveTime(models.Model):
+    sendouttime = models.CharField(max_length = 128, null=True, blank=True, verbose_name=u"创建时间")
+    count = models.IntegerField(null=True, blank=True, verbose_name=u"数量")
+
+    class Meta:
+        verbose_name = u"发出日期Echart"
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.sendouttime

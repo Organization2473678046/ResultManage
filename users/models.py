@@ -13,3 +13,15 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.username
+
+
+class License(models.Model):
+    file = models.FileField(upload_to="license/", null=True, verbose_name=u"文件")
+    createtime = models.DateTimeField(auto_now_add=True, verbose_name=u"创建时间")
+
+    class Meta:
+        verbose_name = u"文件"
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.file
