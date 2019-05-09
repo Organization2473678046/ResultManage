@@ -5,13 +5,17 @@
 #media/
 
 /media/*
+/media/handoutlist_docxs/*
+
+!.gitkeep
 
 
 /.idea/*
 /logs/*
 !/media/.gitkeep
 !/media/license/*
-!/media/handoutlist_docxs/.gitkeep
+!media/handoutlist_docxs/.gitkeep
+
 
 
 # local env files
