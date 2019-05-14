@@ -65,10 +65,13 @@ def insert_data(dbname, es, index_name):
                         "filepath": filepath,
                         "dirlength": len(filepath),
                         "dirdepth": len(filepath.split("\\")) - 2,
-                        "filesize": data[3],
+                        #"filesize": data[3],
+                        "filesize": "10",
                         # "filecreatetime": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                        "filecreatetime": data[4],
-                        "fileupdatetime": data[5]
+                        # "filecreatetime": data[4],
+                        "filecreatetime":"2019-5-10",
+                        # "fileupdatetime": data[5]
+                        "fileupdatetime":"2019-5-10"
                     }
                 }
                 actions.append(action)
@@ -102,13 +105,13 @@ def main(es, index_name, old_dbdir, new_dbdir):
 
 
 if __name__ == '__main__':
-    es = Elasticsearch(timeout=120)
+    # es = Elasticsearch(timeout=120)
     # index_name = "resmanagev0.1"
     # bulk_insert_data(es, index_name)
     # insert_data(dbname, es, "resmanagev0.1")
     # main(es, "resmanagev0.1", u"D:\\PycharmProjects\\ResultManage\\no-elasticsearch-py3\\ResultManage", u"D:\\PycharmProjects\\ResultManage\\no-elasticsearch-py3\\ResultManage\\finish\\")
 
-    # es = Elasticsearch("192.168.1.110:9200",timeout=120)
-    # main(es, "resmanagev0.2", "", "")
+    es = Elasticsearch("192.168.190.133:9200",timeout=120)
+    main(es, "resmanagev0.3", "/opt/rh/httpd24/root/var/www/html/ResultManage/script/", "/opt/rh/httpd24/root/var/www/html/ResultManage/script")
 
     pass

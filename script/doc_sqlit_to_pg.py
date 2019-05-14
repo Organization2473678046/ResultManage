@@ -1,6 +1,6 @@
 import psycopg2
 import sqlite3
-
+from datetime import datetime
 
 def get_sqlit_data(db_name, cur_pg):
     conn = sqlite3.connect(db_name)
@@ -29,8 +29,8 @@ def get_sqlit_data(db_name, cur_pg):
             receiver = data[18]  # 接收人
             receiverphonenum = data[19]  # 接收人联系电话(座机)
             receivermobilephonenum = data[20]  # 接收人联系电话(手机)
-            sendouttime = data[21]  # 发出日期
-            recievetime = data[22]  # 接收日期
+            sendouttimec = data[21]  # 发出日期
+            recievetimec = data[22]  # 接收日期
             selfgetway = True if data[23] == 1 else False  # 递送方式为自取
             postway = True if data[24] == 1 else False  # 递送方式为邮寄
             networkway = True if data[25] == 1 else False  # 递送方式为网络
@@ -46,9 +46,20 @@ def get_sqlit_data(db_name, cur_pg):
             filename = data[35]  # 分发单文件名字
             file = data[36]  # 分发单文件路径
 
-
-            cur_pg.execute(
-                "INSERT INTO results_handoutlist (title, signer, name, uniquenum, listnum, auditnum, secrecyagreementnum, purpose, sendunit, sendunitaddr, sendunitpostcode, receiveunit, receiveunitaddr, receiveunitpostcode, handler, handlerphonenum, handlermobilephonenum, receiver, receiverphonenum, receivermobilephonenum, sendouttime, recievetime, selfgetway, postway, networkway, sendtoway, signature, papermedia, cdmedia, diskmedia, networkmedia, othermedia, medianums, mapnums, filename, file) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', %r, %r, %r, %r, '%s', %r, %r, %r,  %r,  %r, '%s', '%s', '%s', '%s')"% (title, signer, name, uniquenum, listnum, auditnum, secrecyagreementnum, purpose, sendunit, sendunitaddr, sendunitpostcode, receiveunit, receiveunitaddr, receiveunitpostcode, handler, handlerphonenum, handlermobilephonenum, receiver, receiverphonenum, receivermobilephonenum, sendouttime, recievetime, selfgetway, postway, networkway, sendtoway, signature, papermedia, cdmedia, diskmedia, networkmedia, othermedia, medianums, mapnums, filename, file))
+            sendouttime = get_timed(sendouttimec)
+            recievetime = get_timed(recievetimec)
+            if sendouttime == None and recievetime != None:
+                cur_pg.execute(
+                    "INSERT INTO results_handoutlist (recievetime, title, signer, name, uniquenum, listnum, auditnum, secrecyagreementnum, purpose, sendunit, sendunitaddr, sendunitpostcode, receiveunit, receiveunitaddr, receiveunitpostcode, handler, handlerphonenum, handlermobilephonenum, receiver, receiverphonenum, receivermobilephonenum, sendouttimec, recievetimec, selfgetway, postway, networkway, sendtoway, signature, papermedia, cdmedia, diskmedia, networkmedia, othermedia, medianums, mapnums, filename, file) VALUES (%r,'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', %r, %r, %r, %r, '%s', %r, %r, %r,  %r,  %r, '%s', '%s', '%s', '%s')"% (recievetime, title, signer, name, uniquenum, listnum, auditnum, secrecyagreementnum, purpose, sendunit, sendunitaddr, sendunitpostcode, receiveunit, receiveunitaddr, receiveunitpostcode, handler, handlerphonenum, handlermobilephonenum, receiver, receiverphonenum, receivermobilephonenum, sendouttimec, recievetimec, selfgetway, postway, networkway, sendtoway, signature, papermedia, cdmedia, diskmedia, networkmedia, othermedia, medianums, mapnums, filename, file))
+            elif recievetime == None and sendouttime != None:
+                cur_pg.execute(
+                    "INSERT INTO results_handoutlist (sendouttime, title, signer, name, uniquenum, listnum, auditnum, secrecyagreementnum, purpose, sendunit, sendunitaddr, sendunitpostcode, receiveunit, receiveunitaddr, receiveunitpostcode, handler, handlerphonenum, handlermobilephonenum, receiver, receiverphonenum, receivermobilephonenum, sendouttimec, recievetimec, selfgetway, postway, networkway, sendtoway, signature, papermedia, cdmedia, diskmedia, networkmedia, othermedia, medianums, mapnums, filename, file) VALUES (%r,'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', %r, %r, %r, %r, '%s', %r, %r, %r,  %r,  %r, '%s', '%s', '%s', '%s')"% (sendouttime, title, signer, name, uniquenum, listnum, auditnum, secrecyagreementnum, purpose, sendunit, sendunitaddr, sendunitpostcode, receiveunit, receiveunitaddr, receiveunitpostcode, handler, handlerphonenum, handlermobilephonenum, receiver, receiverphonenum, receivermobilephonenum, sendouttimec, recievetimec, selfgetway, postway, networkway, sendtoway, signature, papermedia, cdmedia, diskmedia, networkmedia, othermedia, medianums, mapnums, filename, file))
+            elif sendouttime == None and recievetime == None:
+                cur_pg.execute(
+                    "INSERT INTO results_handoutlist (title, signer, name, uniquenum, listnum, auditnum, secrecyagreementnum, purpose, sendunit, sendunitaddr, sendunitpostcode, receiveunit, receiveunitaddr, receiveunitpostcode, handler, handlerphonenum, handlermobilephonenum, receiver, receiverphonenum, receivermobilephonenum, sendouttimec, recievetimec, selfgetway, postway, networkway, sendtoway, signature, papermedia, cdmedia, diskmedia, networkmedia, othermedia, medianums, mapnums, filename, file) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', %r, %r, %r, %r, '%s', %r, %r, %r,  %r,  %r, '%s', '%s', '%s', '%s')"% (title, signer, name, uniquenum, listnum, auditnum, secrecyagreementnum, purpose, sendunit, sendunitaddr, sendunitpostcode, receiveunit, receiveunitaddr, receiveunitpostcode, handler, handlerphonenum, handlermobilephonenum, receiver, receiverphonenum, receivermobilephonenum, sendouttimec, recievetimec, selfgetway, postway, networkway, sendtoway, signature, papermedia, cdmedia, diskmedia, networkmedia, othermedia, medianums, mapnums, filename, file))
+            elif sendouttime != None and recievetime != None:
+                cur_pg.execute(
+                    "INSERT INTO results_handoutlist (sendouttime, recievetime, title, signer, name, uniquenum, listnum, auditnum, secrecyagreementnum, purpose, sendunit, sendunitaddr, sendunitpostcode, receiveunit, receiveunitaddr, receiveunitpostcode, handler, handlerphonenum, handlermobilephonenum, receiver, receiverphonenum, receivermobilephonenum, sendouttimec, recievetimec, selfgetway, postway, networkway, sendtoway, signature, papermedia, cdmedia, diskmedia, networkmedia, othermedia, medianums, mapnums, filename, file) VALUES (%r, %r,'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', %r, %r, %r, %r, '%s', %r, %r, %r,  %r,  %r, '%s', '%s', '%s', '%s')"% (sendouttime, recievetime, title, signer, name, uniquenum, listnum, auditnum, secrecyagreementnum, purpose, sendunit, sendunitaddr, sendunitpostcode, receiveunit, receiveunitaddr, receiveunitpostcode, handler, handlerphonenum, handlermobilephonenum, receiver, receiverphonenum, receivermobilephonenum, sendouttimec, recievetimec, selfgetway, postway, networkway, sendtoway, signature, papermedia, cdmedia, diskmedia, networkmedia, othermedia, medianums, mapnums, filename, file))
         else:
             break
 
@@ -69,6 +80,18 @@ def get_sqlit_data(db_name, cur_pg):
         else:
             break
 
+
+def get_timed(time_str):
+
+    time_str_year = time_str.split("年")[0]
+    if time_str_year == "  ":
+        return
+    else:
+        time_str_mon = time_str.split("年")[1].split("月")[0] if time_str.split("年")[1].split("月")[0] != "  " else "01"
+        time_str_day = time_str.split("年")[1].split("月")[1].split("日")[0] if time_str.split("年")[1].split("月")[1].split("日")[0] != "  " else "01"
+
+        timed = time_str_year + "-" + time_str_mon + "-" + time_str_day
+    return timed
 
 
 def pg_conn(db_name):
@@ -92,3 +115,6 @@ def main(db_name):
 if __name__ == '__main__':
     db_name = "doc_sqlit.db"
     main(db_name)
+    # time_str = "  年  月  日"
+    # time = get_timed(time_str)
+    # print(time)

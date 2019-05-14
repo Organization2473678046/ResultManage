@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 import os
 import re
-
+from django.http import HttpResponse
 from django.conf import settings
 from django.db.models import Q
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
@@ -13,11 +13,10 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.response import Response
 from rest_framework import status
-from results.models import HandOutList, FileInfo, EchartReceiveunit, EchartReceiveTime
-from results.serializers import HandOutListSerializer, ExportHandoutlistSerializer, EchartReceiveTimeSerializer, \
-    EchartReceiveunitSerializer
+from results.models import HandOutList, FileInfo, UploadDoc
+from results.serializers import HandOutListSerializer, ExportHandoutlistSerializer, UploadDocSerializer
 from celery_app.generate_file import generate_docx
-
+from script.export_excel import write_excel
 
 class HandOutListViewSetPagination(PageNumberPagination):
     page_size = 10
@@ -97,21 +96,31 @@ class ExportHandoutlistView(mixins.ListModelMixin, mixins.RetrieveModelMixin, Ge
         handoutlist_docxs = os.path.join(settings.MEDIA_ROOT, "handoutlist_docxs")
         if not os.path.exists(handoutlist_docxs):
             os.mkdir(handoutlist_docxs)
-        # handoutlist_docs = os.path.join(settings.MEDIA_ROOT, "handoutlist_docs")
-        # generate_docx.delay(dbname, handoutlist.id, handoutlist.uniquenum, templates_dir,
-        #                                        handoutlist_docxs)
         generate_docx(dbname, handoutlist.id, handoutlist.uniquenum, templates_dir,
                       handoutlist_docxs)
         handoutlist = self.get_object()
-
         serializer = self.get_serializer(handoutlist)
         return Response(serializer.data)
-        # return Response("导出分发单成功")
+
+
+class ExportExcelViewSet(mixins.ListModelMixin, GenericViewSet):
+    permission_classes = [IsAuthenticated, IsAdminUser]
+
+    def list(self, request, *args, **kwargs):
+        # response = HttpResponse(content_type='application/ms-excel')
+        response = HttpResponse(content_type='application/octet-stream')
+        response['Content-Disposition'] = 'attachment; filename={0}.xlsx'.format(urlquote("统计"))
+        dbname = settings.DATABASES["default"]["NAME"]
+        f = write_excel(dbname)
+        # 保存文件
+        f.save(response)
+        return response
+
 
 class EchartReceiveUnitViewSet(mixins.ListModelMixin, GenericViewSet):
     permission_classes = [IsAuthenticated,IsAdminUser]
-    queryset = EchartReceiveunit.objects.filter(count__gt=0)
-    serializer_class = EchartReceiveunitSerializer
+    queryset = HandOutList.objects.filter()
+    serializer_class = HandOutListSerializer
 
     def list(self, request, *args, **kwargs):
         """
@@ -131,9 +140,14 @@ class EchartReceiveUnitViewSet(mixins.ListModelMixin, GenericViewSet):
         serializer = self.get_serializer(receiveunits, many=True)
         return Response(serializer.data)
         """
+        try:
+            year = request.query_params["year"]
+        except:
+            year = ""
+
         data_list = []
         receiveunit_list = list(
-            set([item[value] for item in HandOutList.objects.filter(~Q(receiveunit="")).values("receiveunit") for value in item]))
+            set([item[value] for item in HandOutList.objects.filter(~Q(receiveunit=""), listnum__startswith=year).values("receiveunit") for value in item]))
         for receiveunit in receiveunit_list:
             data_dict = {}
             count = HandOutList.objects.filter(receiveunit=receiveunit).count()
@@ -146,8 +160,8 @@ class EchartReceiveUnitViewSet(mixins.ListModelMixin, GenericViewSet):
 
 class EchartReceiveTimeViewSet(mixins.ListModelMixin, GenericViewSet):
     permission_classes = [IsAuthenticated]
-    queryset = EchartReceiveTime.objects.filter(count__gt=0)
-    serializer_class = EchartReceiveTimeSerializer
+    queryset = HandOutList.objects.filter()
+    serializer_class = HandOutListSerializer
 
     def list(self, request, *args, **kwargs):
         """
@@ -180,17 +194,19 @@ class EchartReceiveTimeViewSet(mixins.ListModelMixin, GenericViewSet):
         return Response(serializer.data)
         """
         data_list = []
-        data_dict_ = {"2017": 0, "2018": 0, "2019": 0}
+        data_dict_ = {}
 
-        sendouttime_list = HandOutList.objects.filter(~Q(sendouttime="")).values_list("sendouttime")
+        sendouttime_list = HandOutList.objects.filter(~Q(sendouttimec="")).values_list("sendouttimec")
         for sendouttime in sendouttime_list:
             if sendouttime[0] == None:
                 continue
             else:
-                # year = sendouttime[0].split("年")[0]
-                year = sendouttime[0].split("-")[0]
+                year = sendouttime[0].split("年")[0]
                 time = re.findall("\d+", year)[0]
-                data_dict_[time] = data_dict_[time] + 1
+                try:
+                    data_dict_[time] = data_dict_[time] + 1
+                except:
+                    data_dict_[time] = 1
 
         for key, value in data_dict_.items():
             data_dict = {}
@@ -199,3 +215,8 @@ class EchartReceiveTimeViewSet(mixins.ListModelMixin, GenericViewSet):
             data_list.append(data_dict)
 
         return Response(data_list)
+
+class UploadDocViewSet(mixins.CreateModelMixin, GenericViewSet):
+    serializer_class = UploadDocSerializer
+    queryset = UploadDoc.objects.all()
+    permission_classes = [IsAuthenticated]

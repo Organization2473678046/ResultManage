@@ -35,8 +35,10 @@ class HandOutList(models.Model):
     receiverphonenum = models.CharField(max_length=1000, null=True, blank=True, verbose_name=u"接收人联系电话(座机)")
     receivermobilephonenum = models.CharField(max_length=1000, null=True, blank=True, verbose_name=u"接收人联系电话(手机)")
     # handovertime = models.DateTimeField(null=True, blank=True, verbose_name=u"交接日期")
-    sendouttime = models.CharField(max_length=1000, null=True, blank=True, verbose_name=u"发出日期")
-    recievetime = models.CharField(max_length=1000, null=True, blank=True, verbose_name=u"接收日期")
+    sendouttimec = models.CharField(max_length=1000, null=True, blank=True, verbose_name=u"发出日期")
+    recievetimec = models.CharField(max_length=1000, null=True, blank=True, verbose_name=u"接收日期")
+    sendouttime = models.DateTimeField(null=True, blank=True, verbose_name=u"发出日期")
+    recievetime = models.DateTimeField(null=True, blank=True, verbose_name=u"接收日期")
     # 承办参谋 staffofficer
     # undertaker = models.CharField(max_length=1000, null=True, blank=True, verbose_name=u"承办参谋")
     # 递送方式 自取、邮寄、网络、送往、其他__
@@ -56,8 +58,8 @@ class HandOutList(models.Model):
     filename = models.CharField(max_length=5000, null=True, blank=True, verbose_name=u"分发单文件名字")
     file = models.FileField(upload_to=user_directory_path, max_length=5000, null=True, blank=True,
                             verbose_name=u"分发单文件路径")
-    createtime = models.DateTimeField(auto_now_add=True, verbose_name=u"创建时间")
-    updatetime = models.DateTimeField(auto_now=True, verbose_name=u"更新时间")
+    createtime = models.DateTimeField(auto_now_add=True,null=True, blank=True, verbose_name=u"创建时间")
+    updatetime = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name=u"更新时间")
 
 
     class Meta:
@@ -89,8 +91,8 @@ class FileInfo(models.Model):
     # handoutlist_name = models.CharField(max_length=5000, verbose_name=u"该成果所属清单")
     remarks = models.CharField(max_length=5000, null=True, blank=True, verbose_name=u"成果资料备注")
     handoutlist_uniquenum = models.CharField(max_length=5000,verbose_name=u"分发单唯一编号")
-    createtime = models.DateTimeField(auto_now_add=True, verbose_name=u"创建时间")
-    updatetime = models.DateTimeField(auto_now=True, verbose_name=u"更新时间")
+    createtime = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name=u"创建时间")
+    updatetime = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name=u"更新时间")
 
     class Meta:
         verbose_name = u"成果资料信息表"
@@ -98,6 +100,23 @@ class FileInfo(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class UploadDoc(models.Model):
+    file = models.FileField(upload_to=user_directory_path, max_length=5000, null=True, blank=True,
+                            verbose_name=u"分发单文件路径")
+    handoutlist_uniquenum = models.CharField(max_length=5000,verbose_name=u"分发单唯一编号")
+    createtime = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name=u"创建时间")
+    updatetime = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name=u"更新时间")
+
+    class Meta:
+        verbose_name = u"分发单文件"
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.handoutlist_uniquenum
+
+
 
 # class FilePath(models.Model):
 #     """成果文件路径表"""
@@ -115,6 +134,8 @@ class FileInfo(models.Model):
 #         return self.filepath
 
 
+
+"""
 class EchartReceiveunit(models.Model):
     receiveunit = models.CharField(max_length = 128, null=True, blank=True, verbose_name="接收单位")
     count = models.IntegerField(null=True, blank=True, verbose_name=u"数量")
@@ -136,3 +157,5 @@ class EchartReceiveTime(models.Model):
 
     def __str__(self):
         return self.sendouttime
+"""
+

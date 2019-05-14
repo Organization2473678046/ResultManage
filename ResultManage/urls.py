@@ -22,21 +22,23 @@ from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
 from rest_framework_jwt.views import obtain_jwt_token
 from users.views import UserViewSet, AuthenticateView, LicenseViewSet
-from results.views import HandOutListViewSet, ExportHandoutlistView, EchartReceiveUnitViewSet, EchartReceiveTimeViewSet
+from results import views
 
 router = DefaultRouter()
 
 router.register(r'users', UserViewSet, base_name='users')
-router.register(r'handoutlists', HandOutListViewSet, base_name='handoutlists')
-router.register(r'exporthandoutlist', ExportHandoutlistView, base_name='exporthandoutlist')
-router.register(r'echartreceiveunit', EchartReceiveUnitViewSet, base_name='echartreceiveunit')
-router.register(r'echartreceivetime', EchartReceiveTimeViewSet, base_name='echartreceivetime')
+router.register(r'handoutlists', views.HandOutListViewSet, base_name='handoutlists')
+router.register(r'exporthandoutlist', views.ExportHandoutlistView, base_name='exporthandoutlist')
+router.register(r'echartreceiveunit', views.EchartReceiveUnitViewSet, base_name='echartreceiveunit')
+router.register(r'echartreceivetime', views.EchartReceiveTimeViewSet, base_name='echartreceivetime')
+router.register(r"exportexcel",views.ExportExcelViewSet,base_name="exportexcel")
 router.register(r'license', LicenseViewSet, base_name='license')
+router.register(r'uploaddoc', views.UploadDocViewSet, base_name='uploaddoc')
 
 
 urlpatterns = [
     # url(r'^v0.3/admin/', admin.site.urls),
-    # url(r'^v0.2/login/$', obtain_jwt_token),
+    # url(r'^v0.3/login/$', obtain_jwt_token),
     url(r'^v0.3/login/$', AuthenticateView.as_view()),
     url(r'^v0.3/', include(router.urls)),
     url(r'^v0.3/docs/', include_docs_urls(title=u"成果管理系统API")),

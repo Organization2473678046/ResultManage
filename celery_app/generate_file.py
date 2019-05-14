@@ -3,9 +3,12 @@
 
 import os
 import sys
+if not os.environ.get("DJANGO_SETTINGS_MODULE"):
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "ResultManage.settings")
+import django
 
-# import io
-# sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding='utf-8')
+django.setup()
+from django.utils.http import urlquote
 import psycopg2
 import time
 import random
@@ -24,8 +27,8 @@ from celery_app import app
 @app.task
 def generate_docx(dbname, handoutlist_id, handoutlist_uniquenum, templates_dir, handoutlist_docxs):
     handoutlist, fileinfo_list = get_handoutlist_data(dbname, handoutlist_id, handoutlist_uniquenum)
-    print(handoutlist)
-    print(fileinfo_list)
+    # print(handoutlist)
+    # print(fileinfo_list)
     template_filepath = os.path.join(templates_dir, "template" + ".docx")
     # TODO
     if not os.path.exists(template_filepath):
@@ -69,24 +72,7 @@ def generate_docx(dbname, handoutlist_id, handoutlist_uniquenum, templates_dir, 
     doc.paragraphs[4].text = doc.paragraphs[4].text.replace("支援保障", perpose)
     # 审单
     auditnum = handoutlist_propertys[5]
-    # if re.match(r"测资审〔\d+〕\d+号",auditnum):
-    #     auditnum = process_str(auditnum, 32)
-    # else:
     auditnum = process_str(auditnum, 35)
-    # auditnum = process_str(auditnum, 35-len(re.findall("\d+[\u4E00-\u9FA5]|[a-zA-Z][\u4E00-\u9FA5]",auditnum)))
-
-    # if re.match(r"〔\d*〕",auditnum):
-    #     auditnum = process_str(auditnum, 33)
-    # elif re.match(r"〔\d*〕", auditnum):
-    #     auditnum = process_str(auditnum, 33)
-    # else:
-    #     auditnum = process_str(auditnum, 35)
-    # if len(auditnum) ==11:
-    #     auditnum = auditnum+" "*23
-    # elif len(auditnum) ==12:
-    #     auditnum = auditnum+" "*22
-    # elif len(auditnum) == 13:
-    #     auditnum = auditnum + " " * 21
     doc.paragraphs[5].text = doc.paragraphs[5].text.replace("auditnum", auditnum)
     # 协议编号
     secrecyagreementnum = handoutlist_propertys[6]
@@ -108,7 +94,8 @@ def generate_docx(dbname, handoutlist_id, handoutlist_uniquenum, templates_dir, 
     # doc.paragraphs[6].text = "递送方式： " + ways + " （签名）"
     # run6 = doc.paragraphs[6].add_run(signature)
     # run6.underline = True
-    print(doc.paragraphs[6].text)
+    # print(doc.paragraphs[6].text)
+
 
     # 介质类型
     papermedia = handoutlist_propertys[12]
@@ -130,7 +117,7 @@ def generate_docx(dbname, handoutlist_id, handoutlist_uniquenum, templates_dir, 
     # doc.paragraphs[7].text = "介质类型： " + medias + "      介质编号：" + medianums
     doc.paragraphs[7].text = doc.paragraphs[7].text.replace("medianums", medianums)
     for run in doc.paragraphs[7].runs:
-        print(run.text)
+        # print(run.text)
         if "□" in run.text:
             run.font.size = Pt(10.5)
             run.font.name = "宋体"
@@ -181,58 +168,34 @@ def generate_docx(dbname, handoutlist_id, handoutlist_uniquenum, templates_dir, 
 
     # 发出日期
     sendouttime = handoutlist_propertys[30]
-    if sendouttime != "":
-        sendouttime = sendouttime.split("-")[0]+"年"+sendouttime.split("-")[1]+"月"+sendouttime.split("-")[2]+"日"
-    else:
-        sendouttime = "    年"+"  月"+"  日"
+    if sendouttime == "" or sendouttime is None or sendouttime == "None":
+        sendouttime = "    年" + "  月" + "  日"
     sendouttime = process_str(sendouttime, 35)
-
     doc.paragraphs[17].text = doc.paragraphs[17].text.replace("sendouttime", sendouttime)
     # 接收日期
     recievetime = handoutlist_propertys[31]
-    if recievetime != "":
-        recievetime = recievetime.split("-")[0]+"年"+recievetime.split("-")[1]+"月"+recievetime.split("-")[2]+"日"
-    else:
-        recievetime = "    年"+"  月"+"  日"
+    if recievetime == "" or recievetime is None or recievetime == "None":
+        recievetime = "    年" + "  月" + "  日"
     doc.paragraphs[17].text = doc.paragraphs[17].text.replace("recievetime", recievetime)
 
     table = doc.tables[0]
-    # run_style = table.rows[0].cells[0].paragraphs[0].runs[0].style
-    # run_style_font = table.rows[0].cells[0].paragraphs[0].runs[0].style.font
-    # table.style="Table Grid"
-    # print(table.style,"**********")
     count = 1
-    # print(table.cell(0,1).width)
-    # print(table.rows[0].cells[0].paragraphs[0].style)
-    # print(table.rows[0].cells[0].paragraphs[0].runs[0].style)
-    # print(dir(table.rows[0].cells[0].paragraphs[0].runs[0].style))
-    # print(table.rows[0].cells[0].paragraphs[0].runs[0].style.font)
-    # print(dir(table.rows[0].cells[0].paragraphs[0].runs[0].style.font))
-
     for fileinfo in fileinfo_list:
         runs = []
         row = table.add_row()
-        # row.height = Cm(1)
+        # row.height = Cm(1.1)
         row_cells = row.cells
         for cell in row_cells:
-            cell.paragraphs[0].paragraph_format.space_after = Pt(8)
-            cell.paragraphs[0].paragraph_format.space_before = Pt(8)
-            # 表格内容居中
-            # cell.paragraphs[0].paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER  # 水平居中对齐
+            cell.paragraphs[0].paragraph_format.space_after = Pt(5)
+            cell.paragraphs[0].paragraph_format.space_before = Pt(5)
+            # cell.paragraphs[0].paragraph_format.line_spacing = Pt(25)
+            # cell.paragraphs[0].paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
             if row_cells.index(cell) == 1:
-                cell.paragraphs[0].paragraph_format.alignment = WD_ALIGN_PARAGRAPH.LEFT  # 水平左对齐
+                cell.paragraphs[0].paragraph_format.alignment = WD_ALIGN_PARAGRAPH.LEFT
             else:
-                cell.paragraphs[0].paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER  # 水平居中对齐
-            cell.vertical_alignment = WD_ALIGN_VERTICAL.CENTER  # 垂直对齐
+                cell.paragraphs[0].paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            cell.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
 
-        # TODO
-        # row_cells[0].width = Cm(1.3)
-        # row_cells[1].width = Cm(7)
-        # row_cells[2].width = Cm(1.5)
-        # row_cells[3].width = Cm(1.5)
-        # row_cells[4].width = Cm(1.81)
-        # row_cells[5].width = Cm(2)
-        # row_cells[6].width = Cm(1.99)
         run0 = row_cells[0].paragraphs[0].add_run(str(count))
         runs.append(run0)
         run1 = row_cells[1].paragraphs[0].add_run(
@@ -257,37 +220,22 @@ def generate_docx(dbname, handoutlist_id, handoutlist_uniquenum, templates_dir, 
             run.font.size = Pt(9)
             run.font.name = "宋体"
         count += 1
-
-        # row_cells[0].paragraphs[0].text = str(count)
-        # name
-        # row_cells[1].paragraphs[0].text = fileinfo[0] if fileinfo[0] is not None and fileinfo[0] != "None" else ""
-        # row_cells[2].paragraphs[0].text = fileinfo[1] if fileinfo[1] is not None and fileinfo[1] != "None" else ""
-        # # resultnum
-        # row_cells[3].paragraphs[0].text = fileinfo[2] if fileinfo[2] is not None and fileinfo[2] != "None" else ""
-        # # datasize
-        # row_cells[4].paragraphs[0].text = fileinfo[3] if fileinfo[3] is not None and fileinfo[3] != "None" else ""
-        # # formatormedium
-        # row_cells[5].paragraphs[0].text = fileinfo[4] if fileinfo[4] is not None and fileinfo[4] != "None" else ""
-        # # remarks
-        # row_cells[6].paragraphs[0].text = fileinfo[5] if fileinfo[5] is not None and fileinfo[5] != "None" else ""
-
     mapnums = handoutlist_propertys[32]
     # doc.paragraphs[18].text = doc.paragraphs[18].text.replace("mapnums", mapnums)
-    # doc.paragraphs[18].text = doc.paragraphs[18].text + mapnums
+    # doc.paragraphs[19].text = mapnums
     run_ = doc.paragraphs[19].add_run(mapnums)
     run_.font.size = Pt(9)
     run_.font.name = "宋体"
     # 添加段落
     # doc.add_paragraph(mapnums)
     # filename = handoutlist[35]
-    # filename = "测绘"+datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + "-" + "%04d" % handoutlist_propertys[36] + ".docx"
-    filename = datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + "-" + "%04d" % handoutlist_propertys[36] + ".docx"
-
+    filename = "测绘-"+datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + "-" + "%04d" % handoutlist_propertys[36] + ".docx"
+    # filename = "测绘-"+datetime.now().strftime("%Y") + "-" + "%04d" % handoutlist_propertys[36] + ".docx"
+    # filename = datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + "-" + "%04d" % handoutlist_propertys[36] + ".docx"
     docx_filepath = os.path.join(handoutlist_docxs, filename)
     doc.save(docx_filepath)
 
     handoutlist_file = os.path.join("handoutlist_docxs", filename)
-    print(handoutlist_file)
     change_postgresql(dbname, handoutlist_id, handoutlist_file)
     return True
 
@@ -311,7 +259,7 @@ def get_handoutlist_data(dbname, handoutlist_id, handoutlist_uniquenum):
                             host="localhost",
                             port="5432")
     cursor = conn.cursor()
-    SELECT_SQL1 = "select title,listnum,signer,name,purpose,auditnum,secrecyagreementnum,selfgetway, postway,networkway,sendtoway,signature,papermedia,cdmedia, diskmedia, networkmedia, othermedia,medianums,sendunit,receiveunit, sendunitaddr,receiveunitaddr, sendunitpostcode,  receiveunitpostcode, handler,receiver,handlerphonenum,receiverphonenum,handlermobilephonenum, receivermobilephonenum, sendouttime,recievetime,mapnums, filename,file,uniquenum,id from results_handoutlist where uniquenum='%s'" % handoutlist_uniquenum
+    SELECT_SQL1 = "select title,listnum,signer,name,purpose,auditnum,secrecyagreementnum,selfgetway, postway,networkway,sendtoway,signature,papermedia,cdmedia, diskmedia, networkmedia, othermedia,medianums,sendunit,receiveunit, sendunitaddr,receiveunitaddr, sendunitpostcode,  receiveunitpostcode, handler,receiver,handlerphonenum,receiverphonenum,handlermobilephonenum, receivermobilephonenum, sendouttimec,recievetimec,mapnums, filename,file,uniquenum,id from results_handoutlist where uniquenum='%s'" % handoutlist_uniquenum
     cursor.execute(SELECT_SQL1)
     handoutlist = cursor.fetchone()
 
@@ -337,7 +285,7 @@ def change_postgresql(dbname, handoutlist_id, hadoutlist_file):
 
 
 if __name__ == '__main__':
-    generate_docx("resmanagev0.3", 5, "20190506194324094680000001",
+    generate_docx("resmanagev0.3", 5, "20190514081504184259000001",
                   "/opt/rh/httpd24/root/var/www/html/ResultManage/templates/docx_templates",
                   "/opt/rh/httpd24/root/var/www/html/ResultManage/media/handoutlist_docxs")
     pass

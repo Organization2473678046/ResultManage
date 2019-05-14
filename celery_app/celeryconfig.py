@@ -27,6 +27,7 @@ CELERY_DEFAULT_QUEUE = 'genarate_docx'
 
 CELERY_IMPORTS = (
     'celery_app.generate_file',
+    'celery_app.upload_doc',
 )
 
 # 防止死锁
