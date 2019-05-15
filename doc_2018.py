@@ -1,6 +1,5 @@
 
 def tables_2018(document, cursor, date_now):
-    p = 1
     name = ""       # 成果资料名称
     secretlevel = ""    # 成果秘密级别
     resultnum = ""      # 成果数量
@@ -11,7 +10,7 @@ def tables_2018(document, cursor, date_now):
 
 
     # 读取表格
-
+    p = 1
     tables = document.tables
     table = tables[0]
     for i in table.rows:

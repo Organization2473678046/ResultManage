@@ -11,9 +11,10 @@ from doc_docx_linux import transfer_format
 import sqlite3
 from docx import Document
 import re
+from doc_more import doc_more
 
 
-def data(document, cursor, date_now, doc_file, doc_more, path_old, doc_year):
+def data(document, cursor, date_now, doc_file, doc_more_file_path, path_old, doc_year):
     title = ""      # 分发单标题
     signer = ""     # 签发
     name = ""       # 分发单名称
@@ -88,7 +89,7 @@ def data(document, cursor, date_now, doc_file, doc_more, path_old, doc_year):
             # print(results)
             if results != [] and is_remake is False:
                 if "交付清单" in results[0]:
-                    title = results[0]
+                    title = para.text
                     print("标题：" + results[0])
 
                 if "审批单号" in results:
@@ -186,24 +187,19 @@ def data(document, cursor, date_now, doc_file, doc_more, path_old, doc_year):
                 if "发出日期" in results:
                     my_str07 = para.text.split("：")[1].split("接")[0]
                     my_str07 = my_str07.strip()
-                    my_str07_year = my_str07.split("年")[0].strip()
-                    my_str07_mon = my_str07.split("年")[1].split("月")[0].strip()
-                    my_str07_day = my_str07.split("年")[1].split("月")[1].split("日")[0].strip()
-                    if my_str07_year == "" or my_str07_mon == "" or my_str07_day == "":
-                        sendouttime = "0000-00-00"
-                    else:
-                        sendouttime = my_str07_year + "-" + my_str07_mon + "-" + my_str07_day
+                    my_str07_year = my_str07.split("年")[0].strip() if my_str07.split("年")[0].strip() != '' else "  "
+                    my_str07_mon = my_str07.split("年")[1].split("月")[0].strip() if my_str07.split("年")[1].split("月")[0].strip() != '' else "  "
+                    my_str07_day = my_str07.split("年")[1].split("月")[1].split("日")[0].strip() if my_str07.split("年")[1].split("月")[1].split("日")[0].strip() != '' else "  "
+                    sendouttime = my_str07_year + "年" + my_str07_mon + "月" + my_str07_day + "日"
                     print("发出日期：" + sendouttime)
 
-                    my_str07_ = para.text.split("接收日期：")[0].strip()
-                    my_str07_year = my_str07_.split("年")[0].strip()
-                    my_str07_mon = my_str07_.split("年")[1].split("月")[0].strip()
-                    my_str07_day = my_str07_.split("年")[1].split("月")[1].split("日")[0].strip()
-                    if my_str07_year == "" or my_str07_mon == "" or my_str07_day == "":
-                        recievetime = "0000-00-00"
-                    else:
-                        recievetime = my_str07_year + "-" + my_str07_mon + "-" + my_str07_day
-                    print("发出日期：" + recievetime)
+                    my_str07_ = para.text.split("接收日期：")[1].strip()
+                    my_str07_year = my_str07_.split("年")[0].strip() if my_str07_.split("年")[0].strip() != '' else "  "
+                    my_str07_mon = my_str07_.split("年")[1].split("月")[0].strip() if my_str07_.split("年")[1].split("月")[0].strip() != '' else "  "
+                    my_str07_day = my_str07_.split("年")[1].split("月")[1].split("日")[0].strip() if my_str07_.split("年")[1].split("月")[1].split("日")[0].strip() != '' else "  "
+
+                    recievetime = my_str07_year + "年" + my_str07_mon + "月" + my_str07_day + "日"
+                    print("接收日期：" + recievetime)
 
 
                 if "注" in results:
@@ -229,14 +225,15 @@ def data(document, cursor, date_now, doc_file, doc_more, path_old, doc_year):
 
     else:
         print("此文件为多单号文件：" + doc_file)
-        shutil.move(path_old, doc_more)
+        doc_more(document, cursor, date_now, doc_file, doc_more_file_path, path_old, doc_year)
+        # shutil.move(path_old, doc_more_file_path)
     return date_now, doc_file
 
 
 
 
 
-def test_doc(path_old, path_new, doc_year, date_now, doc_file, doc_more, cursor):
+def test_doc(path_old, path_new, doc_year, date_now, doc_file, doc_more_file_path, cursor):
     path_new = path_new + "\\" + doc_file + "x"
 
     doc_docx(path_new, path_old)
@@ -244,12 +241,12 @@ def test_doc(path_old, path_new, doc_year, date_now, doc_file, doc_more, cursor)
     document = Document(path_new)
 
     # 读取数据
-    data(document, cursor, date_now, doc_file, doc_more, path_old, doc_year)
+    data(document, cursor, date_now, doc_file, doc_more_file_path, path_old, doc_year)
 
 
 
 
-def main(doc_path, docx_path, doc_year, doc_finish, doc_more):
+def main(doc_path, docx_path, doc_year, doc_finish, doc_more_file_path):
     dbname = "doc_sqlit_%s.db" % (datetime.now().strftime("%H-%M-%S-%f"))
     conn = sqlite3.connect(dbname)
     cursor = conn.cursor()
@@ -267,10 +264,10 @@ def main(doc_path, docx_path, doc_year, doc_finish, doc_more):
         if "~$" in doc_file:
             pass
         else:
-            date_now = datetime.now().strftime("%H-%M-%S-%f")
+            date_now = datetime.now().strftime("%Y%m%d%H%M%S%f")
             doc_file_path = doc_path + "\\" + doc_file
             docx_file_path = docx_path
-            test_doc(doc_file_path, docx_file_path, doc_year, date_now, doc_file, doc_more, cursor)
+            test_doc(doc_file_path, docx_file_path, doc_year, date_now, doc_file, doc_more_file_path, cursor)
             try:
                 shutil.move(doc_file_path, doc_finish)
             except Exception as e:
@@ -297,19 +294,17 @@ def main(doc_path, docx_path, doc_year, doc_finish, doc_more):
 if __name__ == '__main__':
     pass
     # windows
-    # doc_path = "E:\\doc_data"
-    # doc_finish = "E:\\doc_finish\\"
+    doc_path = "E:\\doc_data"
+    doc_finish = "E:\\doc_finish\\"
 
-    doc_finish = "E:\\doc_data\\"
-    doc_path = "E:\\doc_finish"
-
+    # doc_finish = "E:\\doc_data\\"
+    # doc_path = "E:\\doc_finish"
 
     docx_path = "E:\\docx_data"
-    doc_more = "E:\\doc_more\\"
-
+    doc_more_file_path = "E:\\doc_more\\"
 
     doc_year = 2018
 
-    main(doc_path, docx_path, doc_year, doc_finish, doc_more)
+    main(doc_path, docx_path, doc_year, doc_finish, doc_more_file_path)
 
     # partition_page()
