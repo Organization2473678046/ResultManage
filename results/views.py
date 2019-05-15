@@ -4,6 +4,7 @@ import os
 import re
 from django.http import HttpResponse
 from django.conf import settings
+from django.utils.http import urlquote
 from django.db.models import Q
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from django_filters.rest_framework import DjangoFilterBackend
@@ -13,10 +14,12 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.response import Response
 from rest_framework import status
-from results.models import HandOutList, FileInfo, UploadDoc
-from results.serializers import HandOutListSerializer, ExportHandoutlistSerializer, UploadDocSerializer
+from results.models import HandOutList, FileInfo, UploadDoc, HandoutlistExcel
+from results.serializers import HandOutListSerializer, ExportHandoutlistSerializer, UploadDocSerializer, \
+    HandoutlistExcelSerializer
 from celery_app.generate_file import generate_docx
-from script.export_excel import write_excel
+from celery_app.export_excel import write_excel
+
 
 class HandOutListViewSetPagination(PageNumberPagination):
     page_size = 10
@@ -59,30 +62,7 @@ class HandOutListViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.
         "othermedia", "medianums", "mapnums", "createtime", "filename", "file",
         "updatetime")
 
-    # def get_queryset(self):
-    #     if self.request is not None:
-    #         if self.action == "list":
-    #             # 获取清单名称
-    #             name = self.request.query_params.get("name")
-    #             if name:
-    #                 return HandOutList.objects.filter(name=name)
-    #             else:
-    #                 return HandOutList.objects.all()
-    #         else:
-    #             return HandOutList.objects.all()
-    #     else:
-    #         return []
 
-    # def retrieve(self, request, *args, **kwargs):
-    #     handoutlist = self.get_object()
-    #     fileinfos = FileInfo.objects.filter(handoutlist_name=handoutlist.name)
-    #     handoutlist_serializer = self.get_serializer(handoutlist)
-    #     fileinfos_serializer = FileInfoSerializer(fileinfos, many=True)
-    #     return Response({"handoutlist": handoutlist_serializer.data, "fileinfos": fileinfos_serializer.data})
-    #
-
-
-# class ExportHandoutlistView(mixins.UpdateModelMixin,GenericViewSet):
 class ExportHandoutlistView(mixins.ListModelMixin, mixins.RetrieveModelMixin, GenericViewSet):
     permission_classes = [IsAuthenticated, IsAdminUser]
     queryset = HandOutList.objects.all()
@@ -96,29 +76,40 @@ class ExportHandoutlistView(mixins.ListModelMixin, mixins.RetrieveModelMixin, Ge
         handoutlist_docxs = os.path.join(settings.MEDIA_ROOT, "handoutlist_docxs")
         if not os.path.exists(handoutlist_docxs):
             os.mkdir(handoutlist_docxs)
+        # generate_docx.delay(dbname, handoutlist.id, handoutlist.uniquenum, templates_dir,
+        #               handoutlist_docxs)
         generate_docx(dbname, handoutlist.id, handoutlist.uniquenum, templates_dir,
                       handoutlist_docxs)
         handoutlist = self.get_object()
         serializer = self.get_serializer(handoutlist)
         return Response(serializer.data)
+        # return Response("ok")
 
 
 class ExportExcelViewSet(mixins.ListModelMixin, GenericViewSet):
     permission_classes = [IsAuthenticated, IsAdminUser]
+    queryset = HandoutlistExcel
+    serializer_class = HandoutlistExcelSerializer
 
     def list(self, request, *args, **kwargs):
-        # response = HttpResponse(content_type='application/ms-excel')
-        response = HttpResponse(content_type='application/octet-stream')
-        response['Content-Disposition'] = 'attachment; filename={0}.xlsx'.format(urlquote("统计"))
+        try:
+            HandoutlistExcel.objects.get(excelmark="handoutlist")
+        except HandoutlistExcel.DoesNotExist:
+            HandoutlistExcel.objects.create(excelmark="handoutlist")
+
         dbname = settings.DATABASES["default"]["NAME"]
-        f = write_excel(dbname)
-        # 保存文件
-        f.save(response)
-        return response
+        excel_dir = os.path.join(settings.MEDIA_ROOT, "handoutlist_excels")
+        if not os.path.exists(excel_dir):
+            os.mkdir(excel_dir)
+
+        write_excel(dbname, excel_dir)
+        handoutlistexcel = HandoutlistExcel.objects.get(excelmark="handoutlist")
+        serializer = self.get_serializer(handoutlistexcel)
+        return Response(serializer.data)
 
 
 class EchartReceiveUnitViewSet(mixins.ListModelMixin, GenericViewSet):
-    permission_classes = [IsAuthenticated,IsAdminUser]
+    permission_classes = [IsAuthenticated, IsAdminUser]
     queryset = HandOutList.objects.filter()
     serializer_class = HandOutListSerializer
 
@@ -147,7 +138,9 @@ class EchartReceiveUnitViewSet(mixins.ListModelMixin, GenericViewSet):
 
         data_list = []
         receiveunit_list = list(
-            set([item[value] for item in HandOutList.objects.filter(~Q(receiveunit=""), listnum__startswith=year).values("receiveunit") for value in item]))
+            set([item[value] for item in
+                 HandOutList.objects.filter(~Q(receiveunit=""), listnum__startswith=year).values("receiveunit") for
+                 value in item]))
         for receiveunit in receiveunit_list:
             data_dict = {}
             count = HandOutList.objects.filter(receiveunit=receiveunit).count()
@@ -155,7 +148,6 @@ class EchartReceiveUnitViewSet(mixins.ListModelMixin, GenericViewSet):
             data_dict["count"] = count
             data_list.append(data_dict)
         return Response(data_list)
-
 
 
 class EchartReceiveTimeViewSet(mixins.ListModelMixin, GenericViewSet):
@@ -215,6 +207,7 @@ class EchartReceiveTimeViewSet(mixins.ListModelMixin, GenericViewSet):
             data_list.append(data_dict)
 
         return Response(data_list)
+
 
 class UploadDocViewSet(mixins.CreateModelMixin, GenericViewSet):
     serializer_class = UploadDocSerializer

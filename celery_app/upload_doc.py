@@ -1,3 +1,4 @@
+#!/opt/rh/rh-python36/root/usr/bin/python3
 # -*- coding: utf-8 -*-
 import os
 import sys
@@ -8,6 +9,7 @@ import sqlite3
 from docx import Document
 import re
 import subprocess
+import time
 
 
 @app.task
@@ -15,14 +17,21 @@ def doc_data_updata(filepath, handoutlist_uniquenum, filename):
     # '/opt/rh/httpd24/root/var/www/html/ResultManage/media/data/2019/05/14/2019-05-14-13-42-57-656120/分发单模板01_-_副本_2.doc'
     # '11-50-55-864353'
     # '分发单模板01 - 副本 (2).doc'
-    path_list = filepath.split("/")
-    path_list.pop()
-    out_dir = "/".join(path_list)
-    out_format = "docx"
-    subprocess.check_output(
-        ["soffice", "--headless", "--invisible", "--convert-to", out_format, filepath, "--outdir", out_dir])
-    # get_doc_data
-    document = Document(filepath + "x")
+    # print(filepath)
+    # print(handoutlist_uniquenum)
+    # print(filename)
+    if filename.split(".").pop() == "doc":
+        path_list = filepath.split("/")
+        path_list.pop()
+        out_dir = "/".join(path_list)
+        out_format = "docx"
+        out_put = subprocess.check_output(
+            ["soffice", "--headless", "--invisible", "--convert-to", out_format, filepath, "--outdir", out_dir])
+        # get_doc_data
+        # print(out_put,"**********************")
+        document = Document(filepath + "x")
+    else:
+        document = Document(filepath)
 
     title = ""      # 分发单标题
     signer = ""     # 签发
@@ -237,7 +246,7 @@ def doc_data_updata(filepath, handoutlist_uniquenum, filename):
     # print("备注图幅号：" + remake_str)
     mapnums = remake_str
     SQL = "UPDATE results_handoutlist SET title = '{0}', signer='{1}', name='{2}', listnum='{3}', auditnum='{4}', secrecyagreementnum='{5}', purpose='{6}', sendunit='{7}', sendunitaddr='{8}', sendunitpostcode='{9}', receiveunit='{10}', receiveunitaddr='{11}', receiveunitpostcode='{12}', handler='{13}', handlerphonenum='{14}', handlermobilephonenum='{15}', receiver='{16}', receiverphonenum='{17}', receivermobilephonenum='{18}', sendouttimec='{19}', recievetimec='{20}', selfgetway='{21}', postway='{22}', networkway='{23}', sendtoway='{24}', signature='{25}', papermedia='{26}', cdmedia='{27}', diskmedia='{28}', networkmedia='{29}', othermedia='{30}', medianums='{31}', mapnums='{32}', filename='{33}', file='{34}' WHERE  uniquenum='{35}'".format(title, signer, name, listnum, auditnum, secrecyagreementnum, purpose, sendunit, sendunitaddr, sendunitpostcode, receiveunit, receiveunitaddr, receiveunitpostcode, handler, handlerphonenum, handlermobilephonenum, receiver, receiverphonenum, receivermobilephonenum, sendouttime, recievetime, selfgetway, postway, networkway, sendtoway, signature, papermedia, cdmedia, diskmedia, networkmedia, othermedia, medianums, mapnums, filename, file, uniquenum)
-    change_postgresql(dbname = "resmanagev0.3", SQL = SQL)
+    change_postgresql(dbname = "resmanagev2019.05.10", SQL = SQL)
 
     # 读取表格
     p = 1
@@ -263,7 +272,7 @@ def doc_data_updata(filepath, handoutlist_uniquenum, filename):
                 p = 2
             else:
                 SQL = "UPDATE results_fileinfo SET name='{0}', secretlevel='{1}', resultnum='{2}', datasize='{3}', formatormedia='{4}', remarks='{5}' WHERE handoutlist_uniquenum='{6}'".format(name, secretlevel, resultnum, datasize, formatormedia, remarks, handoutlist_uniquenum)
-                change_postgresql(dbname="resmanagev0.3", SQL=SQL)
+                change_postgresql(dbname="resmanagev2019.05.10", SQL=SQL)
     else:
         for i in table.rows:
             table_list = []
@@ -281,7 +290,7 @@ def doc_data_updata(filepath, handoutlist_uniquenum, filename):
                 p = 2
             else:
                 SQL = "UPDATE results_fileinfo SET name='{0}', secretlevel='{1}', resultnum='{2}', datasize='{3}', formatormedia='{4}', remarks='{5}' WHERE handoutlist_uniquenum='{6}'".format(name, secretlevel, resultnum, datasize, formatormedia, remarks, handoutlist_uniquenum)
-                change_postgresql(dbname="resmanagev0.3", SQL=SQL)
+                change_postgresql(dbname="resmanagev2019.05.10", SQL=SQL)
 
     return "successful"
 
@@ -292,6 +301,7 @@ def change_postgresql(dbname, SQL):
                             password="Lantucx2018",
                             host="localhost",
                             port="5432")
+    # print(SQL)
     cursor = conn.cursor()
     cursor.execute(SQL)
     conn.commit()
@@ -300,8 +310,8 @@ def change_postgresql(dbname, SQL):
 
 if __name__ == '__main__':
     # filepath = '/opt/rh/httpd24/root/var/www/html/ResultManage/media/data/2019/05/14/2019-05-14-13-42-57-656120/分发单模板01_-_副本_2.doc'
-    filepath = '/opt/rh/httpd24/root/var/www/html/ResultManage/media/data/2019/05/14/2019-05-14-13-42-57-656120/2019-01-01.doc'
-    handoutlist_uniquenum = '11-50-55-864353'
-    filename = '分发单模板01 - 副本 (2).doc'
+    filepath = '/opt/rh/httpd24/root/var/www/html/ResultManage/media/data/2019/05/15/2019-05-15-15-43-11-612104/20190515.doc'
+    handoutlist_uniquenum = '20190515151248533388000001'
+    filename = '20190515.doc'
     doc_data_updata(filepath, handoutlist_uniquenum, filename)
 

@@ -9,7 +9,7 @@ from openpyxl.styles import Font,colors,Alignment
 
 
 # 写excel
-def write_excel(dbname):
+def write_excel(dbname,excel_dir):
     data_list = get_handoutlist_data(dbname)
     f = openpyxl.Workbook()  # 创建工作簿
     sheet1 = f.create_sheet(title="sheet1", index=0)
@@ -46,11 +46,14 @@ def write_excel(dbname):
             sheet1.append(row)
             fileinfo_count += 1
         handoutlist_count += 1
+    excel_filename = datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + ".xlsx"
+    excel_filepath = os.path.join(excel_dir, excel_filename)
+    # 保存文件
+    f.save(excel_filepath)
 
-    return f
-
-
-
+    excel_file = os.path.join("handoutlist_excels", excel_filename)
+    change_postgresql(dbname, excel_file)
+    return True
 
 def get_handoutlist_data(dbname):
     conn = psycopg2.connect(dbname=dbname,
@@ -67,31 +70,31 @@ def get_handoutlist_data(dbname):
     data_list = []
     for handoutlist in handoutlists:
         data_dict = {}
-        SELECT_SQL2 = "select name,secretlevel,resultnum,datasize,formatormedia,remarks from results_fileinfo where handoutlist_uniquenum='%s' order by id" % handoutlist[35]
+        SELECT_SQL2 = "select name,secretlevel,resultnum,datasize,formatormedia,remarks from results_fileinfo where handoutlist_uniquenum='%s' order by id" % \
+                      handoutlist[35]
         cursor.execute(SELECT_SQL2)
         fileinfo_list = cursor.fetchall()
         data_dict["handoutlist"] = handoutlist
-        data_dict["fileinfo_list"]  = fileinfo_list
+        data_dict["fileinfo_list"] = fileinfo_list
         data_list.append(data_dict)
         conn.commit()
-    print(data_list)
+    # print(data_list)
     conn.close()
     return data_list
-#
-#
-# def change_postgresql(dbname):
-#     conn = psycopg2.connect(dbname=dbname,
-#                             user="postgres",
-#                             password="Lantucx2018",
-#                             host="localhost",
-#                             port="5432")
-#     cursor = conn.cursor()
-#     sql = "update results_handoutlist set file='{0}' where id={1}".format(hadoutlist_file, handoutlist_id)
-#     cursor.execute(sql)
-#     conn.commit()
-#     conn.close()
 
-def get_deliverways(selfgetway,postway,networkway,sendtoway):
+def change_postgresql(dbname, excel_file):
+    conn = psycopg2.connect(dbname=dbname,
+                            user="postgres",
+                            password="Lantucx2018",
+                            host="localhost",
+                            port="5432")
+    cursor = conn.cursor()
+    sql = "update results_handoutlistexcel set excelfile='{0}' where id=1".format(excel_file)
+    cursor.execute(sql)
+    conn.commit()
+    conn.close()
+
+def get_deliverways(selfgetway, postway, networkway, sendtoway):
     # 返回清单所选的所有递送方式
     deliverways_list = []
     if selfgetway:
@@ -104,8 +107,7 @@ def get_deliverways(selfgetway,postway,networkway,sendtoway):
         deliverways_list.append(u"送往")
     return ",".join(deliverways_list)
 
-
-def get_media(papermedia,cdmedia,diskmedia,networkmedia,othermedia):
+def get_media(papermedia, cdmedia, diskmedia, networkmedia, othermedia):
     # 返回成果所选的所有介质
     media_list = []
     if papermedia:
@@ -125,6 +127,6 @@ def get_media(papermedia,cdmedia,diskmedia,networkmedia,othermedia):
 if __name__ == '__main__':
     # get_handoutlist_fileinfo_data("resmanagev0.3")
     # 写入Excel
-    write_excel("resmanagev0.3","/opt/rh/httpd24/root/var/www/html/ResultManage/media/handoutlist_excels")
+    write_excel("resmanagev2019.05.10","/opt/rh/httpd24/root/var/www/html/ResultManage/media/handoutlist_excels")
     print('写入成功')
 

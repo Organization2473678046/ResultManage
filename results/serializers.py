@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from rest_framework import serializers
 
 from celery_app.upload_doc import doc_data_updata
-from results.models import HandOutList, FileInfo, UploadDoc
+from results.models import HandOutList, FileInfo, UploadDoc,HandoutlistExcel
 from datetime import datetime
 
 
@@ -158,7 +158,8 @@ class UploadDocSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         data_id = validated_data["data_id"]
-        validated_data["file"].name = datetime.now().strftime("%Y%m%d") + ".doc"
+        file_type = validated_data["file"].name.split(".").pop()
+        validated_data["file"].name = datetime.now().strftime("%Y%m%d") +"."+ file_type
         del validated_data["data_id"]
         try:
             uniquenum = HandOutList.objects.get(id=data_id).uniquenum
@@ -167,6 +168,10 @@ class UploadDocSerializer(serializers.ModelSerializer):
         file = super(UploadDocSerializer, self).create(validated_data)
         filepath = file.file.path
         filename = validated_data.get("file").name
+        print(uniquenum)
+        print(file)
+        print(filename)
+        print(filepath)
         doc_data_updata.delay(filepath, uniquenum, filename)
         return file
 
@@ -190,3 +195,14 @@ class EchartReceiveTimeSerializer(serializers.ModelSerializer):
         model = EchartReceiveTime
         fields = ["sendouttime", "count"]
 """
+
+class HandoutlistExcelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HandoutlistExcel
+        fields = "__all__"
+        extra_kwargs = {
+            "excelmark":{"required": False, "write_only": True},
+            "excelfile": {"required":False,"read_only":True,"help_text": u"分发单统计excel文件"},
+            "createtime": {"format": '%Y-%m-%d %H:%M:%S'},
+            "updatetime": {"format": '%Y-%m-%d %H:%M:%S'},
+        }

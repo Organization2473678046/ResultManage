@@ -3,12 +3,14 @@ from __future__ import unicode_literals
 from django.db import models
 from datetime import datetime
 
+
 def user_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
     return 'data/{0}/{1}/{2}/{3}/{4}'.format(datetime.now().strftime("%Y"),
                                              datetime.now().strftime("%m"),
                                              datetime.now().strftime("%d"),
                                              datetime.now().strftime("%Y-%m-%d-%H-%M-%S-%f"), filename)
+
 
 class HandOutList(models.Model):
     """成果分发清单表"""
@@ -58,9 +60,8 @@ class HandOutList(models.Model):
     filename = models.CharField(max_length=5000, null=True, blank=True, verbose_name=u"分发单文件名字")
     file = models.FileField(upload_to=user_directory_path, max_length=5000, null=True, blank=True,
                             verbose_name=u"分发单文件路径")
-    createtime = models.DateTimeField(auto_now_add=True,null=True, blank=True, verbose_name=u"创建时间")
+    createtime = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name=u"创建时间")
     updatetime = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name=u"更新时间")
-
 
     class Meta:
         verbose_name = u"成果分发清单表"
@@ -90,7 +91,7 @@ class FileInfo(models.Model):
     secretlevel = models.CharField(max_length=1000, null=True, blank=True, verbose_name=u"成果秘密级别")
     # handoutlist_name = models.CharField(max_length=5000, verbose_name=u"该成果所属清单")
     remarks = models.CharField(max_length=5000, null=True, blank=True, verbose_name=u"成果资料备注")
-    handoutlist_uniquenum = models.CharField(max_length=5000,verbose_name=u"分发单唯一编号")
+    handoutlist_uniquenum = models.CharField(max_length=5000, verbose_name=u"分发单唯一编号")
     createtime = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name=u"创建时间")
     updatetime = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name=u"更新时间")
 
@@ -105,7 +106,7 @@ class FileInfo(models.Model):
 class UploadDoc(models.Model):
     file = models.FileField(upload_to=user_directory_path, max_length=5000, null=True, blank=True,
                             verbose_name=u"分发单文件路径")
-    handoutlist_uniquenum = models.CharField(max_length=5000,verbose_name=u"分发单唯一编号")
+    handoutlist_uniquenum = models.CharField(max_length=5000, verbose_name=u"分发单唯一编号")
     createtime = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name=u"创建时间")
     updatetime = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name=u"更新时间")
 
@@ -115,7 +116,6 @@ class UploadDoc(models.Model):
 
     def __str__(self):
         return self.handoutlist_uniquenum
-
 
 
 # class FilePath(models.Model):
@@ -132,7 +132,6 @@ class UploadDoc(models.Model):
 #
 #     def __str__(self):
 #         return self.filepath
-
 
 
 """
@@ -159,3 +158,12 @@ class EchartReceiveTime(models.Model):
         return self.sendouttime
 """
 
+
+class HandoutlistExcel(models.Model):
+    excelmark = models.CharField(max_length=2000,unique=True, verbose_name=u"excel标记")
+    excelfile = models.FileField(upload_to=user_directory_path,max_length=2000, null=True, blank=True, verbose_name=u"excel文件")
+    createtime = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name=u"创建时间")
+    updatetime = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name=u"更新时间")
+
+    def __str__(self):
+        return self.excelfile

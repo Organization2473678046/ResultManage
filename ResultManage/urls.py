@@ -37,11 +37,11 @@ router.register(r'uploaddoc', views.UploadDocViewSet, base_name='uploaddoc')
 
 
 urlpatterns = [
-    # url(r'^v0.3/admin/', admin.site.urls),
-    # url(r'^v0.3/login/$', obtain_jwt_token),
-    url(r'^v0.3/login/$', AuthenticateView.as_view()),
-    url(r'^v0.3/', include(router.urls)),
-    url(r'^v0.3/docs/', include_docs_urls(title=u"成果管理系统API")),
-    url(r'^v0.3/media/(?P<path>.*)$', serve, {"document_root": settings.MEDIA_ROOT}),
-    url(r'^v0.3/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    # url(r'^v2019.05.10/admin/', admin.site.urls),
+    # url(r'^v2019.05.10/login/$', obtain_jwt_token),
+    url(r'^v2019.05.10/login/$', AuthenticateView.as_view()),
+    url(r'^v2019.05.10/', include(router.urls)),
+    url(r'^v2019.05.10/docs/', include_docs_urls(title=u"成果管理系统API")),
+    url(r'^v2019.05.10/media/(?P<path>.*)$', serve, {"document_root": settings.MEDIA_ROOT}),
+    url(r'^v2019.05.10/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]

@@ -88,7 +88,7 @@ WSGI_APPLICATION = 'ResultManage.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'resmanagev0.3',
+        'NAME': 'resmanagev2019.05.10',
         'USER': 'postgres',
         'PASSWORD': 'Lantucx2018',
         'HOST': 'localhost',
@@ -149,7 +149,7 @@ CORS_ALLOW_CREDENTIALS = True
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
+        # 'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
@@ -170,7 +170,7 @@ JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),
 }
 
-MEDIA_URL = '/v0.3/media/'
+MEDIA_URL = '/v2019.05.10/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 
