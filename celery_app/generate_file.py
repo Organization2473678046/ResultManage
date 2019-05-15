@@ -229,9 +229,9 @@ def generate_docx(dbname, handoutlist_id, handoutlist_uniquenum, templates_dir, 
     # 添加段落
     # doc.add_paragraph(mapnums)
     # filename = handoutlist[35]
-    filename = "测绘-"+datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + "-" + "%04d" % handoutlist_propertys[36] + ".docx"
+    # filename = "测绘-"+datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + "-" + "%04d" % handoutlist_propertys[36] + ".docx"
     # filename = "测绘-"+datetime.now().strftime("%Y") + "-" + "%04d" % handoutlist_propertys[36] + ".docx"
-    # filename = datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + "-" + "%04d" % handoutlist_propertys[36] + ".docx"
+    filename = datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + "-" + "%04d" % handoutlist_propertys[36] + ".docx"
     docx_filepath = os.path.join(handoutlist_docxs, filename)
     doc.save(docx_filepath)
 
