@@ -69,7 +69,7 @@ def insert_data():
 
 if __name__ == '__main__':
 
-    insert_data()
+    # insert_data()
     # li = []
     # if li:
     #     print("非空")
@@ -125,6 +125,9 @@ if __name__ == '__main__':
     # print(sendouttime)
     # print(time_str[:10])
 
+    time_str = "2019-05-10"
+    time_t = datetime.strptime(time_str,"%Y-%m-%d")
+    print(time_t)
 
 
     pass

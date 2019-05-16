@@ -10,7 +10,7 @@ class LicensePerssion(BasePermission):
 
     def has_permission(self, request, view):
         time_now = int(datetime.now().strftime("%Y%m%d"))
-        time_license = 21000101
+        time_license = 20190831
         if time_now >= time_license:
             # with open("/opt/rh/httpd24/root/var/www/html/ResultManage/1.txt", "a") as f:
             #     f.write(datetime.now().strftime("%Y-%m-%d"))

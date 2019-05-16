@@ -30,11 +30,11 @@ def write_excel(dbname,excel_dir):
         for fileinfo in fileinfo_list:
             row = [str(handoutlist_count), handoutlist[0], handoutlist[1], handoutlist[2], handoutlist[3],
                    handoutlist[4], handoutlist[5], handoutlist[6],
-                   get_deliverways(handoutlist[7], handoutlist[8], handoutlist[9], handoutlist[0]), handoutlist[11],
+                   get_deliverways(handoutlist[7], handoutlist[8], handoutlist[9], handoutlist[10]), handoutlist[11],
                    get_media(handoutlist[12], handoutlist[13], handoutlist[14], handoutlist[15], handoutlist[16]),
                    handoutlist[17], handoutlist[18], handoutlist[19], handoutlist[20], handoutlist[21], handoutlist[22],
                    handoutlist[23], handoutlist[24], handoutlist[25], handoutlist[26], handoutlist[27], handoutlist[28],
-                   handoutlist[29], handoutlist[30], handoutlist[31], handoutlist[32], str(fileinfo_count), fileinfo[0],
+                   handoutlist[29], handoutlist[30], "" if handoutlist[31] == "  年  月  日" else handoutlist[31], handoutlist[32], str(fileinfo_count), fileinfo[0],
                    fileinfo[1], fileinfo[2], fileinfo[3], fileinfo[4], fileinfo[5]]
             for item in row:
                 if item is None or item == "None":

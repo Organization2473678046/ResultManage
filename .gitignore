@@ -4,7 +4,7 @@
 
 #media/
 
-#/media/*
+/media/*
 
 #!.gitkeep
 #!.gitignore
@@ -15,8 +15,8 @@
 /.idea/*
 /logs/*
 !/media/.gitkeep
-!/media/license/*
-!/media/handoutlist_docxs/.gitkeep
+!/media/license
+# !/media/handoutlist_docxs/.gitkeep
 
 
 

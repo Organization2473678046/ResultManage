@@ -5,6 +5,9 @@ from rest_framework import serializers
 from celery_app.upload_doc import doc_data_updata
 from results.models import HandOutList, FileInfo, UploadDoc,HandoutlistExcel
 from datetime import datetime
+from rest_framework import status
+from rest_framework.exceptions import APIException
+
 
 
 # logger = logging.getLogger("django_error")
@@ -159,6 +162,11 @@ class UploadDocSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         data_id = validated_data["data_id"]
         file_type = validated_data["file"].name.split(".").pop()
+        if file_type not in ["doc","docx"]:
+            # raise serializers.ValidationError("不支持导入 {0} 格式的文件，请上传 doc 或 docx 格式的文件".format(file_type))
+            # 10000表示上传的文件类型错误
+            raise serializers.ValidationError("10000")
+            # raise APIException(10000)
         validated_data["file"].name = datetime.now().strftime("%Y%m%d") +"."+ file_type
         del validated_data["data_id"]
         try:
@@ -168,10 +176,10 @@ class UploadDocSerializer(serializers.ModelSerializer):
         file = super(UploadDocSerializer, self).create(validated_data)
         filepath = file.file.path
         filename = validated_data.get("file").name
-        print(uniquenum)
-        print(file)
-        print(filename)
-        print(filepath)
+        # print(uniquenum)
+        # print(file)
+        # print(filename)
+        # print(filepath)
         doc_data_updata.delay(filepath, uniquenum, filename)
         return file
 
