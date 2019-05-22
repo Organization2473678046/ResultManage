@@ -8,33 +8,110 @@ from users.models import User, License
 
 
 class UserSerializer(serializers.ModelSerializer):
+    enter_password = serializers.CharField(label='确认密码', min_length=6, max_length=16, write_only=True)
+
     class Meta:
         model = User
-        fields = ['id', 'username', 'password', 'reallyname', 'isadmin', 'date_joined']
-        extra_kwargs = {'password': {"write_only": True},
+        fields = ['id', 'username', 'password', 'reallyname', 'isadmin', 'date_joined', "enter_password"]
+        extra_kwargs = {
                         'reallyname': {"required": True},
-                        "date_joined": {"read_only": True, "format": '%Y-%m-%d %H:%M:%S'}
+                        'password': {
+                            'write_only': True,
+                            'min_length': 6,
+                            'max_length': 16,
+                            'error_messages': {
+                                'min_length': '仅允许6-16个字符的密码',
+                                'max_length': '仅允许6-16个字符的密码',
+                            }
+                        },
+                        'enter_password': {
+                            'write_only': True,
+                            'min_length': 6,
+                            'max_length': 16,
+                            'error_messages': {
+                                'min_length': '仅允许6-16个字符的密码',
+                                'max_length': '仅允许6-16个字符的密码',
+                            }
+                        }
                         }
 
-    # def create(self, validated_data):
-    #     user = super(UserSerializer, self).create(validated_data)
-    #     if user.isadmin is True:
-    #         user.set_password("root12345")
-    #     else:
-    #         # user.is_staff = False
-    #         user.set_password("12345")
-    #     user.save()
-    #     return user
+    def validate(self, attrs):
+
+        password = attrs.get('password')
+        enter_password = attrs.get('enter_password')
+
+        if password != enter_password:
+            raise serializers.ValidationError('密码不一致')
+
+        return attrs
 
     def create(self, validated_data):
+        del validated_data['enter_password']
+
+        try:
+            password = validated_data.get("password")
+            if password == "":
+                password = "123456"
+        except:
+            password = "123456"
+        validated_data["password"] = password
         user = super(UserSerializer, self).create(validated_data)
         user.set_password(validated_data["password"])
-        user.is_superuser = True
-        user.is_staff = True
-        user.isadmin = True
-        user.save()
 
+        user.save()
         return user
+
+
+class UserUpdateSerializer(serializers.ModelSerializer):
+    new_password = serializers.CharField(label='新密码', allow_null=True, allow_blank=True, min_length=6, max_length=16, write_only=True)
+    enter_password = serializers.CharField(label='确认密码', min_length=6, max_length=16, write_only=True)
+
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'password', "new_password", "enter_password"]
+        extra_kwargs = {
+                        'password': {
+                            'write_only': True,
+                            'min_length': 6,
+                            'max_length': 16,
+                            'error_messages': {
+                                'min_length': '仅允许6-16个字符的密码',
+                                'max_length': '仅允许6-16个字符的密码',
+                            }
+                        },
+                        'new_password': {
+                            'write_only': True,
+                            'min_length': 6,
+                            'max_length': 16,
+                            'error_messages': {
+                                'min_length': '仅允许6-16个字符的密码',
+                                'max_length': '仅允许6-16个字符的密码',
+                            }
+                        }
+                        }
+
+    def validate(self, attrs):
+
+        password = attrs.get('new_password')
+        enter_password = attrs.get('enter_password')
+
+        if password != enter_password:
+            raise serializers.ValidationError('密码不一致')
+
+        return attrs
+
+
+    def update(self, instance, validated_data):
+        if instance.check_password(validated_data.get("password")):
+            instance.set_password(validated_data.get("new_password"))
+            instance.save()
+        else:
+            raise serializers.ValidationError('密码错误')
+        return instance
+
+
+
+
 
 class LicenseSerializer(serializers.ModelSerializer):
 

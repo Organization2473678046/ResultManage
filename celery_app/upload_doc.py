@@ -10,16 +10,15 @@ from docx import Document
 import re
 import subprocess
 import time
+from django.db import transaction
 
 
 @app.task
-def doc_data_updata(filepath, handoutlist_uniquenum, filename):
-    # '/opt/rh/httpd24/root/var/www/html/ResultManage/media/data/2019/05/14/2019-05-14-13-42-57-656120/分发单模板01_-_副本_2.doc'
-    # '11-50-55-864353'
-    # '分发单模板01 - 副本 (2).doc'
-    # print(filepath)
-    # print(handoutlist_uniquenum)
-    # print(filename)
+def doc_data_updata(dbname,filepath, handoutlist_uniquenum, filename):
+
+    print(filepath)
+    print(handoutlist_uniquenum)
+    print(filename)
     if filename.split(".").pop() == "doc":
         path_list = filepath.split("/")
         path_list.pop()
@@ -73,6 +72,12 @@ def doc_data_updata(filepath, handoutlist_uniquenum, filename):
     remake_str = ""
     is_remake = False
     is_textbox = True
+    conn = psycopg2.connect(dbname=dbname,
+                            user="postgres",
+                            password="Lantucx2018",
+                            host="localhost",
+                            port="5432")
+    cursor = conn.cursor()
 
     x = 0
 
@@ -134,7 +139,7 @@ def doc_data_updata(filepath, handoutlist_uniquenum, filename):
                 listnum = my_num001
                 # print("编号:" + my_num001)
 
-            if "保密责任证书" in results:
+            if "保密责任证书编号" in results:
                 my_num02 = para.text.split("：").pop()
                 secrecyagreementnum = my_num02
                 # print("保密责任证书:" + my_num02)
@@ -243,10 +248,17 @@ def doc_data_updata(filepath, handoutlist_uniquenum, filename):
         if is_remake:
             remake_str += para.text
 
-    # print("备注图幅号：" + remake_str)
+
     mapnums = remake_str
-    SQL = "UPDATE results_handoutlist SET title = '{0}', signer='{1}', name='{2}', listnum='{3}', auditnum='{4}', secrecyagreementnum='{5}', purpose='{6}', sendunit='{7}', sendunitaddr='{8}', sendunitpostcode='{9}', receiveunit='{10}', receiveunitaddr='{11}', receiveunitpostcode='{12}', handler='{13}', handlerphonenum='{14}', handlermobilephonenum='{15}', receiver='{16}', receiverphonenum='{17}', receivermobilephonenum='{18}', sendouttimec='{19}', recievetimec='{20}', selfgetway='{21}', postway='{22}', networkway='{23}', sendtoway='{24}', signature='{25}', papermedia='{26}', cdmedia='{27}', diskmedia='{28}', networkmedia='{29}', othermedia='{30}', medianums='{31}', mapnums='{32}', filename='{33}', file='{34}' WHERE  uniquenum='{35}'".format(title, signer, name, listnum, auditnum, secrecyagreementnum, purpose, sendunit, sendunitaddr, sendunitpostcode, receiveunit, receiveunitaddr, receiveunitpostcode, handler, handlerphonenum, handlermobilephonenum, receiver, receiverphonenum, receivermobilephonenum, sendouttime, recievetime, selfgetway, postway, networkway, sendtoway, signature, papermedia, cdmedia, diskmedia, networkmedia, othermedia, medianums, mapnums, filename, file, uniquenum)
-    change_postgresql(dbname = "resmanagev2019.05.10", SQL = SQL)
+    SQL = "UPDATE results_handoutlist SET title = '{0}', signer='{1}', name='{2}', listnum='{3}', auditnum='{4}', secrecyagreementnum='{5}', purpose='{6}', sendunit='{7}', sendunitaddr='{8}', sendunitpostcode='{9}', receiveunit='{10}', receiveunitaddr='{11}', receiveunitpostcode='{12}', handler='{13}', handlerphonenum='{14}', handlermobilephonenum='{15}', receiver='{16}', receiverphonenum='{17}', receivermobilephonenum='{18}', sendouttimec='{19}', recievetimec='{20}', selfgetway='{21}', postway='{22}', networkway='{23}', sendtoway='{24}', signature='{25}', papermedia='{26}', cdmedia='{27}', diskmedia='{28}', networkmedia='{29}', othermedia='{30}', medianums='{31}', mapnums='{32}' WHERE  uniquenum='{33}'".format(title, signer, name, listnum, auditnum, secrecyagreementnum, purpose, sendunit, sendunitaddr, sendunitpostcode, receiveunit, receiveunitaddr, receiveunitpostcode, handler, handlerphonenum, handlermobilephonenum, receiver, receiverphonenum, receivermobilephonenum, sendouttime, recievetime, selfgetway, postway, networkway, sendtoway, signature, papermedia, cdmedia, diskmedia, networkmedia, othermedia, medianums, mapnums, uniquenum)
+    cursor.execute(SQL)
+
+
+
+    SQL_UPDATE = "UPDATE results_fileinfo SET isdelete=TRUE WHERE handoutlist_uniquenum='{0}'".format(
+        handoutlist_uniquenum)
+    print(SQL_UPDATE)
+    cursor.execute(SQL_UPDATE)
 
     # 读取表格
     p = 1
@@ -271,8 +283,9 @@ def doc_data_updata(filepath, handoutlist_uniquenum, filename):
             if p == 1:
                 p = 2
             else:
-                SQL = "UPDATE results_fileinfo SET name='{0}', secretlevel='{1}', resultnum='{2}', datasize='{3}', formatormedia='{4}', remarks='{5}' WHERE handoutlist_uniquenum='{6}'".format(name, secretlevel, resultnum, datasize, formatormedia, remarks, handoutlist_uniquenum)
-                change_postgresql(dbname="resmanagev2019.05.10", SQL=SQL)
+                SQL_INSERT = "INSERT INTO results_fileinfo (name, secretlevel, resultnum, datasize, formatormedia, remarks, handoutlist_uniquenum, isdelete) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}')".format(name, secretlevel, resultnum, datasize, formatormedia, remarks, handoutlist_uniquenum, False)
+                print(SQL_INSERT)
+                cursor.execute(SQL_INSERT)
     else:
         for i in table.rows:
             table_list = []
@@ -289,29 +302,21 @@ def doc_data_updata(filepath, handoutlist_uniquenum, filename):
             if p == 1:
                 p = 2
             else:
-                SQL = "UPDATE results_fileinfo SET name='{0}', secretlevel='{1}', resultnum='{2}', datasize='{3}', formatormedia='{4}', remarks='{5}' WHERE handoutlist_uniquenum='{6}'".format(name, secretlevel, resultnum, datasize, formatormedia, remarks, handoutlist_uniquenum)
-                change_postgresql(dbname="resmanagev2019.05.10", SQL=SQL)
+                # SQL_UPDATE = "UPDATE results_fileinfo SET isdelete=TRUE WHERE handoutlist_uniquenum='{0}'".format(handoutlist_uniquenum)
+                SQL_INSERT = "INSERT INTO results_fileinfo (name, secretlevel, resultnum, datasize, formatormedia, remarks, handoutlist_uniquenum, isdelete) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}')".format(name, secretlevel, resultnum, datasize, formatormedia, remarks, handoutlist_uniquenum, False)
+                print(SQL_INSERT)
+                cursor.execute(SQL_INSERT)
 
+    conn.commit()
+    conn.close()
     return "successful"
 
 
-def change_postgresql(dbname, SQL):
-    conn = psycopg2.connect(dbname=dbname,
-                            user="postgres",
-                            password="Lantucx2018",
-                            host="localhost",
-                            port="5432")
-    # print(SQL)
-    cursor = conn.cursor()
-    cursor.execute(SQL)
-    conn.commit()
-    conn.close()
 
 
 if __name__ == '__main__':
-    # filepath = '/opt/rh/httpd24/root/var/www/html/ResultManage/media/data/2019/05/14/2019-05-14-13-42-57-656120/分发单模板01_-_副本_2.doc'
-    filepath = '/opt/rh/httpd24/root/var/www/html/ResultManage/media/data/2019/05/15/2019-05-15-15-43-11-612104/20190515.doc'
-    handoutlist_uniquenum = '20190515151248533388000001'
-    filename = '20190515.doc'
+    filepath = '/home/ltcx/Desktop/ResultManage/media/data/2019/05/17/2019-05-17-15-18-41-006062/20190517.doc'
+    handoutlist_uniquenum = '20190517143616593026_1'
+    filename = '20190517.doc'
     doc_data_updata(filepath, handoutlist_uniquenum, filename)
 

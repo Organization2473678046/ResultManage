@@ -21,7 +21,7 @@ from django.conf import settings
 from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
 from rest_framework_jwt.views import obtain_jwt_token
-from users.views import UserViewSet, AuthenticateView, LicenseViewSet
+from users.views import UserViewSet, AuthenticateView, LicenseViewSet, UserListViewSet
 from results import views
 
 router = DefaultRouter()
@@ -34,14 +34,15 @@ router.register(r'echartreceivetime', views.EchartReceiveTimeViewSet, base_name=
 router.register(r"exportexcel",views.ExportExcelViewSet,base_name="exportexcel")
 router.register(r'license', LicenseViewSet, base_name='license')
 router.register(r'uploaddoc', views.UploadDocViewSet, base_name='uploaddoc')
+router.register(r'userlist', UserListViewSet, base_name='userlist')
 
 
 urlpatterns = [
-    # url(r'^v2019.05.10/admin/', admin.site.urls),
-    # url(r'^v2019.05.10/login/$', obtain_jwt_token),
-    url(r'^v2019.05.10/login/$', AuthenticateView.as_view()),
-    url(r'^v2019.05.10/', include(router.urls)),
-    url(r'^v2019.05.10/docs/', include_docs_urls(title=u"成果管理系统API")),
-    url(r'^v2019.05.10/media/(?P<path>.*)$', serve, {"document_root": settings.MEDIA_ROOT}),
-    url(r'^v2019.05.10/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    # url(r'^v2019.05.17/admin/', admin.site.urls),
+    # url(r'^v2019.05.17/login/$', obtain_jwt_token),
+    url(r'^v2019.05.17/login/$', AuthenticateView.as_view()),
+    url(r'^v2019.05.17/', include(router.urls)),
+    url(r'^v2019.05.17/docs/', include_docs_urls(title=u"成果管理系统API")),
+    url(r'^v2019.05.17/media/(?P<path>.*)$', serve, {"document_root": settings.MEDIA_ROOT}),
+    url(r'^v2019.05.17/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]

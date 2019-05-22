@@ -229,10 +229,9 @@ def generate_docx(dbname, handoutlist_id, handoutlist_uniquenum, templates_dir, 
     # 添加段落
     # doc.add_paragraph(mapnums)
     # filename = handoutlist[35]
-    # filename = "测绘-"+datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + "-" + "%04d" % handoutlist_propertys[36] + ".docx"
+    filename = "测绘-"+datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + "-" + "%04d" % handoutlist_propertys[36] + ".docx"
     # filename = datetime.now().strftime("%Y") + "-" + "%04d" % handoutlist_propertys[36] + ".docx"
-    filename = datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + "%04d" % handoutlist_propertys[36] + ".docx"
-    # filename = datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + "-" + "%04d" % handoutlist_propertys[36] + ".docx"
+    # filename = datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + "%04d" % handoutlist_propertys[36] + ".docx"
     docx_filepath = os.path.join(handoutlist_docxs, filename)
     doc.save(docx_filepath)
 
@@ -260,11 +259,11 @@ def get_handoutlist_data(dbname, handoutlist_id, handoutlist_uniquenum):
                             host="localhost",
                             port="5432")
     cursor = conn.cursor()
-    SELECT_SQL1 = "select title,listnum,signer,name,purpose,auditnum,secrecyagreementnum,selfgetway, postway,networkway,sendtoway,signature,papermedia,cdmedia, diskmedia, networkmedia, othermedia,medianums,sendunit,receiveunit, sendunitaddr,receiveunitaddr, sendunitpostcode,  receiveunitpostcode, handler,receiver,handlerphonenum,receiverphonenum,handlermobilephonenum, receivermobilephonenum, sendouttimec,recievetimec,mapnums, filename,file,uniquenum,id from results_handoutlist where uniquenum='%s'" % handoutlist_uniquenum
+    SELECT_SQL1 = "select title,listnum,signer,name,purpose,auditnum,secrecyagreementnum,selfgetway, postway,networkway,sendtoway,signature,papermedia,cdmedia, diskmedia, networkmedia, othermedia,medianums,sendunit,receiveunit, sendunitaddr,receiveunitaddr, sendunitpostcode,  receiveunitpostcode, handler,receiver,handlerphonenum,receiverphonenum,handlermobilephonenum, receivermobilephonenum, sendouttimec,recievetimec,mapnums, filename,file,uniquenum,id from results_handoutlist where uniquenum='%s' and isdelete=FALSE" % handoutlist_uniquenum
     cursor.execute(SELECT_SQL1)
     handoutlist = cursor.fetchone()
 
-    SELECT_SQL2 = "select name,secretlevel,resultnum,datasize,formatormedia,remarks from results_fileinfo where handoutlist_uniquenum='%s' order by id" % handoutlist_uniquenum
+    SELECT_SQL2 = "select name,secretlevel,resultnum,datasize,formatormedia,remarks from results_fileinfo where handoutlist_uniquenum='%s' and isdelete=FALSE order by id" % handoutlist_uniquenum
     cursor.execute(SELECT_SQL2)
     fileinfo_list = cursor.fetchall()
     conn.commit()

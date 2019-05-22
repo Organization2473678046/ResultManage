@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+from django.conf import settings
 from rest_framework import serializers
-
 from celery_app.upload_doc import doc_data_updata
 from results.models import HandOutList, FileInfo, UploadDoc,HandoutlistExcel
 from datetime import datetime
@@ -35,7 +35,7 @@ class HandOutListSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         # data = super().to_representation(instance)
         data = super().to_representation(instance)
-        fileinfos = FileInfo.objects.filter(handoutlist_uniquenum=instance.uniquenum)
+        fileinfos = FileInfo.objects.filter(handoutlist_uniquenum=instance.uniquenum,isdelete=False)
         serializer = FileInfoSerializer(fileinfos, many=True)
         data["result_list"] = serializer.data
         # 前端不需要uniquenum字段
@@ -95,7 +95,7 @@ class HandOutListSerializer(serializers.ModelSerializer):
             fileinfo_dict["handoutlist_uniquenum"] = handoutlist.uniquenum
             fileinfo_name = fileinfo_dict.get("name")
             try:
-                FileInfo.objects.get(handoutlist_uniquenum=handoutlist.uniquenum, name=fileinfo_name)
+                FileInfo.objects.get(handoutlist_uniquenum=handoutlist.uniquenum, name=fileinfo_name,isdelete=False)
             except FileInfo.DoesNotExist:
                 fileinfo = FileInfo.objects.create(**fileinfo_dict)
 
@@ -112,14 +112,14 @@ class HandOutListSerializer(serializers.ModelSerializer):
             del validated_data["file"]
         result_list = validated_data.pop("result_list")
         handoutlist = super(HandOutListSerializer, self).update(instance, validated_data)
-        FileInfo.objects.filter(handoutlist_uniquenum=instance.uniquenum).delete()
+        FileInfo.objects.filter(handoutlist_uniquenum=instance.uniquenum,isdelete=False).delete()
         for fileinfo_dict in result_list:
             if "key" in fileinfo_dict.keys():
                 del fileinfo_dict["key"]
             fileinfo_dict["handoutlist_uniquenum"] = handoutlist.uniquenum
             fileinfo_name = fileinfo_dict.get("name")
             try:
-                FileInfo.objects.get(handoutlist_uniquenum=handoutlist.uniquenum, name=fileinfo_name)
+                FileInfo.objects.get(handoutlist_uniquenum=handoutlist.uniquenum, name=fileinfo_name,isdelete=False)
             except FileInfo.DoesNotExist:
                 fileinfo = FileInfo.objects.create(**fileinfo_dict)
 
@@ -167,7 +167,7 @@ class UploadDocSerializer(serializers.ModelSerializer):
             # 10000表示上传的文件类型错误
             raise serializers.ValidationError("10000")
             # raise APIException(10000)
-        validated_data["file"].name = datetime.now().strftime("%Y%m%d") +"."+ file_type
+        # validated_data["file"].name = datetime.now().strftime("%Y%m%d") +"."+ file_type
         del validated_data["data_id"]
         try:
             uniquenum = HandOutList.objects.get(id=data_id).uniquenum
@@ -176,11 +176,8 @@ class UploadDocSerializer(serializers.ModelSerializer):
         file = super(UploadDocSerializer, self).create(validated_data)
         filepath = file.file.path
         filename = validated_data.get("file").name
-        # print(uniquenum)
-        # print(file)
-        # print(filename)
-        # print(filepath)
-        doc_data_updata.delay(filepath, uniquenum, filename)
+        dbname = settings.DATABASES["default"]["NAME"]
+        doc_data_updata.delay(dbname,filepath, uniquenum, filename)
         return file
 
 

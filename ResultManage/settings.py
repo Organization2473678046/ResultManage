@@ -88,7 +88,7 @@ WSGI_APPLICATION = 'ResultManage.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'resmanagev2019.05.10',
+        'NAME': 'resmanagev2019.05.17',
         'USER': 'postgres',
         'PASSWORD': 'Lantucx2018',
         'HOST': 'localhost',
@@ -170,7 +170,7 @@ JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),
 }
 
-MEDIA_URL = '/v2019.05.10/media/'
+MEDIA_URL = '/v2019.05.17/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 

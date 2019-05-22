@@ -35,8 +35,8 @@ class HandOutListViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.
     create :创建分发单
     update: 修改分发单
     """
-    permission_classes = [IsAuthenticated, IsAdminUser]
-    queryset = HandOutList.objects.all()
+    permission_classes = [IsAuthenticated]
+    queryset = HandOutList.objects.filter(isdelete=False)
     serializer_class = HandOutListSerializer
     pagination_class = HandOutListViewSetPagination
     filter_backends = [SearchFilter, DjangoFilterBackend, OrderingFilter]
@@ -64,8 +64,8 @@ class HandOutListViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.
 
 
 class ExportHandoutlistView(mixins.ListModelMixin, mixins.RetrieveModelMixin, GenericViewSet):
-    permission_classes = [IsAuthenticated, IsAdminUser]
-    queryset = HandOutList.objects.all()
+    permission_classes = [IsAuthenticated]
+    queryset = HandOutList.objects.filter(isdelete=False)
     # serializer_class = HandOutListSerializer
     serializer_class = ExportHandoutlistSerializer
 
@@ -87,8 +87,8 @@ class ExportHandoutlistView(mixins.ListModelMixin, mixins.RetrieveModelMixin, Ge
 
 
 class ExportExcelViewSet(mixins.ListModelMixin, GenericViewSet):
-    permission_classes = [IsAuthenticated, IsAdminUser]
-    queryset = HandoutlistExcel
+    permission_classes = [IsAuthenticated]
+    queryset = HandoutlistExcel.objects.all()
     serializer_class = HandoutlistExcelSerializer
 
     def list(self, request, *args, **kwargs):
@@ -109,8 +109,8 @@ class ExportExcelViewSet(mixins.ListModelMixin, GenericViewSet):
 
 
 class EchartReceiveUnitViewSet(mixins.ListModelMixin, GenericViewSet):
-    permission_classes = [IsAuthenticated, IsAdminUser]
-    queryset = HandOutList.objects.filter()
+    permission_classes = [IsAuthenticated]
+    queryset = HandOutList.objects.filter(isdelete=False)
     serializer_class = HandOutListSerializer
 
     def list(self, request, *args, **kwargs):
@@ -139,11 +139,11 @@ class EchartReceiveUnitViewSet(mixins.ListModelMixin, GenericViewSet):
         data_list = []
         receiveunit_list = list(
             set([item[value] for item in
-                 HandOutList.objects.filter(~Q(receiveunit=""), listnum__startswith=year).values("receiveunit") for
+                 HandOutList.objects.filter(~Q(receiveunit=""), listnum__startswith=year, isdelete=False).values("receiveunit") for
                  value in item]))
         for receiveunit in receiveunit_list:
             data_dict = {}
-            count = HandOutList.objects.filter(receiveunit=receiveunit).count()
+            count = HandOutList.objects.filter(receiveunit=receiveunit, isdelete=False).count()
             data_dict["receiveunit"] = receiveunit
             data_dict["count"] = count
             data_list.append(data_dict)
@@ -152,7 +152,7 @@ class EchartReceiveUnitViewSet(mixins.ListModelMixin, GenericViewSet):
 
 class EchartReceiveTimeViewSet(mixins.ListModelMixin, GenericViewSet):
     permission_classes = [IsAuthenticated]
-    queryset = HandOutList.objects.filter()
+    queryset = HandOutList.objects.filter(isdelete=False)
     serializer_class = HandOutListSerializer
 
     def list(self, request, *args, **kwargs):
@@ -188,7 +188,7 @@ class EchartReceiveTimeViewSet(mixins.ListModelMixin, GenericViewSet):
         data_list = []
         data_dict_ = {}
 
-        sendouttime_list = HandOutList.objects.filter(~Q(sendouttimec="")).values_list("sendouttimec")
+        sendouttime_list = HandOutList.objects.filter(~Q(sendouttimec=""), isdelete=False).values_list("sendouttimec")
         for sendouttime in sendouttime_list:
             if sendouttime[0] == None:
                 continue

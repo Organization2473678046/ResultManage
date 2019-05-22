@@ -4,12 +4,11 @@ import sys
 import psycopg2
 import openpyxl
 from datetime import datetime
-from openpyxl.styles import Font,colors,Alignment
-
+from openpyxl.styles import Font, colors, Alignment
 
 
 # 写excel
-def write_excel(dbname,excel_dir):
+def write_excel(dbname, excel_dir):
     data_list = get_handoutlist_data(dbname)
     f = openpyxl.Workbook()  # 创建工作簿
     sheet1 = f.create_sheet(title="sheet1", index=0)
@@ -34,7 +33,8 @@ def write_excel(dbname,excel_dir):
                    get_media(handoutlist[12], handoutlist[13], handoutlist[14], handoutlist[15], handoutlist[16]),
                    handoutlist[17], handoutlist[18], handoutlist[19], handoutlist[20], handoutlist[21], handoutlist[22],
                    handoutlist[23], handoutlist[24], handoutlist[25], handoutlist[26], handoutlist[27], handoutlist[28],
-                   handoutlist[29], handoutlist[30], "" if handoutlist[31] == "  年  月  日" else handoutlist[31], handoutlist[32], str(fileinfo_count), fileinfo[0],
+                   handoutlist[29], handoutlist[30], "" if handoutlist[31] == "  年  月  日" else handoutlist[31],
+                   handoutlist[32], str(fileinfo_count), fileinfo[0],
                    fileinfo[1], fileinfo[2], fileinfo[3], fileinfo[4], fileinfo[5]]
             for item in row:
                 if item is None or item == "None":
@@ -46,7 +46,8 @@ def write_excel(dbname,excel_dir):
             sheet1.append(row)
             fileinfo_count += 1
         handoutlist_count += 1
-    excel_filename = datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + ".xlsx"
+    # excel_filename = datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + ".xlsx"
+    excel_filename = "分发单统计" + datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + ".xlsx"
     excel_filepath = os.path.join(excel_dir, excel_filename)
     # 保存文件
     f.save(excel_filepath)
@@ -54,6 +55,7 @@ def write_excel(dbname,excel_dir):
     excel_file = os.path.join("handoutlist_excels", excel_filename)
     change_postgresql(dbname, excel_file)
     return True
+
 
 def get_handoutlist_data(dbname):
     conn = psycopg2.connect(dbname=dbname,
@@ -63,14 +65,14 @@ def get_handoutlist_data(dbname):
                             port="5432")
     cursor = conn.cursor()
     # 37个字段
-    SELECT_SQL1 = "select title,listnum,signer,name,purpose,auditnum,secrecyagreementnum,selfgetway, postway,networkway,sendtoway,signature,papermedia,cdmedia, diskmedia, networkmedia, othermedia,medianums,sendunit,receiveunit, sendunitaddr,receiveunitaddr, sendunitpostcode,  receiveunitpostcode, handler,receiver,handlerphonenum,handlermobilephonenum,receiverphonenum,receivermobilephonenum, sendouttimec,recievetimec,mapnums, filename,file,uniquenum,id from results_handoutlist order by id"
+    SELECT_SQL1 = "select title,listnum,signer,name,purpose,auditnum,secrecyagreementnum,selfgetway, postway,networkway,sendtoway,signature,papermedia,cdmedia, diskmedia, networkmedia, othermedia,medianums,sendunit,receiveunit, sendunitaddr,receiveunitaddr, sendunitpostcode,  receiveunitpostcode, handler,receiver,handlerphonenum,handlermobilephonenum,receiverphonenum,receivermobilephonenum, sendouttimec,recievetimec,mapnums, filename,file,uniquenum,id from results_handoutlist where isdelete=FALSE order by id"
     cursor.execute(SELECT_SQL1)
     handoutlists = cursor.fetchall()
 
     data_list = []
     for handoutlist in handoutlists:
         data_dict = {}
-        SELECT_SQL2 = "select name,secretlevel,resultnum,datasize,formatormedia,remarks from results_fileinfo where handoutlist_uniquenum='%s' order by id" % \
+        SELECT_SQL2 = "select name,secretlevel,resultnum,datasize,formatormedia,remarks from results_fileinfo where handoutlist_uniquenum='%s' and isdelete=FALSE order by id" % \
                       handoutlist[35]
         cursor.execute(SELECT_SQL2)
         fileinfo_list = cursor.fetchall()
@@ -81,6 +83,7 @@ def get_handoutlist_data(dbname):
     # print(data_list)
     conn.close()
     return data_list
+
 
 def change_postgresql(dbname, excel_file):
     conn = psycopg2.connect(dbname=dbname,
@@ -94,6 +97,7 @@ def change_postgresql(dbname, excel_file):
     conn.commit()
     conn.close()
 
+
 def get_deliverways(selfgetway, postway, networkway, sendtoway):
     # 返回清单所选的所有递送方式
     deliverways_list = []
@@ -106,6 +110,7 @@ def get_deliverways(selfgetway, postway, networkway, sendtoway):
     if sendtoway:
         deliverways_list.append(u"送往")
     return ",".join(deliverways_list)
+
 
 def get_media(papermedia, cdmedia, diskmedia, networkmedia, othermedia):
     # 返回成果所选的所有介质
@@ -123,10 +128,11 @@ def get_media(papermedia, cdmedia, diskmedia, networkmedia, othermedia):
 
     return ",".join(media_list)
 
+    pass
+
 
 if __name__ == '__main__':
     # get_handoutlist_fileinfo_data("resmanagev0.3")
     # 写入Excel
-    write_excel("resmanagev2019.05.10","/opt/rh/httpd24/root/var/www/html/ResultManage/media/handoutlist_excels")
+    write_excel("resmanagev2019.05.10", "/opt/rh/httpd24/root/var/www/html/ResultManage/media/handoutlist_excels")
     print('写入成功')
-

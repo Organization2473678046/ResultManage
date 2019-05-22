@@ -62,6 +62,8 @@ class HandOutList(models.Model):
                             verbose_name=u"分发单文件路径")
     createtime = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name=u"创建时间")
     updatetime = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name=u"更新时间")
+    isdelete = models.BooleanField(default=False, verbose_name=u"逻辑删除")
+
 
     class Meta:
         verbose_name = u"成果分发清单表"
@@ -84,6 +86,7 @@ class FileInfo(models.Model):
     handoutlist_uniquenum = models.CharField(max_length=5000, verbose_name=u"分发单唯一编号")
     createtime = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name=u"创建时间")
     updatetime = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name=u"更新时间")
+    isdelete = models.BooleanField(default=False, verbose_name=u"逻辑删除")
 
     class Meta:
         verbose_name = u"成果资料信息表"
