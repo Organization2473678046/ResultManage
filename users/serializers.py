@@ -1,18 +1,15 @@
 # -*- coding: utf-8 -*-
 import os
-
 from rest_framework import serializers
-
 from ResultManage import settings
 from users.models import User, License
 
 
 class UserSerializer(serializers.ModelSerializer):
-    enter_password = serializers.CharField(label='确认密码', min_length=6, max_length=16, write_only=True)
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'password', 'reallyname', 'isadmin', 'date_joined', "enter_password"]
+        fields = ['id', 'username', 'password', 'reallyname', 'isadmin', 'date_joined']
         extra_kwargs = {
                         'reallyname': {"required": True},
                         'password': {
@@ -24,29 +21,11 @@ class UserSerializer(serializers.ModelSerializer):
                                 'max_length': '仅允许6-16个字符的密码',
                             }
                         },
-                        'enter_password': {
-                            'write_only': True,
-                            'min_length': 6,
-                            'max_length': 16,
-                            'error_messages': {
-                                'min_length': '仅允许6-16个字符的密码',
-                                'max_length': '仅允许6-16个字符的密码',
-                            }
-                        }
+                        'date_joined': {"format": '%Y-%m-%d %H:%M:%S'},
                         }
 
-    def validate(self, attrs):
-
-        password = attrs.get('password')
-        enter_password = attrs.get('enter_password')
-
-        if password != enter_password:
-            raise serializers.ValidationError('密码不一致')
-
-        return attrs
 
     def create(self, validated_data):
-        del validated_data['enter_password']
 
         try:
             password = validated_data.get("password")
@@ -108,6 +87,15 @@ class UserUpdateSerializer(serializers.ModelSerializer):
         else:
             raise serializers.ValidationError('密码错误')
         return instance
+
+
+
+class UserAdminSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'isadmin', 'reallyname']
+
 
 
 

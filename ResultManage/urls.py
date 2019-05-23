@@ -21,7 +21,7 @@ from django.conf import settings
 from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
 from rest_framework_jwt.views import obtain_jwt_token
-from users.views import UserViewSet, AuthenticateView, LicenseViewSet, UserListViewSet
+from users.views import UserViewSet, AuthenticateView, LicenseViewSet, UserListViewSet,UserAdminViewSet
 from results import views
 
 router = DefaultRouter()
@@ -35,6 +35,8 @@ router.register(r"exportexcel",views.ExportExcelViewSet,base_name="exportexcel")
 router.register(r'license', LicenseViewSet, base_name='license')
 router.register(r'uploaddoc', views.UploadDocViewSet, base_name='uploaddoc')
 router.register(r'userlist', UserListViewSet, base_name='userlist')
+router.register(r'userupdate', UserAdminViewSet, base_name='userupdate')
+
 
 
 urlpatterns = [

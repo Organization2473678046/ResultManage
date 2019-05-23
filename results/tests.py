@@ -67,6 +67,7 @@ def insert_data():
             )
             time.sleep(2)
 
+
 if __name__ == '__main__':
 
     # insert_data()
@@ -90,11 +91,9 @@ if __name__ == '__main__':
     #
     #     print(i)
 
-
     # datetime.now().strftime("%Y%m%d%H%M%S%f") + "%06d" % 2
     # print(datetime.now().strftime("%Y%m%d%H%M%S%f") + "%06d" % 55557777)
     # print(type(datetime.now().strftime("%Y%m%d%H%M%S%f")))
-
 
     # print(datetime.now().strftime("%Y"))
     # print(os.path.join("handoutlist_docxs","111111.docx"))
@@ -124,10 +123,19 @@ if __name__ == '__main__':
 
     # print(sendouttime)
     # print(time_str[:10])
-
-    time_str = "2019-05-10"
-    time_t = datetime.strptime(time_str,"%Y-%m-%d")
-    print(time_t)
-
+    #
+    # time_str = "2019-05-10"
+    # time_t = datetime.strptime(time_str,"%Y-%m-%d")
+    # print(time_t)
+    a = "12344"
+    c = a.split('.')
+    print(c)
+    print(len(c))
+    print(type(c))
+    b = c.pop()
+    print(b)
+    print(type(b))
+    if b is None:
+        print("dddddddddd")
 
     pass

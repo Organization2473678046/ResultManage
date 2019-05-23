@@ -25,11 +25,12 @@ class HandOutListSerializer(serializers.ModelSerializer):
             # "name": {"required": True, "allow_null": False, "help_text": u"分发单名字"},
             # 前端不需要uniquenum字段
             "uniquenum": {"required": False, "write_only": True},
+            "sendouttime": {"format": '%Y-%m-%d %H:%M:%S'},
+            "recievetime": {"format": '%Y-%m-%d %H:%M:%S'},
             "createtime": {"format": '%Y-%m-%d %H:%M:%S'},
             "updatetime": {"format": '%Y-%m-%d %H:%M:%S'},
-            "sendouttime": {"format": '%Y-%m-%d'},
-            "recievetime": {"format": '%Y-%m-%d'},
-            "file": {"required": False, "write_only": True}
+            "file": {"required": False, "write_only": True},
+            "isdelete":{"required": False, "write_only": True}
         }
 
     def to_representation(self, instance):
@@ -133,6 +134,7 @@ class FileInfoSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             "createtime": {"format": '%Y-%m-%d %H:%M:%S'},
             "updatetime": {"format": '%Y-%m-%d %H:%M:%S'},
+            "isdelete": {"required": False, "write_only": True}
         }
 
 

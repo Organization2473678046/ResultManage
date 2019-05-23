@@ -39,14 +39,17 @@ def create_index(es, index_name):
                         "index_options": "offsets"
                     },
                     "dirlength": {
-                        "type": "keyword",
+                        "type": "integer",
                         # "ignore_above": 100
                     },
                     "dirdepth": {
-                        "type": "keyword",
+                        "type": "integer",
                         # "ignore_above": 100
                     },
                     "filesize": {
+                        "type": "long",
+                    },
+                    "filetype": {
                         "type": "keyword",
                     },
                     "filecreatetime": {
@@ -59,7 +62,6 @@ def create_index(es, index_name):
                         "format": "yyyy-MM-dd HH:mm:ss",
                         # "index_options": "offsets"
                     },
-
                 }
             }
         }

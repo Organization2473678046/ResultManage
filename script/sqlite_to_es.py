@@ -65,13 +65,10 @@ def insert_data(dbname, es, index_name):
                         "filepath": filepath,
                         "dirlength": len(filepath),
                         "dirdepth": len(filepath.split("\\")) - 2,
-                        #"filesize": data[3],
-                        "filesize": "10",
-                        # "filecreatetime": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                        # "filecreatetime": data[4],
-                        "filecreatetime":"2019-5-10",
-                        # "fileupdatetime": data[5]
-                        "fileupdatetime":"2019-5-10"
+                        "filesize": data[3],
+                        "filetype":data[4],
+                        "filecreatetime": data[5],
+                        "fileupdatetime": data[6]
                     }
                 }
                 actions.append(action)

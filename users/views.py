@@ -11,7 +11,7 @@ from rest_framework.viewsets import GenericViewSet
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework import mixins, status
 from .models import User
-from .serializers import UserSerializer, LicenseSerializer, UserUpdateSerializer
+from .serializers import UserSerializer, LicenseSerializer, UserUpdateSerializer, UserAdminSerializer
 from rest_framework_jwt.views import ObtainJSONWebToken
 
 from media.license.license import LicensePerssion
@@ -76,17 +76,10 @@ class UserViewSet(mixins.ListModelMixin, mixins.CreateModelMixin,mixins.DestroyM
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+class UserAdminViewSet(mixins.UpdateModelMixin,mixins.ListModelMixin, GenericViewSet):
+    permission_classes = [IsAuthenticated, AdminPerssion]
+    queryset = User.objects.all()
+    serializer_class = UserAdminSerializer
 
 
 
@@ -102,8 +95,8 @@ class UserListViewSet(mixins.ListModelMixin, GenericViewSet):
     serializer_class = UserSerializer
     pagination_class = UserListViewSetPagination
     filter_backends = [SearchFilter, DjangoFilterBackend, OrderingFilter]
-    ordering_fields = ("id", "name", "isadmin", "reallyname")
+    ordering_fields = ("id", "username", "isadmin", "reallyname")
     ordering = ("id",)
-    search_fields = ("id", "name", "isadmin", "reallyname")
+    search_fields = ("id", "username", "isadmin", "reallyname")
 
 
