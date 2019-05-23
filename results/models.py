@@ -64,7 +64,6 @@ class HandOutList(models.Model):
     updatetime = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name=u"更新时间")
     isdelete = models.BooleanField(default=False, verbose_name=u"逻辑删除")
 
-
     class Meta:
         verbose_name = u"成果分发清单表"
         verbose_name_plural = verbose_name
@@ -153,8 +152,9 @@ class EchartReceiveTime(models.Model):
 
 
 class HandoutlistExcel(models.Model):
-    excelmark = models.CharField(max_length=2000,unique=True, verbose_name=u"excel标记")
-    excelfile = models.FileField(upload_to=user_directory_path,max_length=2000, null=True, blank=True, verbose_name=u"excel文件")
+    excelmark = models.CharField(max_length=2000, unique=True, verbose_name=u"excel标记")
+    excelfile = models.FileField(upload_to=user_directory_path, max_length=2000, null=True, blank=True,
+                                 verbose_name=u"excel文件")
     createtime = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name=u"创建时间")
     updatetime = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name=u"更新时间")
 

@@ -39,10 +39,10 @@ def write_excel(dbname, excel_dir):
             for item in row:
                 if item is None or item == "None":
                     row[row.index(item)] = ""
-            if fileinfo_count != 1:
-                for i in row:
-                    if row.index(i) <= 26:
-                        row[row.index(i)] = ""
+            # if fileinfo_count != 1:
+            #     for i in row:
+            #         if row.index(i) <= 26:
+            #             row[row.index(i)] = ""
             sheet1.append(row)
             fileinfo_count += 1
         handoutlist_count += 1

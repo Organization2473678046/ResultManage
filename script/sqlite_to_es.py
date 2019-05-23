@@ -66,7 +66,7 @@ def insert_data(dbname, es, index_name):
                         "dirlength": len(filepath),
                         "dirdepth": len(filepath.split("\\")) - 2,
                         "filesize": data[3],
-                        "filetype":data[4],
+                        "filetype": data[4],
                         "filecreatetime": data[5],
                         "fileupdatetime": data[6]
                     }
@@ -108,7 +108,8 @@ if __name__ == '__main__':
     # insert_data(dbname, es, "resmanagev0.1")
     # main(es, "resmanagev0.1", u"D:\\PycharmProjects\\ResultManage\\no-elasticsearch-py3\\ResultManage", u"D:\\PycharmProjects\\ResultManage\\no-elasticsearch-py3\\ResultManage\\finish\\")
 
-    es = Elasticsearch("192.168.190.133:9200",timeout=120)
-    main(es, "resmanagev0.3", "/opt/rh/httpd24/root/var/www/html/ResultManage/script/", "/opt/rh/httpd24/root/var/www/html/ResultManage/script")
+    es = Elasticsearch("192.168.190.133:9200", timeout=120)
+    main(es, "resmanagev0.3", "/opt/rh/httpd24/root/var/www/html/ResultManage/script/",
+         "/opt/rh/httpd24/root/var/www/html/ResultManage/script")
 
     pass

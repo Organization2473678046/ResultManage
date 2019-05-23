@@ -2,9 +2,7 @@
 from __future__ import unicode_literals
 import os
 import re
-from django.http import HttpResponse
 from django.conf import settings
-from django.utils.http import urlquote
 from django.db.models import Q
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from django_filters.rest_framework import DjangoFilterBackend
@@ -13,7 +11,6 @@ from rest_framework import mixins
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.response import Response
-from rest_framework import status
 from results.models import HandOutList, FileInfo, UploadDoc, HandoutlistExcel
 from results.serializers import HandOutListSerializer, ExportHandoutlistSerializer, UploadDocSerializer, \
     HandoutlistExcelSerializer
@@ -139,7 +136,8 @@ class EchartReceiveUnitViewSet(mixins.ListModelMixin, GenericViewSet):
         data_list = []
         receiveunit_list = list(
             set([item[value] for item in
-                 HandOutList.objects.filter(~Q(receiveunit=""), listnum__startswith=year, isdelete=False).values("receiveunit") for
+                 HandOutList.objects.filter(~Q(receiveunit=""), listnum__startswith=year, isdelete=False).values(
+                     "receiveunit") for
                  value in item]))
         for receiveunit in receiveunit_list:
             data_dict = {}

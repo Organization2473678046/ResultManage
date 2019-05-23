@@ -156,7 +156,7 @@ def generate_docx(dbname, handoutlist_id, handoutlist_uniquenum, templates_dir, 
     handlerphonenum = process_str(handlerphonenum, 28)
     doc.paragraphs[15].text = doc.paragraphs[15].text.replace("handlerphonenum", handlerphonenum)
     # 接收人联系电话(座机)
-    receiverphonenum = handoutlist_propertys[28]
+    receiverphonenum = handoutlist_propertys[27]
     doc.paragraphs[15].text = doc.paragraphs[15].text.replace("receiverphonenum", receiverphonenum)
     # 经办人联系电话(手机)
     handlermobilephonenum = handoutlist_propertys[28]

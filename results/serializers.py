@@ -3,11 +3,8 @@ from __future__ import unicode_literals
 from django.conf import settings
 from rest_framework import serializers
 from celery_app.upload_doc import doc_data_updata
-from results.models import HandOutList, FileInfo, UploadDoc,HandoutlistExcel
+from results.models import HandOutList, FileInfo, UploadDoc, HandoutlistExcel
 from datetime import datetime
-from rest_framework import status
-from rest_framework.exceptions import APIException
-
 
 
 # logger = logging.getLogger("django_error")
@@ -30,13 +27,12 @@ class HandOutListSerializer(serializers.ModelSerializer):
             "createtime": {"format": '%Y-%m-%d %H:%M:%S'},
             "updatetime": {"format": '%Y-%m-%d %H:%M:%S'},
             "file": {"required": False, "write_only": True},
-            "isdelete":{"required": False, "write_only": True}
+            "isdelete": {"required": False, "write_only": True}
         }
 
     def to_representation(self, instance):
-        # data = super().to_representation(instance)
         data = super().to_representation(instance)
-        fileinfos = FileInfo.objects.filter(handoutlist_uniquenum=instance.uniquenum,isdelete=False)
+        fileinfos = FileInfo.objects.filter(handoutlist_uniquenum=instance.uniquenum, isdelete=False)
         serializer = FileInfoSerializer(fileinfos, many=True)
         data["result_list"] = serializer.data
         # 前端不需要uniquenum字段
@@ -74,9 +70,6 @@ class HandOutListSerializer(serializers.ModelSerializer):
         return ",".join(media_list)
 
     def create(self, validated_data):
-        # result_list = validated_data.get("result_list")
-        # del validated_data["result_list"]
-
         sendouttime = validated_data.get("sendouttime")
         recievetime = validated_data.get("recievetime")
         if sendouttime:
@@ -96,7 +89,7 @@ class HandOutListSerializer(serializers.ModelSerializer):
             fileinfo_dict["handoutlist_uniquenum"] = handoutlist.uniquenum
             fileinfo_name = fileinfo_dict.get("name")
             try:
-                FileInfo.objects.get(handoutlist_uniquenum=handoutlist.uniquenum, name=fileinfo_name,isdelete=False)
+                FileInfo.objects.get(handoutlist_uniquenum=handoutlist.uniquenum, name=fileinfo_name, isdelete=False)
             except FileInfo.DoesNotExist:
                 fileinfo = FileInfo.objects.create(**fileinfo_dict)
 
@@ -113,14 +106,14 @@ class HandOutListSerializer(serializers.ModelSerializer):
             del validated_data["file"]
         result_list = validated_data.pop("result_list")
         handoutlist = super(HandOutListSerializer, self).update(instance, validated_data)
-        FileInfo.objects.filter(handoutlist_uniquenum=instance.uniquenum,isdelete=False).delete()
+        FileInfo.objects.filter(handoutlist_uniquenum=instance.uniquenum, isdelete=False).delete()
         for fileinfo_dict in result_list:
             if "key" in fileinfo_dict.keys():
                 del fileinfo_dict["key"]
             fileinfo_dict["handoutlist_uniquenum"] = handoutlist.uniquenum
             fileinfo_name = fileinfo_dict.get("name")
             try:
-                FileInfo.objects.get(handoutlist_uniquenum=handoutlist.uniquenum, name=fileinfo_name,isdelete=False)
+                FileInfo.objects.get(handoutlist_uniquenum=handoutlist.uniquenum, name=fileinfo_name, isdelete=False)
             except FileInfo.DoesNotExist:
                 fileinfo = FileInfo.objects.create(**fileinfo_dict)
 
@@ -154,6 +147,7 @@ class ExportHandoutlistSerializer(serializers.ModelSerializer):
 
 class UploadDocSerializer(serializers.ModelSerializer):
     data_id = serializers.CharField(max_length=5000, write_only=True)
+
     class Meta:
         model = UploadDoc
         fields = ["file", "data_id"]
@@ -164,7 +158,7 @@ class UploadDocSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         data_id = validated_data["data_id"]
         file_type = validated_data["file"].name.split(".").pop()
-        if file_type not in ["doc","docx"]:
+        if file_type not in ["doc", "docx"]:
             # raise serializers.ValidationError("不支持导入 {0} 格式的文件，请上传 doc 或 docx 格式的文件".format(file_type))
             # 10000表示上传的文件类型错误
             raise serializers.ValidationError("10000")
@@ -179,15 +173,8 @@ class UploadDocSerializer(serializers.ModelSerializer):
         filepath = file.file.path
         filename = validated_data.get("file").name
         dbname = settings.DATABASES["default"]["NAME"]
-        doc_data_updata.delay(dbname,filepath, uniquenum, filename)
+        doc_data_updata.delay(dbname, filepath, uniquenum, filename)
         return file
-
-
-
-
-
-
-
 
 
 """
@@ -203,13 +190,14 @@ class EchartReceiveTimeSerializer(serializers.ModelSerializer):
         fields = ["sendouttime", "count"]
 """
 
+
 class HandoutlistExcelSerializer(serializers.ModelSerializer):
     class Meta:
         model = HandoutlistExcel
         fields = "__all__"
         extra_kwargs = {
-            "excelmark":{"required": False, "write_only": True},
-            "excelfile": {"required":False,"read_only":True,"help_text": u"分发单统计excel文件"},
+            "excelmark": {"required": False, "write_only": True},
+            "excelfile": {"required": False, "read_only": True, "help_text": u"分发单统计excel文件"},
             "createtime": {"format": '%Y-%m-%d %H:%M:%S'},
             "updatetime": {"format": '%Y-%m-%d %H:%M:%S'},
         }

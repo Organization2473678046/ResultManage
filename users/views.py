@@ -21,6 +21,7 @@ from media.license.license import LicensePerssion
 class AuthenticateView(ObtainJSONWebToken):
     permission_classes = [LicensePerssion]
 
+
 # django
 class LicenseViewSet(mixins.CreateModelMixin, GenericViewSet):
     permission_classes = []
@@ -28,7 +29,8 @@ class LicenseViewSet(mixins.CreateModelMixin, GenericViewSet):
 
 
 # Create your views here.
-class UserViewSet(mixins.ListModelMixin, mixins.CreateModelMixin,mixins.DestroyModelMixin, mixins.UpdateModelMixin, mixins.RetrieveModelMixin, GenericViewSet):
+class UserViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.DestroyModelMixin, mixins.UpdateModelMixin,
+                  mixins.RetrieveModelMixin, GenericViewSet):
     # permission_classes = [IsAuthenticated]
     # serializer_class = UserSerializer
 
@@ -74,13 +76,10 @@ class UserViewSet(mixins.ListModelMixin, mixins.CreateModelMixin,mixins.DestroyM
             return UserSerializer
 
 
-
-
-class UserAdminViewSet(mixins.UpdateModelMixin,mixins.ListModelMixin, GenericViewSet):
+class UserAdminViewSet(mixins.UpdateModelMixin, mixins.ListModelMixin, GenericViewSet):
     permission_classes = [IsAuthenticated, AdminPerssion]
     queryset = User.objects.all()
     serializer_class = UserAdminSerializer
-
 
 
 class UserListViewSetPagination(PageNumberPagination):
@@ -88,6 +87,7 @@ class UserListViewSetPagination(PageNumberPagination):
     page_size_query_param = 'limit'
     max_page_size = 50
     page_query_param = 'page'
+
 
 class UserListViewSet(mixins.ListModelMixin, GenericViewSet):
     permission_classes = [IsAuthenticated, AdminPerssion]
@@ -98,5 +98,3 @@ class UserListViewSet(mixins.ListModelMixin, GenericViewSet):
     ordering_fields = ("id", "username", "isadmin", "reallyname")
     ordering = ("id",)
     search_fields = ("id", "username", "isadmin", "reallyname")
-
-
